@@ -1,0 +1,127 @@
+% secciones/03_metodologia/fase2_preparacion.tex
+\subsection{Fase 2: Preparación de datos}
+
+\subsubsection{Limpieza y transformación de los datos}
+
+En el archivo original, los generos mas que decir simplemente el nombre del genero de la pelicula venian en un formato que incluia informacion adicional como un id, para solucionar este problema, se borra toda esta informacion adicional para consevar solamente el nombre del genero, por ejemplo, "action". De manera similar tambien se corta la fecha de estreno para conservar unicamente el año en ves del dia, mes y año de estreno de la pelicula, se extraen las palabras clave y se hace lo mismo para los esloganes.
+
+\begin{lstlisting}[language=Python, caption={Procesamiento y estructuracion del texto de busqueda.}, label={lst:preparaciondatos}]
+    def nombres(celda):
+        try:
+            return [d['name'] for d in json.loads(celda)]
+        except Exception:
+            return []
+
+    peliculas = crudo.copy()
+    peliculas['generos'] = peliculas['genres'].map(nombres)
+    peliculas['palabras_clave'] = peliculas['keywords'].map(nombres)
+    peliculas['anio'] = peliculas['release_date'].astype(str).str[:4]
+    peliculas['overview'] = peliculas['overview'].fillna('').str.strip()
+    peliculas['tagline'] = peliculas['tagline'].fillna('').str.strip()
+\end{lstlisting}
+
+Otro filtro implementado consiste en filtrar las descripciones que no sean utiles para el sistema, ya que hay algunas peliculas que en su descripcion solo cuentan con frases cortas o poco informativas para el bot como "A great movie". 
+
+Por ultimo, tambien se eliminaron los posibles duplicados, ya que si una pelicula aparece dos veces en el dataset podria ocasionar que el sistema termine recomendando la misma pelicula dos veces.
+
+\begin{lstlisting}[language=Python]
+    n0 = len(peliculas)
+    peliculas = (peliculas[peliculas['overview'].str.len() > 30]
+                .drop_duplicates(subset='id').reset_index(drop=True))
+    print(f'Peliculas con sinopsis utilizable: {len(peliculas)} (descartadas: {n0 - len(peliculas)})')
+\end{lstlisting}
+
+\subsubsection{Construcción del texto de búsqueda}
+
+La funcion texto\_busqueda() se encarga de construir un texto que combine los generos y las sinopsis, ese texto combinado es el que usa el sistema a la hora de 
+
+En vez de que el sistema tenga que buscar directamente sobre todos los campos de una pelicula, se construye un texto que combina sus generos con la sinopsis y dicho texto es el que posteriormente usan los metodos de recomendacion TF-IDF y embeddings multilingues.
+
+La funcion ficha se encarga de reunir los campos de una pelicula como titulo, año, generos, puntuacion y un resumen de la sinopsis recortandola si supera los 180 caracteres, esto para que el bot pueda mostrarle al usuario una ficha con la informacion de la pelicula que le esta recomendando, por lo que este texto no es el que se usa para calcular la similitud entre peliculas.
+
+Por otro lado, se construye la variable CORPUS, \textit{peliculas.to\_dict('records')} se usa para transformar las filas del dataframe en una lista de diccionarios por pelicula. El sistema puede compara el primer elemento de cada tupla de CORPUS, que es el texto de busqueda, con la consulta del usuario y devuelve el segundo elemento de la tupla, que es la ficha de la pelicula recomendada, estos dos elementos son almacenados en CORPUS de la manera \textit{(texto\_de\_busqueda, ficha\_de\_presentacion)}.  
+
+\begin{lstlisting}[language=Python]
+def texto_busqueda(f):
+    return ', '.join(f['generos']) + '. ' + f['overview']
+
+def ficha(f):
+    gen = ', '.join(f['generos']) or 'sin genero'
+    sinopsis = f['overview']
+    if len(sinopsis) > 180:
+        sinopsis = sinopsis[:180].rsplit(' ', 1)[0] + '?'
+    return f"? {f['title']} ({f['anio']}) ? {gen} ? ? {f['vote_average']}\n{sinopsis}"
+
+registros = peliculas.to_dict('records')
+CORPUS = [(texto_busqueda(f), ficha(f)) for f in registros]
+
+print(f'{len(CORPUS)} peliculas cargadas\n')
+print(CORPUS[0][1])
+\end{lstlisting}
+
+\input{secciones/03_metodologia/tabla_mapeo}
+
+\textit{Conjuntos de consulta.}
+Los conjuntos de consulta se utilizan para probas el sistema y ver que tan bien funciona. El sistema cuenta con 3 conjuntos: A, B y C, y cada uno representa una manera diferente en la que se le puede preguntar al sistema por una pelicula:
+
+\begin{itemize}
+    \item Conjunto A (usando el eslogan de la pelicula (tagline)): En este conjunto, la consulta se hace tomando el eslogan de una pelicula del dataset y utilizandola como si esa fuera la consulta que hizo el usuario.
+    \item Conjunto B (usando las cinco primeras palabras clave): En el conjunto B, se toman las 5 primeras palabras claves que esten asociadas a una pelicula y estas se utilizan como si fueran la consulta. 
+    \item Conjunto C (usando las descripciones escritas en español): Por ultimo, en el conjunto C en ves de usar un campo del dataset, se redacta una descripcion de una pelicula en español y el sistema la relaciona con su titulo.
+\end{itemize}
+
+El uso de estos tres conjuntos resulta util ya que permite probar el comportamiento del sistema en 3 diferentes escenarios:
+
+\begin{lstlisting}[language=Python]
+# ?? Conjunto A: eslogan ??????????????????????????????????????????????????????
+cand = peliculas[peliculas['tagline'].str.len() > 10]
+m = cand.sample(min(N_EVAL, len(cand)), random_state=42)
+CONJUNTOS = {'A. Eslogan': (m['tagline'].tolist(), m['pos'].to_numpy())}
+
+# ?? Conjunto B: palabras clave (las 5 primeras de TMDB) ??????????????????????
+cand = peliculas[peliculas['palabras_clave'].map(len) >= 3]
+m = cand.sample(min(N_EVAL, len(cand)), random_state=42)
+CONJUNTOS['B. Palabras clave'] = ([' '.join(k[:5]) for k in m['palabras_clave']], m['pos'].to_numpy())
+
+# ?? Conjunto C: descripciones en espanol escritas a mano
+CONSULTAS_ES = [
+    ('Un barco gigante choca con un iceberg y una chica rica se enamora de un chico pobre', 'Titanic'),
+    #...mas descripciones escritas a mano...
+]
+\end{lstlisting}
+
+Una vez hecho esto, se  comprueban que los titulos existan en el catalogo, para eso, se recorre las descripciones y sus titulos, si se encuentra la pelicula en el catalogo, se guarda la descripcion y la posicion de la pelicula correcta, de no encontrarla, se guarda el titulo de la pelicula que no se encontro en faltan y se omite esa consulta
+
+\begin{lstlisting}[language=Python]
+pos_por_titulo = (peliculas.sort_values('vote_count', ascending=False)
+                  .drop_duplicates('norm').set_index('norm')['pos'])
+
+es_q, es_t, faltan = [], [], []
+
+for q, titulo in CONSULTAS_ES:
+    n = normalizar_titulo(titulo)
+    if n in pos_por_titulo.index:
+        es_q.append(q)
+        es_t.append(int(pos_por_titulo[n]))
+    else:
+        faltan.append(titulo)
+
+CONJUNTOS['C. Espanol (manual)'] = (es_q, np.array(es_t))
+print(f'Conjunto C: {len(es_q)} consultas usables. No estan en el catalogo (omitidas): {faltan}\n')
+\end{lstlisting}
+
+Finalmente, la evaluacion de los conjuntos de consulta se hace recorriendo los conjuntos A,B y C, y aplica tanto TF-IDF como embeddings a las consultas de cada conjunto antes de calcular las metricas de evaluacion ya escogidas Top-1, Recall@5 y Recall@10 y MRR. 
+
+\begin{lstlisting}[language=Python]
+filas, PUNTAJES, POSICIONES = [], {}, {}
+for conjunto, (consultas, objetivos) in CONJUNTOS.items():
+    for metodo, fn in METODOS.items():
+        S = fn(consultas)
+        pos = posiciones(S, objetivos)
+        PUNTAJES[(conjunto, metodo)], POSICIONES[(conjunto, metodo)] = S, pos
+        filas.append({'Conjunto': conjunto, 'Metodo': metodo, 'n': len(consultas),
+                      'Top-1': (pos <= 1).mean(), 'Recall@5': (pos <= 5).mean(),
+                      'Recall@10': (pos <= 10).mean(), 'MRR': (1 / pos).mean()})
+
+resultados = pd.DataFrame(filas)
+\end{lstlisting}

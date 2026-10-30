@@ -1,0 +1,25 @@
+% secciones/02_estado_del_arte/tabla_comparativa.tex
+\begin{table*}[t]
+\caption{Comparación de los trabajos revisados.}
+\label{tab:sota}
+\centering\footnotesize
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{1.3cm}p{0.9cm}p{3.6cm}p{5.2cm}p{4.7cm}}
+\toprule
+Referencia & Año & Técnica & Aporte principal & Limitación frente a este trabajo \\
+\midrule
+\cite{joachims1998} & 1998 & SVM lineal sobre características TF-IDF dispersas & Muestra que los SVM lineales son adecuados para texto de alta dimensión & Depende del vocabulario visto; no captura sinónimos ni otros idiomas \\
+\cite{devlin2019} & 2019 & Transformer bidireccional preentrenado (BERT) & Representaciones contextuales reutilizables en muchas tareas de PLN & La versión original es en inglés; requiere ajuste fino con datos etiquetados \\
+\cite{reimers2019} & 2019 & Sentence-BERT (red siamesa) & Vectores de oraciones comparables con coseno, útiles para búsqueda y agrupamiento & Los modelos originales se entrenan principalmente en inglés \\
+\cite{reimers2020} & 2020 & Destilación multilingüe de embeddings & Alinea el espacio vectorial entre idiomas a partir de un modelo maestro monolingüe & La calidad puede variar según el idioma y el dominio \\
+\cite{conneau2020} & 2020 & XLM-R, modelo enmascarado multilingüe & Transferencia entre idiomas con un único modelo & Mayor tamaño y costo computacional \\
+\cite{yin2019} & 2019 & Clasificación \textit{zero-shot} mediante inferencia textual & Marco y bancos de prueba para clasificar sin ejemplos de las clases & Sensible a la formulación de las etiquetas \\
+\cite{brown2020} & 2020 & Modelo de lenguaje de gran tamaño con aprendizaje en contexto & Resuelve tareas con instrucciones o pocos ejemplos, sin ajustar pesos & Modelo propietario y de gran tamaño; salida difícil de controlar \\
+\cite{qwen2024} & 2024 & Familia Qwen2.5 de modelos de lenguaje abiertos & Modelos abiertos que siguen instrucciones, con versiones pequeñas & Salida textual libre: exige análisis y no entrega probabilidades \\
+\cite{ticketsautoml2024} & 2024 & Revisión de literatura y AutoML & Clasificación de tickets de soporte con AutoML & \tbd{completar tras leer} \\
+\cite{itdesk2021} & 2021 & Conjunto de clasificadores & Clasificación de tickets no estructurados de mesa de ayuda de TI & \tbd{completar tras leer} \\
+\midrule
+Este trabajo & 2026 & TF-IDF, embeddings multilingües y LLM \textit{zero-shot} & Comparación de tres enfoques gratuitos con cambio de idioma entre entrenamiento y prueba & Entrenamiento sintético; conjunto de prueba en español pequeño \\
+\bottomrule
+\end{tabular}
+\end{table*}

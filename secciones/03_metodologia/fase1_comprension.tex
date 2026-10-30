@@ -1,0 +1,16 @@
+% secciones/03_metodologia/fase1_comprension.tex
+\subsection{Fase 1: Comprensión de los negocios y los datos}
+
+Muchos usuarios pierden mas tiempo buscando que pelicula ver o intentando recordar su nombre que viendola.
+Para solucionar este problema, se desarrolla CineBot, un asistente que recibe una descripcion de una pelicula en español y recomienda las peliculas que mas se parezcan a dicha descripcion de su catalogo, utilizando telegram como plataforma de comunicación.
+
+
+\subsubsection{Objetivo y criterio de éxito}
+
+El objetivo de esta fase es mediante la creacion del sistema, poder comparar el uso de TF-IDF, un enfoque mas tradicional, con el modelo preentrenado embeddings multilingues, para de esta manera, ver que resultados arrojan ambos enfoques a la hora de realizar la misma tarea. Para esto, una vez que el usuario haga una consulta, el sistema evalua todo el catalogo y devuleve un listado ordenado por nivel de similitud, en el que en el primer lugar se encuentra la pelicula mas similar. En este caso, el criterio de exito es la posicion en la que ambos metodos colocan la pelicula correcta, las metricas que se tienen en cuenta son Top-1, Recall@5 y MRR, junto con un tiempo de respuesta de menos de un segundo por consulta.
+
+\subsubsection{Datos}
+
+Los datos usados para el sistema provienen del dataset \textit{TMDB 5000 Movie Dataset} \cite{tmdb5000}, este se eligio porque contiene informacion como titulo, sinopsis, genero, palabras clave, y otros atributos de aproximadamente 4,800 peliculas. De estas 4,800, se descartan aquellas que no tienen sinopsis, en este caso, se descartan 6 peliculas, quedando un total de 4,797.
+
+En cuanto a la calidad de los datos, a pesar de ser un dataset que cuenta con toda la informacion necesaria sobre las peliculas para que el sistema pueda tener un catalogo solido, el que este solo cuente con 4,800 peliculas hace que sea considerado un dataset pequeño, por lo que contar con un conjunto de datos tan limitado limita la variedad de resultados que el bot podria ofrecer si contara con un catalogo mas grande. Por otro lado, la informacion esta completamente en ingles, por lo que aunque el usuario puede hacer sus consultas en español, el bot solo puede responderle en ingles, por lo que la experiencia del usuario se ve limitada por la existencia de esta barrera del idioma. Por ultimo, la tercera limitacion con la que cuenta el dataset escogido es que este se trata de una base de datos de Kaggle totalmente estatica, por lo que no hay actualizaciones con nuevas peliculas y el bot no puede recomendar ninguna que halla sido estrenada despues de la fecha de creacion del dataset (27 de septiembre de 2017).
