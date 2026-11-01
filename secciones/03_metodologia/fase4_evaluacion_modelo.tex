@@ -1,0 +1,118 @@
+﻿% secciones/03_metodologia/fase4_evaluacion_modelo.tex
+\subsection{Fase 4: Evaluación del modelo}
+La evaluacion del modelo se realiza inicialmente normalizando los titulos de las peliculas, esto para poder identificarlas correctamente en el catalogo ya que hay titulos que cuentan con caracteres especiales como mayusculas, espacios o signos de puntuacion. Luego, se le asigna una posicion numerica a cada pelicula comenzando desde cero, esto para posteriormente identificar cual es la pelicula correcta dentro de los resultados obtenidos.    
+
+\textit{Conjuntos de consulta.}
+Los conjuntos de consulta se utilizan para probar el sistema y ver que tan bien funciona. El sistema cuenta con 3 conjuntos: A, B y C, y cada uno representa una manera diferente en la que se le puede preguntar al sistema por una pelicula:
+
+\begin{itemize}
+    \item Conjunto A (usando el eslogan de la pelicula (tagline)): En este conjunto, la consulta se hace tomando el eslogan de una pelicula del dataset y utilizandola como si esa fuera la consulta que hizo el usuario.
+    \item Conjunto B (usando las cinco primeras palabras clave): En el conjunto B, se toman las 5 primeras palabras claves que esten asociadas a una pelicula y estas se utilizan como si fueran la consulta. 
+    \item Conjunto C (usando las descripciones escritas en español): Por ultimo, en el conjunto C en ves de usar un campo del dataset, se redacta una descripcion de una pelicula en español y el sistema la relaciona con su titulo.
+\end{itemize}
+
+El uso de estos tres conjuntos resulta util ya que permite probar el comportamiento del sistema en 3 diferentes escenarios:
+
+\begin{lstlisting}[language=Python, caption={~}]
+# Conjunto A: eslogan
+cand = peliculas[peliculas['tagline'].str.len() > 10]
+m = cand.sample(min(N_EVAL, len(cand)), random_state=42)
+CONJUNTOS = {'A. Eslogan': (m['tagline'].tolist(), m['pos'].to_numpy())}
+
+# Conjunto B: palabras clave (las 5 primeras de TMDB) 
+cand = peliculas[peliculas['palabras_clave'].map(len) >= 3]
+m = cand.sample(min(N_EVAL, len(cand)), random_state=42)
+CONJUNTOS['B. Palabras clave'] = ([' '.join(k[:5]) for k in m['palabras_clave']], m['pos'].to_numpy())
+
+# Conjunto C: descripciones en espanol escritas a mano
+CONSULTAS_ES = [
+    ('Un barco gigante choca con un iceberg y una chica rica se enamora de un chico pobre', 'Titanic'),
+    #...mas descripciones escritas a mano...
+]
+\end{lstlisting}
+
+Una vez hecho esto, se  comprueban que los titulos existan en el catalogo, para eso, se recorre las descripciones y sus titulos, si se encuentra la pelicula en el catalogo, se guarda la descripcion y la posicion de la pelicula correcta, de no encontrarla, se guarda el titulo de la pelicula que no se encontro en faltan y se omite esa consulta
+
+\begin{lstlisting}[language=Python, caption={~}]
+pos_por_titulo = (peliculas.sort_values('vote_count', ascending=False)
+                  .drop_duplicates('norm').set_index('norm')['pos'])
+
+es_q, es_t, faltan = [], [], []
+
+for q, titulo in CONSULTAS_ES:
+    n = normalizar_titulo(titulo)
+    if n in pos_por_titulo.index:
+        es_q.append(q)
+        es_t.append(int(pos_por_titulo[n]))
+    else:
+        faltan.append(titulo)
+
+CONJUNTOS['C. Espanol (manual)'] = (es_q, np.array(es_t))
+print(f'Conjunto C: {len(es_q)} consultas usables. No estan en el catalogo (omitidas): {faltan}\n')
+\end{lstlisting}
+
+Una vez que estan construidos los conjuntos, se necesita ejecutar ambos modelos sobre las mismas consultas, para eso, se definien dos funciones, una para TF-IDF \textit{puntajes_tfidf} y otra para embeddings \textit{def puntajes_emb}, estas funciones reciben una lista de consultas y calculan la similitud entre cada consulta y todas las peliculas del catalogo, devolviendo una matriz de puntuaciones de similitud, en el que cada valor indica que tan similar es una consulta a una pelicula.
+Se crean dos funciones diferentes porque se necesita evaluar los dos metodos por separado, pero bajo las mismas condiciones, para que la comparacion sea justa. 
+
+Una vez hecho esto, se crea un diccionario \textit{METODOS = {'TF-IDF': puntajes_tfidf,'Embeddings': puntajes_emb}} en el que se relaciona el nombre de cada metodo con su funcion de evaluacion, lo que permite que se pueda ejecutar ambos modelos mediante un mismo ciclo sin tener que escribir el procedimiento dos veces.
+
+La funcion \textit{posiciones} tiene como objetivo principal el poder determinar en que posicion queda la pelicula correcta dentro del ranking que genera cada modelo, en el que \textit{s} es la matriz de puntuaciones y cada fila es una consulta, cada columna una pelicula y cada valor la similitud entre ambos, mientras que \textit{objetivos} contiene las posiciones de las peliculas correctas para cada consulta.
+
+Finalmente, la evaluacion de los conjuntos de consulta se hace recorriendo los conjuntos A,B y C, y aplica tanto TF-IDF como embeddings a las consultas de cada conjunto antes de calcular las metricas de evaluacion ya escogidas:
+
+\begin{itemize}
+    \item Top-1: Calcula que proporcion de consultas obtuvo la pelicula correcta en la primera posicion
+    \item Recall@5: Calcula la proporcion de consultas en las que la pelicula correcta aparece entre las primeras cinco posiciones
+    \item Recall@10: El recall@10 realiza el mismo calculo que el anterior, pero considerando las diez primeras posiciones
+    \item MRR: Mean Reciprocal Rank calcula el promedio del inverso de la posicion de la pelicula correcta.Cuanto mas cerca esta la pelicula correcta de la primera posicion, mayor sera su valor al MRR.
+\end{itemize}
+
+Estas metricas se utilizan porque permiten saber si el sistema recomendo la pelicula correcta en primer ligar o si por el contraio, el usuario tendria que revisar varias opciones antes de encontrarla. Los resultados se guardan en el dataframe \textit{resultados}.
+
+\begin{lstlisting}[language=Python, caption={~}]
+filas, PUNTAJES, POSICIONES = [], {}, {}
+for conjunto, (consultas, objetivos) in CONJUNTOS.items():
+    for metodo, fn in METODOS.items():
+        S = fn(consultas)
+        pos = posiciones(S, objetivos)
+        PUNTAJES[(conjunto, metodo)], POSICIONES[(conjunto, metodo)] = S, pos
+        filas.append({'Conjunto': conjunto, 'Metodo': metodo, 'n': len(consultas),
+                      'Top-1': (pos <= 1).mean(), 'Recall@5': (pos <= 5).mean(),
+                      'Recall@10': (pos <= 10).mean(), 'MRR': (1 / pos).mean()})
+
+resultados = pd.DataFrame(filas)
+\end{lstlisting}
+
+La medicion del tiempo de consulta se hace para medir cuanto tarda cada metodo en realizar la busqueda, para eso, se define la funcion \textit{ms_por_consulta} que recibe como parametro el metodo de busqueda que se desea evaluar, el procedimiento consiste en registrar el instante inicial, recorrer las primeras 30 consultas y se ejecuta la busqueda para cada consulta, luego, con \textit{time.time() - t0} se calcula cuanto tiempo transcurrio duarnte todas las busquedas, luego, se divide el tiempo entre el numero de consultas y se multiplica con 1000 para convertir el resultado de segunfos a milisegundos.
+
+En \textit{latencia} se calcula el tiempo promedio de busqueda de cada motor, y se agrega una columna a la tabla de resultados con la latencia correspondiente a cada metodo \textit{resultados['ms/consulta'] = resultados['Método'].map(latencia)}.
+
+En la Tabla~\ref{tab:resultados_metodos} se presentan los los resultados de las metricas de rendimiento evaluadas. Se puede observar que el modelo de embeddings supera a TF-IDF en el conjunto C, que es el conjunto de consultas en español. Las metricas registraron un Recall@5 de 51.3\% y un MRR de 0.383, mientras que TF-IDF obtuvo un Recall@5 de 12.8\% y un MRR de 0.048. Por otro lado, las mediciones de latencia confirman que realizar una ejecucion sobre GPU (CUDA) permite que se procese cada consulta con un promedio de 14.86ms mediante la busqueda por producto matricial sobre embeddings, mientras que TF-IDF requiere un promedio de 35.06ms por consulta, lo que representa una diferencia de 2.36 veces mas rapido para el modelo de embeddings. 
+
+\begin{table}[htbp]
+\centering
+\caption{Resultados cuantitativos de evaluación por conjunto de prueba y método.}
+\label{tab:resultados_metodos}
+\small
+\begin{tabular}{llcccccc}
+\hline
+\textbf{Conjunto} & \textbf{Método} & \textbf{$n$} & \textbf{Top-1} & \textbf{Recall@5} & \textbf{Recall@10} & \textbf{MRR} & \textbf{ms/consulta} \\
+\hline
+\multirow{2}{*}{A. Eslogan} & TF-IDF & 1000 & 0.044 & 0.089 & 0.121 & 0.070 & 35.06 \\
+ & Embeddings & 1000 & 0.049 & 0.107 & 0.136 & 0.079 & 14.86 \\
+\hline
+\multirow{2}{*}{B. Palabras clave} & TF-IDF & 1000 & 0.137 & 0.285 & 0.350 & 0.209 & 35.06 \\
+ & Embeddings & 1000 & 0.124 & 0.242 & 0.303 & 0.189 & 14.86 \\
+\hline
+\multirow{2}{*}{C. Español (manual)} & TF-IDF & 39 & 0.000 & 0.128 & 0.128 & 0.048 & 35.06 \\
+ & Embeddings & 39 & \textbf{0.256} & \textbf{0.513} & \textbf{0.641} & \textbf{0.383} & \textbf{14.86} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\figopt{figuras/comparacion_metricas.png}{\columnwidth}{figuras/comparacion_metricas.png}
+\caption{Comparación de las métricas de evaluación.}
+\label{fig:comparacion_metricas}
+\end{figure}

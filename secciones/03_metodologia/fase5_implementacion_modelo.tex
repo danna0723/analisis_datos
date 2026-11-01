@@ -1,0 +1,30 @@
+﻿% secciones/03_metodologia/fase5_despliegue.tex
+\subsection{Fase 5: Implementación del modelo}
+
+El sistema se despliega utilizando Telegram para gestionar los mensajes que envian los usaurios, para eso, se implementaron las librerias necesarias para preparar el entorno y que Python pueda conectarse con Telegram, sobretodo la libreria \textit{asyncio} ya que es la que permite poder ejecutar operaciones asincronas en Python y asi asegurar que el bot pueda gestionar estas tareas sin tener que esperar a que cada una de ellas termine para poder ejecutar la sifuiente.
+
+En la variable \textit{BIENVENIDA} se almacenan los mensajes que el usuario recibe por parte del bot a la hora de iniciar una conversacion, mientras que en la variable \textit{AYUDA} se almacenan los ejemplos de consultas que el usuario puede hacerle al bot con el objetivo de orientarlo sobre como describir la pelicula que desea encontrar. En \textit{metodo_usuario} se almacena el metodo de recomendacion que el usuario seleccione.
+
+Posteriormente, se procede a crear los manejadores de comandos y mensajes, siendo esta la parte en la que se define la logica que debe seguir el bot ante las acciones del usuario, estas funciones se ejecutan cuando Telegram recibe un mensaje como por ejemplo \textit{/start} o \textit{/asistente}.
+
+Este ultimo permite utilizar la generacion de respuestas mediante un modelo de lenguaje LLM, funcion que permite al usuario recibir una respuesta con lenguaje mas natural. Primero se obtiene la consulta del usuario y despues de verificar que esta no este vacia, se ejecuta el asistente mediante la funcion \textit{asyncio.to\_thread}, la cual realiza la recuperacion de las peliculas mediante embedding y utiliza los resultados obtenidos como contexto para que la LLM pueda generar una respuesta mas completa.
+
+\begin{lstlisting}[language=Python, caption={~}]
+async def cmd_asistente(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    consulta = ' '.join(context.args)
+    if not consulta:
+        await update.message.reply_text('Escribe tu consulta después del comando. Ejemplo:\n'
+                                        '/asistente una película de robots que se enamoran')
+        return
+    await update.message.reply_text('Pensando…')
+    respuesta = await asyncio.to_thread(asistente, consulta)
+    await update.message.reply_text(respuesta)
+\end{lstlisting}
+
+Tambien se le permite al usuario poder procesar mensajes de texto libre sin necesidad de estar limitado a escoger alguno de los comandos con la funcion \textit{async def on_mensaje}, la cual se encarga de registrar el mensaje del usuario y procesarlo mediante el metodo de recomendacion que este haya seleccionado, devolviendo la ficha de la pelicula recomendada.
+
+Se construye la aplicacion de Telegram mediante \textit{app = ApplicationBuilder().token(TOKEN).build()}, en donde se registran los manejadores. Se utilizan tres elementos clave, \textit{ApplicationBuilder()}, que inicia la configuracion de la aplicacion, \textit{token(TOKEN)}, que establece el token de autenticacion que fue proporcionado por Telegram con BotFather y \textit{build()}, que construye la aplicacion con la configuracion ya establecida.
+
+Los comandos se registran con \textit{app.add_handler()}, cada \textit{CommandHandler} relaciona un comando con su respectiva funcion, mientras que los registros de los mensajes de texto libre se hacen con \textit{MessageHandler}.
+
+Por ultimo, el bot se ejecuta con \textit{app.run\_polling()}, el cual se encarga de poner en funcionamiento el chatbot.

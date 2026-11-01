@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.25)  30 OCT 2026 11:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.25)  30 OCT 2026 11:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -358,6 +358,9 @@ Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 y
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
 )))
+(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+)
 (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdft
 ex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
@@ -365,20 +368,20 @@ File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 ) (conference_101719.aux)
 \openout1 = `conference_101719.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
 
 -- Lines per column: 56 (exact).
 
@@ -408,9 +411,25 @@ g
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 \c@lstlisting=\count325
- (secciones/00_portada_resumen/portada.tex)
-(secciones/00_portada_resumen/resumen.tex)
-(secciones/01_introduccion/introduccion.tex
+ (secciones/00_portada_resumen/portada.tex
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
+1.
+
+(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+))
+(secciones/00_portada_resumen/resumen.tex
+Underfull \hbox (badness 3158) in paragraph at lines 5--7
+\T1/ptm/b/n/9 lenguaje, em-bed-dings mul-ti-l-ingÃ\TS1/ptm/b/n/9 ¼\T1/ptm/b/n/9
+ es, aten-ciÃ\TS1/ptm/b/n/9 ³\T1/ptm/b/n/9 n al cliente,
+ []
+
+) (secciones/01_introduccion/introduccion.tex
+
+LaTeX Font Warning: Font shape `TS1/ptm/m/sc' undefined
+(Font)              using `TS1/ptm/m/n' instead
+(Font)              for symbol `textthreesuperior' on input line 2.
+
 (secciones/01_introduccion/objetivos.tex [1{C:/Users/Home/AppData/Local/MiKTeX/
 fonts/map/pdftex/pdftex.map}{C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/
 enc/dvips/base/8r.enc}
@@ -418,6 +437,11 @@ enc/dvips/base/8r.enc}
 
 ]) (secciones/01_introduccion/justificacion.tex))
 (secciones/02_estado_del_arte/estado_del_arte.tex
+Underfull \hbox (badness 1565) in paragraph at lines 6--6
+ \T1/ptm/m/it/10 B. MÃ\TS1/ptm/m/it/10 ©\T1/ptm/m/it/10 todos tradi-cionales de
+ re-cu-peraciÃ\TS1/ptm/m/it/10 ³\T1/ptm/m/it/10 n: TF-IDF y
+ []
+
 (secciones/02_estado_del_arte/tabla_comparativa.tex
 LaTeX Font Info:    Trying to load font information for U+msa on input line 7.
 
@@ -454,6 +478,12 @@ Underfull \hbox (badness 6204) in paragraph at lines 13--13
  []
 
 
+Underfull \hbox (badness 3179) in paragraph at lines 13--13
+\T1/ptm/m/n/8 coseno, Ã\TS1/ptm/m/n/8 º\T1/ptm/m/n/8 tiles para bÃ\TS1/ptm/m/n/
+8 º\T1/ptm/m/n/8 squeda y agru-
+ []
+
+
 LaTeX Warning: Citation `reimers2020' on page 2 undefined on input line 14.
 
 
@@ -461,11 +491,6 @@ LaTeX Warning: Citation `conneau2020' on page 2 undefined on input line 15.
 
 
 LaTeX Warning: Citation `yin2019' on page 2 undefined on input line 16.
-
-
-Underfull \hbox (badness 2302) in paragraph at lines 16--16
-[]\T1/ptm/m/n/8 Clasificación \T1/ptm/m/it/8 zero-shot \T1/ptm/m/n/8 me-di-
- []
 
 
 LaTeX Warning: Citation `brown2020' on page 2 undefined on input line 17.
@@ -496,11 +521,6 @@ Underfull \hbox (badness 1515) in paragraph at lines 22--22
  []
 
 
-Underfull \hbox (badness 5077) in paragraph at lines 22--23
-[]\T1/ptm/m/n/8 Entrenamiento sin-tético; con-junto de
- []
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ))
@@ -511,459 +531,38 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 LaTeX Warning: Citation `tmdb5000' on page 2 undefined on input line 14.
 
 ) (secciones/03_metodologia/fase2_datos.tex [2]
-(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
-File: lstlang1.sty 2025/11/14 1.11b listings language file
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 8.
+
+
+(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-Overfull \hbox (90.00348pt too wide) in paragraph at lines 11--12
-[][][][][][][][][][][][][][][][][][][][][][][][][] 
+Overfull \hbox (20.9995pt too wide) in paragraph at lines 30--31
+[][][][][][][][][][][][][][][][][][][][][]  
  []
 
+[3] (secciones/03_metodologia/tabla_mapeo.tex)
+LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <7> not available
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 76.
 
-Overfull \hbox (102.0036pt too wide) in paragraph at lines 16--17
-[][][][][][][][][][][][][][][][][][][][][][] 
+Overfull \hbox (14.69946pt too wide) in paragraph at lines 97--99
+[][][][][][][][][][][][][][][][][][][][][][][]  
  []
 
-
-Overfull \hbox (156.00415pt too wide) in paragraph at lines 17--18
-[][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (162.00421pt too wide) in paragraph at lines 18--19
-[][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (180.0044pt too wide) in paragraph at lines 19--20
-[][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (168.00427pt too wide) in paragraph at lines 20--21
-[][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (132.0039pt too wide) in paragraph at lines 29--30
-[][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (162.00421pt too wide) in paragraph at lines 30--31
-[][][][][][][][][][][][][][][][][][] 
- []
-
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 3
-1.
-(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)
-Overfull \hbox (360.00623pt too wide) in paragraph at lines 31--32
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Underfull \hbox (badness 3158) in paragraph at lines 36--37
- \T1/ptm/m/it/10 2) Con-struc-ción del texto de búsqueda: [][] \T1/ptm/m/n/10 L
-a fun-cion
- []
-
-[3]
-Overfull \hbox (90.00348pt too wide) in paragraph at lines 46--48
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (42.00299pt too wide) in paragraph at lines 49--50
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (90.00348pt too wide) in paragraph at lines 52--53
-[][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (264.00525pt too wide) in paragraph at lines 53--55
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][] 
- []
-
-
-Overfull \hbox (102.0036pt too wide) in paragraph at lines 56--58
-[][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (12.00269pt too wide) in paragraph at lines 58--59
-[][][][][][][][][][][][][][][][][][][] 
- []
-
-(secciones/03_metodologia/tabla_mapeo.tex)
-Overfull \hbox (222.00482pt too wide) in paragraph at lines 76--77
-[][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (66.00323pt too wide) in paragraph at lines 77--78
-[][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (84.00342pt too wide) in paragraph at lines 78--79
-[][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (180.0044pt too wide) in paragraph at lines 79--81
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (222.00482pt too wide) in paragraph at lines 81--82
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (102.0036pt too wide) in paragraph at lines 82--83
-[][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (84.00342pt too wide) in paragraph at lines 83--84
-[][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (360.00623pt too wide) in paragraph at lines 84--86
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][] 
- []
-
-
-Overfull \hbox (90.00348pt too wide) in paragraph at lines 86--87
-[][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (366.00629pt too wide) in paragraph at lines 88--89
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][] 
- []
-
-
-Overfull \hbox (12.00269pt too wide) in paragraph at lines 89--90
-[][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (168.00427pt too wide) in paragraph at lines 96--97
-[][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (156.00415pt too wide) in paragraph at lines 97--99
-[][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (6.00262pt too wide) in paragraph at lines 105--106
-[][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (90.00348pt too wide) in paragraph at lines 109--110
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (342.00604pt too wide) in paragraph at lines 110--111
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][] 
- []
-
-
-Overfull \hbox (96.00354pt too wide) in paragraph at lines 117--118
-[][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (210.0047pt too wide) in paragraph at lines 121--122
-[][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (240.005pt too wide) in paragraph at lines 122--123
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (228.00488pt too wide) in paragraph at lines 123--124
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (228.00488pt too wide) in paragraph at lines 124--126
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-) (secciones/03_metodologia/fase3_preparacion.tex [4]
-Overfull \hbox (78.00336pt too wide) in paragraph at lines 14--15
-[][][][][][][][][][][][][]
- []
-
-
-Overfull \hbox (72.0033pt too wide) in paragraph at lines 15--16
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
- []
-
-
-Overfull \hbox (78.00336pt too wide) in paragraph at lines 16--17
-[][][][][][][][][][][][][]
- []
-
-
-Overfull \hbox (132.0039pt too wide) in paragraph at lines 17--18
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
- []
-
-
-Overfull \hbox (48.00305pt too wide) in paragraph at lines 24--25
-[][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (78.00336pt too wide) in paragraph at lines 27--28
-[][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (102.0036pt too wide) in paragraph at lines 28--29
-[][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (48.00305pt too wide) in paragraph at lines 29--30
-[][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (6.00262pt too wide) in paragraph at lines 50--51
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
- []
-
-
-Overfull \hbox (150.00409pt too wide) in paragraph at lines 70--71
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (48.00305pt too wide) in paragraph at lines 71--72
-[][][][][][][][][][][][][][][][][][][][][][][][][]
- []
-
-
-Overfull \hbox (174.00433pt too wide) in paragraph at lines 77--78
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (264.00525pt too wide) in paragraph at lines 83--84
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (96.00354pt too wide) in paragraph at lines 84--85
-[][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-[5]
-Overfull \hbox (54.00311pt too wide) in paragraph at lines 96--97
-[][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (114.00372pt too wide) in paragraph at lines 102--104
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (72.0033pt too wide) in paragraph at lines 119--121
+) (secciones/03_metodologia/fase3_preparacion.tex [4] [5]
+(secciones/03_metodologia/tabla_configuracion.tex) [6]
+Overfull \hbox (24.19981pt too wide) in paragraph at lines 203--205
 [][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (318.0058pt too wide) in paragraph at lines 121--123
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (84.00342pt too wide) in paragraph at lines 142--143
-[][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (18.00275pt too wide) in paragraph at lines 143--145
-[][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (186.00446pt too wide) in paragraph at lines 146--147
-[][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (24.0028pt too wide) in paragraph at lines 149--150
-[][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (54.00311pt too wide) in paragraph at lines 163--164
-[][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (312.00574pt too wide) in paragraph at lines 167--168
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (48.00305pt too wide) in paragraph at lines 176--177
-[][][][][][][][][][][][][][][][][][][]
- []
-
-
-Overfull \hbox (48.00305pt too wide) in paragraph at lines 177--178
-[][][][][][][][][][][][][][][][][][][][][]
- []
-
-
-Overfull \hbox (42.00299pt too wide) in paragraph at lines 177--178
-[][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (48.00305pt too wide) in paragraph at lines 179--180
-[][][][][][][][][][][][][]
- []
-
-
-Overfull \hbox (30.00287pt too wide) in paragraph at lines 183--184
-[][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-(secciones/03_metodologia/tabla_configuracion.tex) [6]
-Overfull \hbox (66.00323pt too wide) in paragraph at lines 198--200
-[][][][][][][][][] 
- []
-
-
-Overfull \hbox (108.00366pt too wide) in paragraph at lines 200--201
-[][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (300.00562pt too wide) in paragraph at lines 203--205
-[][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (300.00562pt too wide) in paragraph at lines 212--213
-[][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (366.00629pt too wide) in paragraph at lines 227--228
-[][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (156.00415pt too wide) in paragraph at lines 242--243
-[][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (126.00385pt too wide) in paragraph at lines 255--256
-[][][][][][][][][][][][][][][][][][][][][][][][][] 
+Overfull \hbox (24.19981pt too wide) in paragraph at lines 212--213
+[][][][][][][][][][][][][][][][] 
  []
 
 [7]
-Overfull \hbox (600.00867pt too wide) in paragraph at lines 261--262
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (270.00531pt too wide) in paragraph at lines 264--265
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (186.00446pt too wide) in paragraph at lines 284--285
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (480.00745pt too wide) in paragraph at lines 287--288
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (90.00348pt too wide) in paragraph at lines 288--289
-[][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (48.00305pt too wide) in paragraph at lines 291--292
-[][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (426.0069pt too wide) in paragraph at lines 292--293
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][] 
- []
-
-
-Overfull \hbox (372.00635pt too wide) in paragraph at lines 293--294
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (336.00598pt too wide) in paragraph at lines 295--296
-[][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (168.00427pt too wide) in paragraph at lines 296--297
-[][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (246.00507pt too wide) in paragraph at lines 298--299
-[][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (168.00427pt too wide) in paragraph at lines 299--300
-[][][][][][][][][] 
- []
-
-
-Overfull \hbox (360.00623pt too wide) in paragraph at lines 300--301
-[][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (180.0044pt too wide) in paragraph at lines 307--308
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (258.00519pt too wide) in paragraph at lines 310--311
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][] 
+Overfull \hbox (4.19913pt too wide) in paragraph at lines 299--300
+[][][][][][][][][][]  
  []
 
 ) (secciones/03_metodologia/fase4_desarrollo.tex)
@@ -975,7 +574,7 @@ Overfull \hbox (258.00519pt too wide) in paragraph at lines 310--311
 (secciones/04_resultados/figura_f1.tex)
 (secciones/04_resultados/figura_confusion.tex))
 (secciones/05_discusion/discusion.tex)
-(secciones/06_conclusiones/conclusiones.tex
+(secciones/06_conclusiones/conclusiones.tex [8]
 (secciones/06_conclusiones/agradecimientos.tex))
 No file conference_101719.bbl.
 
@@ -989,7 +588,7 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[8] [9
+[9
 
 ] (conference_101719.aux)
  ***********
@@ -998,17 +597,20 @@ L3 programming layer <2025-12-24>
  ***********
 
 
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 7318 strings out of 467870
- 117965 string characters out of 5418838
- 784069 words of memory out of 5000000
- 36009 multiletter control sequences out of 15000+600000
- 741832 words of font info for 155 fonts, out of 8000000 for 9000
+ 7372 strings out of 467870
+ 118696 string characters out of 5418838
+ 882021 words of memory out of 5000000
+ 36052 multiletter control sequences out of 15000+600000
+ 746150 words of font info for 166 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 61i,10n,65p,1166b,1499s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 61i,11n,65p,1170b,1689s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
 mex10.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
 nts/cm/cmmi10.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/publ
@@ -1017,13 +619,16 @@ e1/public/amsfonts/cm/cmr10.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fo
 nts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Home/AppData/Local/Programs/MiK
 TeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Home/AppData/Local/Prog
 rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Home/AppData/Loc
-al/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Home/AppData/Loca
-l/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/Home/AppData/Loca
-l/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Home/AppData/Local
-/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on conference_101719.pdf (9 pages, 186717 bytes).
+al/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/Home/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/Home/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/urw/courier/ucrro8a.pfb><C:/Users/Home/AppData
+/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Home/AppData/
+Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/Home/AppData/
+Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Home/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on conference_101719.pdf (9 pages, 220060 bytes).
 PDF statistics:
- 88 PDF objects out of 1000 (max. 8388607)
+ 103 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,19 +1,19 @@
-% secciones/01_introduccion/introduccion.tex
+﻿% secciones/01_introduccion/introduccion.tex
 \section{Introducción}
 
 En los ultimos años se ha visto un aumento en el acceso a peliculas a traves de plataformas de streaming, estas plataformas cuentan con un gran numero de usuarios los cuales en muchas ocasiones tienen la necesidad de poder contar con una herramienta que les permita encontrar contenido que se ajuste a sus intereses.
 
-En este proyecto se propone el desarollo de un asistente virtual para la recomendacion de peliculas el cual permitira a los usuarios realizar sus preguntas en español sobre las peliculas del catalogo y recibir informacion sobre las mismas, teniendo en cuenta caracteristias como titulo, genero, sinopsis, entre otros.
+En este proyecto se propone el desarollo de un asistente virtual para la recomendacion de peliculas el cual permitira a los usuarios realizar sus preguntas sobre las peliculas del catalogo y recibir informacion sobre las mismas, teniendo en cuenta caracteristias como titulo, genero, sinopsis, entre otros.
 
-Es en este contexto que el poder implementar un sistema de clasificación automatica de texto resulta realmente util, el procesamiento PLN (Procesamiento del Lenguaje Natural) permite desarrollar sistemas capaces de procesar y analizar textos dados por el usuario y relacionarlos directamente con la informacion disponible, en este caso, informacion sobre peliculas.
+Es en este contexto que el poder implementar un sistema de clasificacion automatica de texto resulta realmente util, el procesamiento PLN (Procesamiento del Lenguaje Natural) permite desarrollar sistemas capaces de procesar y analizar textos dados por el usuario y relacionarlos directamente con la informacion disponible, en este caso, informacion sobre peliculas.
 
 Existen diferentes tecnicas que pueden considerarse para poder implementar un sistema con esas caracteristicas, en este caso, el sistema propone el uso de dos enfoques:
 
-El primer enfoque consiste en la implementacion deTF-IDF (Term Frequency–Inverse Document Frequency) y similitud del coseno, el cual permite poder medir cual es la similutd del texto dado por el usuario en comparacion con la informacion disponible en el catalogo de peliculas,para de esta manera poder determinar cual es la pelicula que mas se ajusta a la pregunta realizada por el usuario mediante la coincidencia de las palabras, por otro lado.
+El primer enfoque consiste en la implementacion de TF-IDF (Term Frequency-Inverse Document Frequency) y similitud del coseno, el cual permite poder medir cual es la similutd del texto dado por el usuario en comparacion con la informacion disponible en el catalogo de peliculas,para de esta manera poder determinar cual es la pelicula que mas se ajusta a la pregunta realizada por el usuario mediante la coincidencia de las palabras.
 
 El segundo enfoque consiste en usar un modelo preentrenado de embeddings, este modelo permite poder representar el texto dado por el usuario y la informacion disponible en el catalogo de peliculas en un espacio vectorial, este metodo tambien usa la similitud del coseno para pode medir la similitud entre los textos y de esta manera, poder identificar las peliculas que mas se relacionen a lo que pidio el usuario. Adicionalmente, cuenta con la incorporacion de Qween, un modelo de lenguaje LLM (Large Language Model) el cual permite poder generar embeddings de manera mas eficiente y precisa, este se incluyo ya que permite poder redactar una respuesta mas completa apartir de las peliculas encontradas.   
 
-La evaluacion se centrara en la comparacion entre estos dos enfoques para asi poder determinar la capacidad de cada enfoque para poder recuperar peliculas relevantes a partir de la pregunta realizada por el usuario, ademas de poder determinar cual de los dos enfoques es mas eficiente en cuanto a tiempo de respuesta y consumo de recursos. Las metricas de evaluacion implementadas consisten en Top-1, Recall@5, rango recíproco medio (MRR) y tiempo de respuesta.
+La evaluacion se centrara en la comparacion entre estos dos enfoques para asi poder determinar la capacidad de cada enfoque para poder recuperar peliculas relevantes a partir de la pregunta realizada por el usuario, ademas de poder determinar cual de los dos enfoques es mas eficiente en cuanto a tiempo de respuesta y consumo de recursos. Las metricas de evaluacion implementadas consisten en Top-1, Recall@5, rango reci­proco medio (MRR) y tiempo de respuesta.
 
 \input{secciones/01_introduccion/objetivos}
 \input{secciones/01_introduccion/justificacion}

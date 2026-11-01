@@ -1,0 +1,23 @@
+﻿% secciones/03_metodologia/fase6_monitoreo.tex
+\subsection{Fase 6: Supervisión y mantenimiento}
+
+Uno de los componentes del sistema mas importantes es el modelo de recuperacion, ya que este es el encargado de identificar las peliculas que se le van a recomendar al usuario, por eso, es importante garantizar su calidad y correcto funcionamiento, para esto, se considera verificar los siguientes aspectos:
+
+\begin{itemize}
+    \item Calidad de las recomendaciones: Revisar si las peliculas recomendadas por el bot correspondan con lo pedido por el usuario.
+    \item Comparacion entre metodos: Analisar las diferencias que hay entre los resultados mediante TF-IDF y embeddings, sobretodo cuando se hacen consultas en español.
+    \item Consultas fuera del dominio: Verificar como es el comportamiento del modelo cuando recibe consultas que no esten relacionadas con peliculas
+    \item Tiempo de respuesta: Medir cuanto tiempo le toma al sistema procesar la consulta y procurar que dicho tiempo no se exceda demasiado, ya que esto podria afectar la experiencia del usuario.
+\end{itemize}
+
+Para supervisar el funcionamiento del chatbot en Telegram, se verifica que los componentes del sistema funcionen correctamente. Esta supervision incluye: 
+
+\begin{itemize}
+    \item Recepcion de consultas, para verificar que el bot reciba correctamente los mensajes enviados por los usuarios.
+    \item Funcionamiento de los metodos de recuperacion: Se comprueba que los comandos \textit{/start}, \textit{/ayuda}, \textit{/metodo} y \textit{/asistente} ejecuten correctamente.
+    \item Seleccion del metodo de recuperacion: Verificar que el bot utilice TF-IDF, embeddings o ambos metodos dependiendo la elegida por el usuario.
+    \item Generacion de recomendaciones: Comprobar que las consultas sean procesadas de manera correcta y que se le presenten al usuario las peliculas recomendadas.
+    \item Generacion de respuestas con LLM: Se verifica que el comando \textit{/asistente} utilice los resultados de embeddings para generar una respuesta redactada en lenguaje natural.  
+\end{itemize}
+
+
