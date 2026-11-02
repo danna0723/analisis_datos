@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.25)  30 OCT 2026 11:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.25)  1 NOV 2026 20:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -292,32 +292,65 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@lastruleclass=\count309
 \@thisrulewidth=\dimen195
 )
+(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+
+(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
+\col@sep=\dimen196
+\ar@mcellbox=\box57
+\extrarowheight=\dimen197
+\NC@list=\toks26
+\extratabsurround=\skip57
+\backup@length=\skip58
+\ar@cellbox=\box58
+)
+\TX@col@width=\dimen198
+\TX@old@table=\dimen199
+\TX@old@col=\dimen256
+\TX@target=\dimen257
+\TX@delta=\dimen258
+\TX@cols=\count310
+\TX@ftn=\toks27
+)
+(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/underscore\underscore.st
+y
+Package: underscore 2006/09/13
+LaTeX Info: Redefining \_ on input line 42.
+)
+==> First Aid for underscore.sty applied!
+
+(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/firstaid\underscore-ltx.
+sty
+Package: underscore-ltx 2023/09/20 LaTeX firstaid to make underscore protected 
+
+)
 (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/listingsutf8\listingsutf
 8.sty
 Package: listingsutf8 2019-12-10 v1.5 Allow UTF-8 in listings input (HO)
 
 (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
-\lst@mode=\count310
-\lst@gtempboxa=\box57
-\lst@token=\toks26
-\lst@length=\count311
-\lst@currlwidth=\dimen196
-\lst@column=\count312
-\lst@pos=\count313
-\lst@lostspace=\dimen197
-\lst@width=\dimen198
-\lst@newlines=\count314
-\lst@lineno=\count315
-\lst@maxwidth=\dimen199
+\lst@mode=\count311
+\lst@gtempboxa=\box59
+\lst@token=\toks28
+\lst@length=\count312
+\lst@currlwidth=\dimen259
+\lst@column=\count313
+\lst@pos=\count314
+\lst@lostspace=\dimen260
+\lst@width=\dimen261
+\lst@newlines=\count315
+\lst@lineno=\count316
+\lst@maxwidth=\dimen262
 
 (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpatch.sty
 File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
 )
 (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
-\c@lstnumber=\count316
-\lst@skipnumbers=\count317
-\lst@framebox=\box58
+\c@lstnumber=\count317
+\lst@skipnumbers=\count318
+\lst@framebox=\box60
 )
 (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
 File: listings.cfg 2025/11/14 1.11b listings configuration
@@ -358,47 +391,58 @@ Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 y
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
 )))
+(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
+Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
+\multirow@colwidth=\skip59
+\multirow@cntb=\count319
+\multirow@dima=\skip60
+\bigstrutjot=\dimen263
+)
+(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count320
+)
 (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
 )
 (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdft
 ex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count318
+\l__color_backend_stack_int=\count321
 ) (conference_101719.aux)
 \openout1 = `conference_101719.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
 
 -- Lines per column: 56 (exact).
 
 (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mki
 i
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count319
-\scratchdimen=\dimen256
-\scratchbox=\box59
-\nofMPsegments=\count320
-\nofMParguments=\count321
-\everyMPshowfont=\toks27
-\MPscratchCnt=\count322
-\MPscratchDim=\dimen257
-\MPnumerator=\count323
-\makeMPintoPDFobject=\count324
-\everyMPtoPDFconversion=\toks28
+\scratchcounter=\count322
+\scratchdimen=\dimen264
+\scratchbox=\box61
+\nofMPsegments=\count323
+\nofMParguments=\count324
+\everyMPshowfont=\toks29
+\MPscratchCnt=\count325
+\MPscratchDim=\dimen265
+\MPnumerator=\count326
+\makeMPintoPDFobject=\count327
+\everyMPtoPDFconversion=\toks30
 )
 (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-ba
 se.sty
@@ -410,173 +454,251 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 g
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-\c@lstlisting=\count325
- (secciones/00_portada_resumen/portada.tex
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
-1.
+\c@lstlisting=\count328
+ (secciones/00_portada_resumen/portada.tex)
+(secciones/00_portada_resumen/resumen.tex)
+(secciones/01_introduccion/introduccion.tex
+(secciones/01_introduccion/objetivos.tex
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 3
+.
 
 (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-))
-(secciones/00_portada_resumen/resumen.tex
-Underfull \hbox (badness 3158) in paragraph at lines 5--7
-\T1/ptm/b/n/9 lenguaje, em-bed-dings mul-ti-l-ingÃ\TS1/ptm/b/n/9 ¼\T1/ptm/b/n/9
- es, aten-ciÃ\TS1/ptm/b/n/9 ³\T1/ptm/b/n/9 n al cliente,
- []
-
-) (secciones/01_introduccion/introduccion.tex
-
-LaTeX Font Warning: Font shape `TS1/ptm/m/sc' undefined
-(Font)              using `TS1/ptm/m/n' instead
-(Font)              for symbol `textthreesuperior' on input line 2.
-
-(secciones/01_introduccion/objetivos.tex [1{C:/Users/Home/AppData/Local/MiKTeX/
-fonts/map/pdftex/pdftex.map}{C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/
-enc/dvips/base/8r.enc}
+)
+[1{C:/Users/Home/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Hom
+e/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
 
 
-]) (secciones/01_introduccion/justificacion.tex))
+])
+(secciones/01_introduccion/justificacion.tex))
 (secciones/02_estado_del_arte/estado_del_arte.tex
-Underfull \hbox (badness 1565) in paragraph at lines 6--6
- \T1/ptm/m/it/10 B. MÃ\TS1/ptm/m/it/10 ©\T1/ptm/m/it/10 todos tradi-cionales de
- re-cu-peraciÃ\TS1/ptm/m/it/10 ³\T1/ptm/m/it/10 n: TF-IDF y
- []
 
-(secciones/02_estado_del_arte/tabla_comparativa.tex
-LaTeX Font Info:    Trying to load font information for U+msa on input line 7.
-
-(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 7.
-
-(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-
-LaTeX Warning: Citation `joachims1998' on page 2 undefined on input line 11.
+LaTeX Warning: Citation `datacamp_ml_lifecycle' on page 2 undefined on input li
+ne 6.
 
 
-LaTeX Warning: Citation `devlin2019' on page 2 undefined on input line 12.
+LaTeX Warning: Citation `brown2020' on page 2 undefined on input line 10.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 12--12
-[]\T1/ptm/m/n/8 Transformer bidi-rec-cional
- []
+LaTeX Warning: Citation `lewis2020' on page 2 undefined on input line 10.
 
 
-Underfull \hbox (badness 2922) in paragraph at lines 12--12
-[]\T1/ptm/m/n/8 Representaciones con-tex-tuales re-uti-liz-ables
- []
+LaTeX Warning: Citation `qwen2024' on page 2 undefined on input line 10.
 
 
-LaTeX Warning: Citation `reimers2019' on page 2 undefined on input line 13.
+LaTeX Warning: Citation `robertson2004idf' on page 2 undefined on input line 15
+.
 
 
-Underfull \hbox (badness 6204) in paragraph at lines 13--13
-[]\T1/ptm/m/n/8 Vectores de ora-ciones com-pa-ra-bles con
- []
+LaTeX Warning: Citation `reimers2019sbert' on page 2 undefined on input line 18
+.
 
 
-Underfull \hbox (badness 3179) in paragraph at lines 13--13
-\T1/ptm/m/n/8 coseno, Ã\TS1/ptm/m/n/8 º\T1/ptm/m/n/8 tiles para bÃ\TS1/ptm/m/n/
-8 º\T1/ptm/m/n/8 squeda y agru-
+LaTeX Warning: Citation `reimers2020multilingual' on page 2 undefined on input 
+line 20.
+
+[2]
+
+LaTeX Warning: Citation `reimers2020multilingual' on page 3 undefined on input 
+line 23.
+
+(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd)
+(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd)
+
+LaTeX Warning: Citation `datacamp_ml_lifecycle' on page 3 undefined on input li
+ne 78.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--78
+[]|\T1/ptm/m/n/9 DataCamp (2023)
  []
 
 
-LaTeX Warning: Citation `reimers2020' on page 2 undefined on input line 14.
+LaTeX Warning: Citation `robertson2004idf' on page 3 undefined on input line 78
+.
 
 
-LaTeX Warning: Citation `conneau2020' on page 2 undefined on input line 15.
-
-
-LaTeX Warning: Citation `yin2019' on page 2 undefined on input line 16.
-
-
-LaTeX Warning: Citation `brown2020' on page 2 undefined on input line 17.
-
-
-LaTeX Warning: Citation `qwen2024' on page 2 undefined on input line 18.
-
-
-LaTeX Warning: Citation `ticketsautoml2024' on page 2 undefined on input line 1
-9.
-
-
-LaTeX Warning: Citation `itdesk2021' on page 2 undefined on input line 20.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 22--22
-[]\T1/ptm/m/n/8 Este
+Underfull \hbox (badness 10000) in paragraph at lines 78--78
+[]|\T1/ptm/m/n/9 Robertson (2004)
  []
 
 
-Underfull \hbox (badness 7522) in paragraph at lines 22--22
-[]\T1/ptm/m/n/8 TF-IDF, em-bed-dings mul-ti-l-
+Underfull \hbox (badness 10000) in paragraph at lines 78--78
+[]|\T1/ptm/m/n/9 TF-IDF y
  []
 
 
-Underfull \hbox (badness 1515) in paragraph at lines 22--22
-\T1/ptm/m/n/8 cam-bio de id-ioma en-tre en-tre-namiento y
+Underfull \hbox (badness 10000) in paragraph at lines 78--78
+\T1/ptm/m/n/9 re-cu-peración de
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+LaTeX Warning: Citation `reimers2019sbert' on page 3 undefined on input line 78
+.
 
-))
-(secciones/03_metodologia/metodologia.tex
-(secciones/03_metodologia/figura_flujo.tex)
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--78
+[]|\T1/ptm/m/n/9 Representación
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--78
+\T1/ptm/m/n/9 semán-tica me-di-ante
+ []
+
+
+LaTeX Warning: Citation `reimers2020multilingual' on page 3 undefined on input 
+line 78.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--78
+[]|\T1/ptm/m/n/9 Embeddings
+ []
+
+
+Underfull \hbox (badness 2035) in paragraph at lines 78--78
+[]|\T1/ptm/m/n/9 Propone un método de des-ti-lación de
+ []
+
+
+Underfull \hbox (badness 5359) in paragraph at lines 78--78
+\T1/ptm/m/n/9 conocimiento para generar rep-re-senta-
+ []
+
+
+Underfull \hbox (badness 1783) in paragraph at lines 78--78
+\T1/ptm/m/n/9 ciones de ora-ciones com-pa-ra-bles en-tre
+ []
+
+
+LaTeX Warning: Citation `brown2020' on page 3 undefined on input line 78.
+
+
+LaTeX Warning: Citation `lewis2020' on page 3 undefined on input line 78.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--78
+[]|\T1/ptm/m/n/9 Generación
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--78
+\T1/ptm/m/n/9 au-men-tada por
+ []
+
+
+LaTeX Warning: Citation `qwen2024' on page 3 undefined on input line 78.
+
+
+Underfull \hbox (badness 4505) in paragraph at lines 78--78
+[]|\T1/ptm/m/n/9 Presenta una fa-milia de mod-e-los de
+ []
+
+
+Overfull \hbox (264.0pt too wide) in paragraph at lines 78--79
+ [][] 
+ []
+
+) (secciones/03_metodologia/metodologia.tex
 (secciones/03_metodologia/fase1_comprension.tex
 
-LaTeX Warning: Citation `tmdb5000' on page 2 undefined on input line 14.
+LaTeX Warning: Citation `tmdb5000' on page 3 undefined on input line 14.
 
-) (secciones/03_metodologia/fase2_datos.tex [2]
+) (secciones/03_metodologia/fase2_datos.tex
 LaTeX Font Info:    Trying to load font information for T1+pcr on input line 8.
 
 
 (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
+[3]
 Overfull \hbox (20.9995pt too wide) in paragraph at lines 30--31
 [][][][][][][][][][][][][][][][][][][][][]  
  []
 
-[3] (secciones/03_metodologia/tabla_mapeo.tex)
+(secciones/03_metodologia/tabla_mapeo.tex))
+(secciones/03_metodologia/fase3_ingenieria_modelos.tex
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <7> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 76.
-
-Overfull \hbox (14.69946pt too wide) in paragraph at lines 97--99
-[][][][][][][][][][][][][][][][][][][][][][][]  
- []
-
-) (secciones/03_metodologia/fase3_preparacion.tex [4] [5]
-(secciones/03_metodologia/tabla_configuracion.tex) [6]
-Overfull \hbox (24.19981pt too wide) in paragraph at lines 203--205
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 25.
+ [4] [5]
+Overfull \hbox (24.19981pt too wide) in paragraph at lines 193--195
 [][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (24.19981pt too wide) in paragraph at lines 212--213
+Overfull \hbox (24.19981pt too wide) in paragraph at lines 202--203
 [][][][][][][][][][][][][][][][] 
  []
 
-[7]
-Overfull \hbox (4.19913pt too wide) in paragraph at lines 299--300
+[6] [7]
+Overfull \hbox (4.19913pt too wide) in paragraph at lines 289--290
 [][][][][][][][][][]  
  []
 
-) (secciones/03_metodologia/fase4_desarrollo.tex)
-(secciones/03_metodologia/fase5_evaluacion.tex)
-(secciones/03_metodologia/fase6_despliegue.tex))
+) (secciones/03_metodologia/fase4_evaluacion_modelo.tex
+Overfull \hbox (14.69946pt too wide) in paragraph at lines 38--40
+[][][][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[8]) (secciones/03_metodologia/fase5_implementacion_modelo.tex [9])
+(secciones/03_metodologia/fase6_mantenimiento.tex))
 (secciones/04_resultados/resultados.tex
-(secciones/04_resultados/tabla_resultados_A.tex)
-(secciones/04_resultados/tabla_resultados_B.tex)
-(secciones/04_resultados/figura_f1.tex)
-(secciones/04_resultados/figura_confusion.tex))
-(secciones/05_discusion/discusion.tex)
-(secciones/06_conclusiones/conclusiones.tex [8]
-(secciones/06_conclusiones/agradecimientos.tex))
+Overfull \hbox (150.43848pt too wide) in paragraph at lines 11--25
+ [][] 
+ []
+
+<figuras/comparacion_metricas.png, id=42, 921.4425pt x 267.399pt>
+File: figuras/comparacion_metricas.png Graphic file (type png)
+<use figuras/comparacion_metricas.png>
+Package pdftex.def Info: figuras/comparacion_metricas.png  used on input line 2
+9.
+(pdftex.def)             Requested size: 252.0pt x 73.12897pt.
+[10 <./figuras/comparacion_metricas.png>]
+Overfull \hbox (77.22234pt too wide) in paragraph at lines 56--65
+ [][] 
+ []
+
+
+Overfull \hbox (264.00291pt too wide) in paragraph at lines 98--128
+ [][] 
+ []
+
+[11]
+Underfull \hbox (badness 1418) in paragraph at lines 151--152
+[]|\T1/ptm/m/n/8 La re-comen-dación no cor-re-sponde a la
+ []
+
+
+Underfull \hbox (badness 1418) in paragraph at lines 159--160
+[]|\T1/ptm/m/n/8 La re-comen-dación no cor-re-sponde a la
+ []
+
+
+Overfull \hbox (168.91219pt too wide) in paragraph at lines 145--166
+ [][] 
+ []
+
+
+Overfull \hbox (75.15816pt too wide) in paragraph at lines 186--197
+ [][] 
+ []
+
+[12]
+<figuras/interfaz_pregunta_robot.png, id=56, 918.43124pt x 659.46375pt>
+File: figuras/interfaz_pregunta_robot.png Graphic file (type png)
+<use figuras/interfaz_pregunta_robot.png>
+Package pdftex.def Info: figuras/interfaz_pregunta_robot.png  used on input lin
+e 205.
+(pdftex.def)             Requested size: 252.0pt x 180.94554pt.
+
+Overfull \hbox (127.0416pt too wide) in paragraph at lines 219--238
+ [][] 
+ []
+
+) (secciones/05_discusion/discusion.tex)
+(secciones/06_conclusiones/conclusiones.tex)
 No file conference_101719.bbl.
+[13 <./figuras/interfaz_pregunta_robot.png (PNG copy)>]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -588,7 +710,7 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[9
+[14
 
 ] (conference_101719.aux)
  ***********
@@ -597,38 +719,35 @@ L3 programming layer <2025-12-24>
  ***********
 
 
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
-
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 7372 strings out of 467870
- 118696 string characters out of 5418838
- 882021 words of memory out of 5000000
- 36052 multiletter control sequences out of 15000+600000
- 746150 words of font info for 166 fonts, out of 8000000 for 9000
+ 7940 strings out of 467870
+ 125921 string characters out of 5418838
+ 892177 words of memory out of 5000000
+ 36621 multiletter control sequences out of 15000+600000
+ 746365 words of font info for 168 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 61i,11n,65p,1170b,1689s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 61i,11n,65p,1255b,1835s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
 mex10.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
 nts/cm/cmmi10.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/publ
-ic/amsfonts/cm/cmmi8.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/typ
+ic/amsfonts/cm/cmmi9.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/typ
 e1/public/amsfonts/cm/cmr10.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fo
-nts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Home/AppData/Local/Programs/MiK
-TeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Home/AppData/Local/Prog
-rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Home/AppData/Loc
-al/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/Home/AppData/Lo
-cal/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/Home/AppData/L
-ocal/Programs/MiKTeX/fonts/type1/urw/courier/ucrro8a.pfb><C:/Users/Home/AppData
-/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Home/AppData/
-Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/Home/AppData/
-Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Home/AppData/L
-ocal/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on conference_101719.pdf (9 pages, 220060 bytes).
+nts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Home/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Home/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Home/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/Home/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/Home/AppData/
+Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrro8a.pfb><C:/Users/Home/AppDat
+a/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Home/AppData
+/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/Home/AppData
+/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Home/AppData/
+Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on conference_101719.pdf (14 pages, 600943 bytes).
 PDF statistics:
- 103 PDF objects out of 1000 (max. 8388607)
+ 123 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

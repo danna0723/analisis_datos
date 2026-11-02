@@ -1,18 +1,79 @@
-﻿% secciones/02_estado_del_arte/estado_del_arte.tex
-\section{Estado del arte}\label{sec:sota}
+﻿\section{Estado del arte}
 
-\subsection{Recuperacion de informacion textual}
+\section{Metodologías para el desarrollo de aplicaciones de Machine Learning}
+El desarrollo de aplicaciones basadas en aprendizaje automático requiere un proceso organizado que permita abordar las diferentes actividades involucradas en su construcción, desde la identificación del problema hasta la implementación y mantenimiento de la solución. Una de las metodologías propuestas para orientar este proceso es CRISP-ML(Q), cuyo propósito es establecer un modelo de desarrollo para aplicaciones de Machine Learning que incorpore actividades de aseguramiento de calidad durante todo su ciclo de vida.
 
-\subsection{Metodos tradicionales de recuperacion: TF-IDF y similitud del coseno}
+De acuerdo con la explicación presentada por DataCamp\cite{datacamp_ml_lifecycle}, el ciclo de vida puede organizarse en las siguientes seis etapas: planificación, preparación de datos, ingeniería de modelos, evaluación del modelo, implementación del modelo y supervisión y mantenimiento. Fases las cuales se toman como referencia para la organización de las actividades de desarrollo del proyecto.
 
-\subsection{Modelos preentrenados y embeddings semánticos multilingues}
+\section{Técnicas de recuperación de información}
 
-\subsection{Sistemas de recomendacion conversacional de peli­culas}
+En el estudio de "Language Models are Few-Shot Learners" \cite{brown2020} mostraron que un modelo de lenguaje de gran tamaño puede resolver tareas a partir de instrucciones o de pocos ejemplos, sin ajustar sus pesos. Por otra parte, en el estudio "Retrieval-augmented generation for knowledge-intensive NLP tasks" \cite{lewis2020} combinan un recuperador con un generador para que la respuesta se apoye en documentos externos, mientras que Qwen2.5 \cite{qwen2024} ofrece modelos abiertos que siguen instrucciones, incluidas versiones pequeñas que pueden ejecutarse con recursos limitados, como la que se usa aquí.
 
-\subsection{Modelos de lenguaje grandes para la generacion de respuestas}
+En cuanto a la recuperacion de informacion, se consideraron dos enfoques principales para este proyecto: TF-IDF y embeddings multilingües:
 
-\subsection{Métricas y evaluación de sistemas de recuperación}
+\subsection{TF-IDF y similitud del coseno}
+El esquema de ponderación TF-IDF (\textit{Term Frequency - Inverse Document Frequency}) evalúa la importancia de una palabra en un documento considerando tanto sus apariciones locales (TF) como su rareza en toda la colección (IDF). Aunque durante mucho tiempo se consideró una regla puramente heurística y se intentó justificar mediante la Teoría de la Información de Shannon, Robertson \cite{robertson2004idf} demuestra que los enfoques basados en la información presentan serias inconsistencias teóricas, como la dificultad para definir los espacios de eventos probabilísticos o explicar por qué se ignoran las palabras no incluidas en la consulta. En su lugar, el autor prueba que TF-IDF posee un fundamento sólido en los modelos probabilísticos tradicionales de recuperación de información: el componente IDF equivale al peso de relevancia de Robertson-Spärck Jones (RSJ) cuando no hay datos previos de relevancia, mientras que la combinación TF-IDF se justifica mediante el modelo Okapi BM25, donde la frecuencia local (TF) actúa como evidencia probabilística de que el documento trata verdaderamente sobre el tema deseado.
 
-\subsection{Análisis comparativo y brecha identificada}
+\subsection{Embeddings y recuperación semántica}
+Los \textit{embeddings} son representaciones numéricas en forma de vectores dentro de un espacio vectorial, diseñados de tal forma que las oraciones con un significado conceptual similar se ubiquen geométricamente cerca unas de otras \cite{reimers2019sbert}. Este concepto es el pilar fundamental de la \textbf{recuperación semántica}, un enfoque de búsqueda que permite encontrar información o responder consultas evaluando la similitud de significado entre textos, superando las limitaciones de la simple coincidencia exacta de palabras clave.
 
-\input{secciones/02_estado_del_arte/tabla_comparativa}
+La recuperación semántica se vuelve más compleja en escenarios multilingües, donde la mayoría de modelos eficaces existen únicamente para el idioma inglés. Para extender estos \textitembeddings a múltiples lenguas, Reimers y Gurevych \cite{reimers2020multilingual} proponen la \textbf{destilación de conocimiento multilingüe} (\textit{multilingual knowledge distillation}). En este método, un modelo "estudiante" multilingüe (como XLM-RoBERTa) se entrena con pares de oraciones traducidas para imitar las representaciones del modelo "profesor" monolingüe (SBERT en inglés) minimizando el error cuadrático medio. Esta técnica logra dos propiedades cruciales para la recuperación semántica translingüe: 
+
+1. alinea los espacios vectoriales entre idiomas (haciendo que oraciones equivalentes en diferentes lenguas compartan la misma ubicación vectorial)
+2. transfiere la capacidad de medir similitud semántica a más de 50 idiomas sin sufrir del sesgo de idioma característico de otros métodos tradicionales \cite{reimers2020multilingual}.
+
+\section{Comparación de los trabajos revisados}
+\begin{table}[htbp]
+    \centering
+    \caption{Comparación de los trabajos relacionados con el proyecto.}
+    \label{tab:comparacion_estado_arte}
+    \small
+    \begin{tabularx}{\textwidth}{|p{2.6cm}|p{2.8cm}|X|X|}
+        \hline
+        \textbf{Autor y año} & \textbf{Enfoque} &
+        \textbf{Aporte principal} & \textbf{Relación con CineBot} \\
+        \hline
+
+        DataCamp (2023) \cite{datacamp_ml_lifecycle} &
+        Ciclo de vida de Machine Learning &
+        Describe seis etapas para el desarrollo de aplicaciones de aprendizaje automático: planificación, preparación de datos, ingeniería de modelos, evaluación, implementación y supervisión y mantenimiento. &
+        Se toma como referencia para organizar las actividades y etapas de desarrollo del proyecto. \\
+        \hline
+
+        Robertson (2004) \cite{robertson2004idf} &
+        TF-IDF y recuperación de información &
+        Analiza los fundamentos teóricos del IDF y su relación con los modelos probabilísticos tradicionales de recuperación de información. &
+        Fundamenta el uso de TF-IDF para representar los textos de las películas y realizar búsquedas basadas en la coincidencia de términos. \\
+        \hline
+
+        Reimers y Gurevych (2019) \cite{reimers2019sbert} &
+        Representación semántica mediante embeddings &
+        Propone Sentence-BERT, un modelo que genera representaciones vectoriales de oraciones y permite comparar su similitud semántica de manera eficiente. &
+        Proporciona los fundamentos para utilizar representaciones vectoriales en la búsqueda de películas según el significado de las consultas. \\
+        \hline
+
+        Reimers y Gurevych (2020) \cite{reimers2020multilingual} &
+        Embeddings multilingües &
+        Propone un método de destilación de conocimiento para generar representaciones de oraciones comparables entre diferentes idiomas. &
+        Sustenta el uso de embeddings multilingües para procesar consultas en español y relacionarlas semánticamente con las descripciones de las películas. \\
+        \hline
+
+        Brown et al. (2020) \cite{brown2020} &
+        Modelos de lenguaje de gran tamaño &
+        Estudia la capacidad de los modelos de lenguaje para realizar tareas mediante instrucciones y ejemplos, sin necesidad de ajustar sus parámetros para cada tarea. &
+        Aporta fundamentos sobre el uso de modelos de lenguaje para interpretar instrucciones y generar respuestas en lenguaje natural. \\
+        \hline
+
+        Lewis et al. (2020) \cite{lewis2020} &
+        Generación aumentada por recuperación (RAG) &
+        Propone combinar un componente de recuperación de información con un modelo generador para producir respuestas apoyadas en documentos externos. &
+        Se relaciona con la integración de recuperación y generación de respuestas, concepto que sirve como referencia para la capa generativa de CineBot. \\
+        \hline
+
+        Qwen Team (2024) \cite{qwen2024} &
+        Modelos de lenguaje Qwen2.5 &
+        Presenta una familia de modelos de lenguaje con diferentes tamaños y capacidades para seguir instrucciones y generar texto. &
+        Se relaciona directamente con la selección de Qwen2.5-1.5B-Instruct como modelo para generar las respuestas del chatbot. \\
+        \hline
+    \end{tabularx}
+\end{table}

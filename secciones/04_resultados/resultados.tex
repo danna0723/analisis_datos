@@ -1,18 +1,239 @@
 ﻿% secciones/04_resultados/resultados.tex
 \section{Resultados}\label{sec:resultados}
 
-\subsection{Conjunto A: Bitext (ingles)}
+A continuacion, en la Tabla~\ref{tab:resultadosmetodos} y la Fig.~\ref{fig:comparacionmetricas} se presentan los los resultados de las metricas de rendimiento evaluadas. 
 
-\input{secciones/04_resultados/tabla_resultados_A}
+\begin{table}[htbp]
+\centering
+\caption{Resultados cuantitativos de evaluación por conjunto de prueba y método.}
+\label{tab:resultadosmetodos}
+\small
+\begin{tabular}{llcccccc}
+\hline
+\textbf{Conjunto} & \textbf{Método} & \textbf{$n$} & \textbf{Top-1} & \textbf{Recall@5} & \textbf{Recall@10} & \textbf{MRR} & \textbf{ms/consulta} \\
+\hline
+\multirow{2}{*}{A. Eslogan} & TF-IDF & 1000 & 0.044 & 0.089 & 0.121 & 0.070 & 35.06 \\
+ & Embeddings & 1000 & 0.049 & 0.107 & 0.136 & 0.079 & 14.86 \\
+\hline
+\multirow{2}{*}{B. Palabras clave} & TF-IDF & 1000 & 0.137 & 0.285 & 0.350 & 0.209 & 35.06 \\
+ & Embeddings & 1000 & 0.124 & 0.242 & 0.303 & 0.189 & 14.86 \\
+\hline
+\multirow{2}{*}{C. Español (manual)} & TF-IDF & 39 & 0.000 & 0.128 & 0.128 & 0.048 & 35.06 \\
+ & Embeddings & 39 & \textbf{0.256} & \textbf{0.513} & \textbf{0.641} & \textbf{0.383} & \textbf{14.86} \\
+\hline
+\end{tabular}
+\end{table}
 
-\subsection{Conjunto B: español (manual)}
+\begin{figure}[t]
+\centering
+\figopt{figuras/comparacion_metricas.png}{\columnwidth}{figuras/comparacion_metricas.png}
+\caption{Comparación de las métricas de evaluación.}
+\label{fig:comparacionmetricas}
+\end{figure}
 
-\input{secciones/04_resultados/tabla_resultados_B}
+\subsection{Resultados por conjuntos de consulta.}
+\begin{itemize}
+    \item Conjunto A: En el conjunto A se ve que ambos metodos tienen un desempeño que podria considerarse bajo, el MRR es de 0.079 para embeddings y 0.070 con TF-IDF, lo que indica que los esloganes no son un buen recurso para que el sistema pueda recomendar una pelicula porque son solo frases que rara vez describen la trama de la pelicula, por lo que el sistema no obtiene suficiente informacion. La diferencia de MRR a favor de embeddings es de 0.009.
+    \item Conjunto B: En el conjunto B, el modelo TF-IDF supera a embeddings con un MRR de 0.209 en comparacion con el 0.189 de embeddings, lo que indica que las palabras clave son un recurso bastande util ya que estas suelen aparecer en la sinopsis de la pelicula, por lo que el sistema puede encontrar las peliculas mas facilmente. En este caso, la diferencia entre embeddings y TF-IDF es de -0.020.
+    \item Conjunto C: Se puede observar que el modelo de embeddings supera a TF-IDF en el conjunto C, que es el conjunto de consultas en español. Las metricas registraron un Recall@5 de 51.3\% y un MRR de 0.383, mientras que TF-IDF obtuvo un Recall@5 de 12.8\% y un MRR de 0.048. Por otro lado, las mediciones de latencia confirman que realizar una ejecucion sobre GPU (CUDA) permite que se procese cada consulta con un promedio de 14.86ms mediante la busqueda por producto matricial sobre embeddings, mientras que TF-IDF requiere un promedio de 35.06ms por consulta, lo que representa una diferencia de 2.36 veces mas rapido para el modelo de embeddings. 
+\end{itemize}
 
-\input{secciones/04_resultados/figura_f1}
 
-\input{secciones/04_resultados/figura_confusion}
+\subsection{Análisis de recomendaciones.}
 
-\subsection{AnÃ¡lisis de errores}
+Se realizo un analisis en el que se compararon las recomendaciones dadas por ambos metodos para una misma consulta "una pelicula de robots que se enamoran", esto con el fin de observar que respuestas dan cada uno.
+
+En el caso de TF-IDF, la primera pelicula que el sistema recomendo fue Sky Captain and the world of tomorrow de 2004, la descripcion de la pelicula menciona ataques de robot gigantes, mientras que la segunda pelicula recomendada fue Heartbeeps de 1981, la cual es una pelicula de una historia de amor entre dos robots, y por ultimo, el sistema recomendo la pelicula Surrogates (2009), una pelicula sobre la vida en un mundo donde los humanos son reemplazados por réplicas. Por otro lado, el modelo de embeddings recomendo como primera pelicula Heartbeeps (1981), seguida de la pelicula The Lovers (2015) y A.I. artifial intelligence (2001), ambas peliculas sobre historias de amor entre robots, lo que indica que en el modelo embedding existe una mayor relacion entre la intencion del usuario con la consulta y la pelicula recomendada como primera opcion.
+
+Estas diferencias se pueden apreciar tambien en los valores de similitud que el sistema le asigno a cada una de las recomendaciones dadas, ambos modelos recomendaron la pelicula Heartbeeps (1981), con la diferencia de que TF-IDF le asigno un puntaje de 0.30 mientras que embeddings le asigno 0.69. Aunque estos puntajes no son equivalentes en los dos modelos, ya que cada uno cuenta con sus propias escalas de similitud, permiten observar el orden de relevancia que se establecio por cada modelo.
+
+En general, el ejemplo permitio ver que ambos metodos permiten recuperar peliculas que esten relacionadas con los terminos que el usuario utiliza en su consulta, pero son diferentes a la hora de diferenciar la intencion y significado de una descripcion, siento embeddings el que logro ubicar primero la pelicula que coincide mas con la descripcion que fue dada por el usuario.  
+
+\begin{table}[htbp]
+    \centering
+    \caption{Comparación de recomendaciones para la consulta "una película de robots que se enamoran".}
+    \label{tab:comparacion_recomendaciones}
+    \begin{tabular}{c|l|l}
+        \hline
+        \textbf{Posición} & \textbf{TF-IDF} & \textbf{Embeddings} \\
+        \hline
+        1 & Sky Captain and the World of Tomorrow (0.31) & Heartbeeps (0.69) \\
+        2 & Heartbeeps (0.30) & The Lovers (0.62) \\
+        3 & Surrogates (0.26) & A.I. Artificial Intelligence (0.59) \\
+        \hline
+    \end{tabular}
+\end{table}
 
 \subsection{Tiempo de respuesta}
+
+En cuanto a los tiempos de respuesta, TF-IDF registro en promedio 35.064ms por consulta mientras que Embeddings registro 14.857ms, valores que se obtuvieron teniendo en cuenta las condiciones de prueba establecidas, en las que TF-IDF se ejecuto con CPU y Embeddings en GPU. Para complementar el analisis del tiempo de respuesta, se realizo una medicion extra en la que se evaluo el modelo Embeddings en CPU con el fin de poder hacer una comparacion mas justa, fue asi que se lograron obtener los siguientes resultados:
+
+\begin{table}[htbp]
+    \centering
+    \caption{Comparación de los tiempos de respuesta según el método y el hardware de ejecución.}
+    \label{tab:tiempos_respuesta}
+    \begin{tabular}{l|l|r}
+        \hline
+        \textbf{Método} & \textbf{Hardware} & \textbf{Tiempo (ms/consulta)} \\
+        \hline
+        TF-IDF & CPU (NumPy) & 35.1 \\
+        Embeddings & CPU & 42.0 \\
+        Embeddings & GPU (CUDA) & 14.9 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+En la tabla se puede observar como el metodo de TF-IDF tiene en promedio un tiempo de 35.1ms de consulta, mientras que Embeddings en CPU alcanzo un 42.0, esto permite ver un 19.7\% de diferencia a favor de TF-IDF. Cuando Embeddings se ejecuta en GPU mediante CUDA, el tiempo disminuye a 14.9ms por consulta, lo que deja ver que existe una reduccion aproximada del 64.5\% respecto a su ejecucion en CPU.
+
+Estos resultados permiten concluir que en general, el metodo TF-IDF presenta un menor tiempo de respuesta cuando ambos metodos se ejecutan usando CPU, sin embargo, Embeddings reduce su tiempo de procesamiento cuando se usa GPU, lo que deja ver que su rendimiento esta condicionado por los recursos del hardware disponible. 
+
+\subsection{Umbrales de similitud}
+
+Para analizar la capacidad de los metodos de recuperacion de identificar consultas que no pertenecen al contexto de las peliculas se probaron nueve valores entre 0.05 y 0.60, en los que se evaluaron tres grupos: consultas fuera de tema, consultas manuales en español (el conjunto c) y consultas basadas en esloganes (conjunto A). Los resultados muestran que:
+
+\begin{table}[htbp]
+    \centering
+    \caption{Resultados del barrido de umbrales de similitud.}
+    \label{tab:barrido_umbrales}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{c|c|c|c|c}
+        \hline
+        \textbf{Método} & \textbf{Umbral} &
+        \textbf{Fuera de tema que aún responde} &
+        \textbf{Consultas C que responde} &
+        \textbf{Consultas A que responde} \\
+        \hline
+        Embeddings & 0.05 & 1.00 & 1.00 & 1.00 \\
+        Embeddings & 0.10 & 1.00 & 1.00 & 1.00 \\
+        Embeddings & 0.20 & 1.00 & 1.00 & 1.00 \\
+        Embeddings & 0.30 & 0.70 & 1.00 & 0.98 \\
+        Embeddings & 0.40 & 0.20 & 1.00 & 0.82 \\
+        Embeddings & 0.45 & 0.00 & 1.00 & 0.62 \\
+        Embeddings & 0.50 & 0.00 & 0.92 & 0.43 \\
+        Embeddings & 0.55 & 0.00 & 0.77 & 0.24 \\
+        Embeddings & 0.60 & 0.00 & 0.51 & 0.12 \\
+        \hline
+        TF-IDF & 0.05 & 0.30 & 0.67 & 0.99 \\
+        TF-IDF & 0.10 & 0.30 & 0.67 & 0.99 \\
+        TF-IDF & 0.20 & 0.20 & 0.36 & 0.66 \\
+        TF-IDF & 0.30 & 0.10 & 0.21 & 0.14 \\
+        TF-IDF & 0.40 & 0.10 & 0.05 & 0.02 \\
+        TF-IDF & 0.45 & 0.00 & 0.00 & 0.01 \\
+        TF-IDF & 0.50 & 0.00 & 0.00 & 0.01 \\
+        TF-IDF & 0.55 & 0.00 & 0.00 & 0.00 \\
+        TF-IDF & 0.60 & 0.00 & 0.00 & 0.00 \\
+        \hline
+    \end{tabular}
+    }
+\end{table}
+
+En donde se ve que los resultados muestran diferencias entre ambos metodos, en Embeddings, los umbrales que son bajos (0.05 y 0.20) permiten responder todas las preguntas validas de los conjuntos A y C, pero tambien dejan pasar las consultas que estan fuera de tema. Cuando se aumento el umbral a 0.40, las consultas fuera de tema que reciben respuesta disminuyen al 20\% mientras que se conservan todas las consultas del conjunto C y el 82\% de las consultas del conjunto A. Cuando se tiene un umbral de 0.45 el porcentaje de consultas fuera del tema que son contestadas llega a 0\%, por lo que se mantiene el 100\% de las consultas de C y el 62\% de las consultas de A.
+
+TF-IDF por otro lado, con un umbral de 0.20, el 20\% de las consultas que estaban fuera del tema aun obtenian respuesta, pero al mismo tiempo, solo el 36\% de las consultas de C y el 66\% de las consultas de A  superan ese valor, es a partir de 0.45 que ninguna consulta fuera de tema supera el umbral, aunque tampoco se conservan consultas validas.
+
+En general, los resultados muestran que Embedding ofrece un comportamiento mas favorable para poder establecer un umbral de aceptación en este experimento, especialmente al considerar las consultas manuales en español. Un umbral de 0.45 permite que el sistema no responda consultas fuera de tema, mientras que se conservan todas las consultas del conjunto C, esta configuracion reduce al 62\% la proporcion de las consultas del conjunto A que superan el umbral, por lo que su eleccion implica que haya un equilibrio entre el rechazo a las consultas no pertinentes y a la conservacion de las validas.
+
+\subsection{Capa con LLM}
+Se realizo una prueba de la capa de LLM con el fin de evaluar su capacidad de recibir una consulta, utilizar el metodo de Embeddings para recuperar las tres peliculas con mayor similitud semantica y generar respuestas redactadas en lenguaje natural a partir usar como contexto los resultados obtenidos mediante embeddings. Para esto, se construye un contexto con los titulos, años, generos y los primeros 300 caracteres de las sinopsis de las peliculas, toda esta informacion se le pasa al LLM, que es el que se encarga de interpretar las opciones y generar una respuesta mas completa relacionada con lo que se le pregunto.
+
+Para comprobar dicho funcionamiento, se realizaron cuatro pruebas con descripciones de peliculas en español:
+
+\begin{table}[htbp]
+    \centering
+    \caption{Resultados de la evaluación cualitativa del LLM.}
+    \label{tab:resultados_llm}
+    \begin{tabular}{p{4.5cm}|p{4cm}|p{5cm}}
+        \hline
+        \textbf{Consulta} & \textbf{Película recomendada} & \textbf{Observación} \\
+        \hline
+        Un barco gigante choca con un iceberg y una chica rica se enamora de un chico pobre.
+        & Show Boat
+        & La recomendación no corresponde a la película esperada (Titanic). \\ 
+        \hline
+        Un robot solitario limpia la Tierra abandonada y se enamora de otro robot.
+        & WALL$\cdot$E (2008)
+        & La recomendación corresponde a la descripción proporcionada y presenta una relación temática adecuada. \\
+        \hline
+        Un viejo ata miles de globos a su casa y viaja a Sudamérica con un niño explorador.
+        & The Blue Butterfly
+        & La recomendación no corresponde a la película esperada (Up). \\
+        \hline
+        Una película de terror con casas embrujadas.
+        & The Amityville Horror (2005)
+        & La recomendación presenta relación con la temática solicitada de casas embrujadas. \\
+        \hline
+    \end{tabular}
+\end{table}
+
+Se observo que el modelo puede generar respuestas coherentes y contextualizadas, por ejemplo, cuando se le pregunto sobre "Un robot solitario limpia la Tierra abandonada y se enamora de otro robot", el modelo genero una respuesta completa y natural que mencionaba la pelicula Wall-E, sin embargo, se encontraron limitaciones cuando tuvo que redactar otras respuestas, ya que hubo otro caso en el que cuando se le consulto sobre "Un barco gigante choca con un iceberg y una chica rica se enamora de un chico pobre", el modelo recomendo la pelicula Show Boat en vez de la pelicula esperada Titanic, lo que indica que la generacion de respuestas no garantiza la identificacion correcta de la pelicula y que el modelo puede realizar interpretaciones inadecuadas de la consulta.
+
+Esto es debido a que LLM no realiza una busqueda independiente en el catalogo, si no que trabaja a partir de las tres peliculas recuperadas por embeddings, no obstante, el modelo se encarga de interpretar las fichas proporcionadas y decidir cuales considera mas adecuada para la consulta, lo que puede influir en la seleccion final y generar explicaciones que no representen correctamente el contenido de las peliculas, es por esa razon, que se puede concluir que la incorporacion del LLM permite presentar recomendaciones medainte respuestas mas naturales y explicativas que una simple lista de titulos, pero esta capa no garantiza una mayor presicion en la seleccion de las peliculas, por lo que su uso principal se encuentra en la generacion de respuestas en lenguaje natural.
+
+\subsection{Umbrales de similitud}
+
+Los intervalos de confianza obtenidos permiten complementar la comparación de los métodos mediante la identificación de la incertidumbre asociada a las diferencias de MRR. En el conjunto A, Embeddings presentó una diferencia positiva de 0,009 respecto a TF-IDF. Sin embargo, el intervalo de confianza comprendido entre -0,004 y 0,021 incluye el valor cero, por lo que no se puede establecer una diferencia concluyente entre ambos métodos para este conjunto.
+
+De manera similar, en el conjunto B, TF-IDF obtuvo un MRR superior al de Embeddings, con una diferencia de 0,020. No obstante, el intervalo de confianza de la diferencia entre Embeddings y TF-IDF, comprendido entre -0,043 y 0,002, también incluye el cero. Por tanto, aunque los resultados observados favorecen a TF-IDF, la estimación mediante bootstrap no permite establecer una diferencia concluyente entre los métodos en este escenario.
+
+En contraste, el conjunto C presentó una diferencia de 0,335 a favor de Embeddings. Su intervalo de confianza, comprendido entre 0,216 y 0,465, no incluye el valor cero y se mantiene completamente en valores positivos.
+
+En consecuencia, el análisis mediante bootstrap respalda los resultados obtenidos con Embeddings para las descripciones. Aunque este método presentó valores de MRR superiores en el conjunto A, y TF-IDF obtuvo mejores resultados en el conjunto B, las diferencias observadas en estos dos escenarios no fueron concluyentes según los intervalos estimados, por lo que esto refuerza la importancia de considerar el tipo de consulta al comparar el comportamiento de los métodos de recuperación.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Intervalos de confianza del 95\% para la diferencia de MRR entre TF-IDF y Embeddings.}
+    \label{tab:intervalos_confianza_mrr}
+    \begin{tabular}{l|c|c|c|c}
+        \hline
+        \textbf{Conjunto} & \textbf{MRR TF-IDF} &
+        \textbf{MRR Embeddings} & \textbf{Diferencia} &
+        \textbf{IC 95\%} \\
+        \hline
+        A. Eslogan & 0.070 & 0.079 & 0.009 & [-0.004; 0.021] \\
+        B. Palabras clave & 0.209 & 0.189 & -0.020 & [-0.043; 0.002] \\
+        C. Español (manual) & 0.048 & 0.383 & 0.335 & [0.216; 0.465] \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Interfaz en Telegram}
+
+La interfaz de usuario se implemento en Telegram, lo que permite que los usuarios puedan interactuar con el sistema mediante un chat. La interfaz es sencilla y amigable, permitiendo a los usuarios enviar descripciones de películas y recibir recomendaciones de manera rápida y eficiente:
+
+\begin{figure}[t]
+\centering
+\figopt{figuras/interfaz_pregunta_robot.png}{\columnwidth}{figuras/interfaz_pregunta_robot.png}
+\caption{Interfaz de CinemaBox en Telegram.}
+\label{fig:interfaz_telegram}
+\end{figure}
+
+\subsection{Comparación general de los métodos de recuperación}
+
+La comparacion general de los metodos de recuperacion TF-IDF y Embeddings se presenta en la Tabla~\ref{tab:comparacion_general_modelos}, donde se observa que Embeddings supera a TF-IDF en el conjunto C, mientras que TF-IDF obtiene mejores resultados en el conjunto B. En el conjunto A, ambos metodos presentan un desempeño similar, con una ligera ventaja para Embeddings. En cuanto al tiempo de respuesta, Embeddings es significativamente mas rapido que TF-IDF, especialmente cuando se ejecuta en GPU:
+
+\begin{table}[htbp]
+    \centering
+    \caption{Comparación general de los métodos de recuperación TF-IDF y Embeddings.}
+    \label{tab:comparacion_general_modelos}
+    \small
+    \begin{tabular}{l|l|c|c|c|c|c}
+        \hline
+        \textbf{Conjunto} & \textbf{Método} & \textbf{Top-1} &
+        \textbf{Recall@5} & \textbf{Recall@10} & \textbf{MRR} &
+        \textbf{Tiempo (ms)} \\
+        \hline
+        \multirow{2}{*}{A. Eslogan}
+        & TF-IDF & 0.044 & 0.089 & 0.121 & 0.070 & 35.1 \\
+        & Embeddings & 0.049 & 0.107 & 0.136 & 0.079 & 14.9 \\
+        \hline
+        \multirow{2}{*}{B. Palabras clave}
+        & TF-IDF & 0.137 & 0.285 & 0.350 & 0.209 & 35.1 \\
+        & Embeddings & 0.124 & 0.242 & 0.303 & 0.189 & 14.9 \\
+        \hline
+        \multirow{2}{*}{C. Español (manual)}
+        & TF-IDF & 0.000 & 0.128 & 0.128 & 0.048 & 35.1 \\
+        & Embeddings & 0.256 & 0.513 & 0.641 & 0.383 & 14.9 \\
+        \hline
+    \end{tabular}
+\end{table}
+

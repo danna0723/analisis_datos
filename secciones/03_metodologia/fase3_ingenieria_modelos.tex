@@ -1,5 +1,4 @@
-﻿% secciones/03_metodologia/fase3_modelado.tex
-\subsection{Fase 3: Ingeniería de modelos}
+﻿\subsection{Fase 3: Ingeniería de modelos}
 Para el desarrollo del sistema, se implementaron dos enfoques con dos modelos de recuperacion de informacion diferentes, ambos utilizados bajo las mismas condiciones, es decir, con el mismo catalogo de peliculas. Los modelos se implementaron de la siguiente manera:
 
 \subsubsection{Enfoque 1: TF-IDF}
@@ -10,10 +9,10 @@ Una vez definidas las palabras vacias, se limpia el texto, con limpiar se hace r
 
 \begin{lstlisting}[language=Python, caption={~}]
 def limpiar(texto):
-    texto = texto.lower()                              # todo a minusculas
-    texto = re.sub(r'[^a-zaeiouun ]', ' ', texto)     # quitar puntuacion
-    tokens = texto.split()                             # separar en palabras
-    return [t for t in tokens if t not in STOP and len(t) > 1]  # filtrar stopwords
+    texto = texto.lower()                             
+    texto = re.sub(r'[^a-zaeiouun ]', ' ', texto)     
+    tokens = texto.split()                             
+    return [t for t in tokens if t not in STOP and len(t) > 1]  
 \end{lstlisting}
 
 El siguiente paso es construir el indice TF-IDF, es decir, la estructura de datos que se construye para que el sistema pueda comparar la consulta que hace el usuario con las peliculas que tiene en su catalogo y asi encontrar la que mas se parezca. Si el sistema tiene una cantidad x de peliculas, el codigo procesa los textos de cada una de ellas y a partir de eso construye el vocabulario indentificando las palabras que aparecen en el catalogo, utilizando \textit{word2idx} para asignarle a cada palabra una posicion numerica mientras que la variable \textit{v} representa el numero total de palabras unicas del vocabulario. De esta manera, se puede representar a cada pelicula mediante un vector que tenga el mismo numero de posiciones que de palabras en el vocabulario.
@@ -138,14 +137,8 @@ Los resultados, es decir, las peliculas, se ordendan de mayor a menor con \texti
 \begin{lstlisting}[language=Python, caption={~}]
 
 def buscar_tfidf(consulta, k=3):
-    # Convertir la consulta del usuario en vector TF-IDF
     vec = vectorizar(consulta, idf, word2idx)
-
-    # Similitud con todas las peliculas
-    # (producto punto entre vectores normalizados = similitud del coseno)
     similitudes = matriz_tfidf @ vec
-
-    # Indices de las k peliculas mas similares
     top = np.argsort(-similitudes)[:k]
     return top, similitudes[top]
 
@@ -172,17 +165,15 @@ Por ultimo, se ejecutaron una pruebas las cuales permiten verificar el comportam
 
 print("Probando el motor TF-IDF:\n")
 pruebas = [
-    'a robot that falls in love',                 # en ingles: deberia funcionar
-    'una pelicula de robots que se enamoran',     # en espanol: TF-IDF casi no ve palabras en comun
+    'a robot that falls in love',                
+    'una pelicula de robots que se enamoran',    
     'dinosaurs escape from a theme park',
-    'receta de empanadas',                        # fuera de tema: debe dar fallback
+    'receta de empanadas',                        
 ]
 for p in pruebas:
     print(f'  Usuario: {p}')
     print(f'  Bot:     {responder_tfidf(p)}\n')
 \end{lstlisting}
-
-\input{secciones/03_metodologia/tabla_configuracion}
 
 \subsubsection{Enfoque 2: Embeddings multilingües}
 
@@ -306,5 +297,5 @@ if USE_LLM:
     for q in es_q[:3] + ['una pelicula de terror con casas embrujadas']:
         t0 = time.time()
         r = asistente(q)
-        print(f'Usuario: {q}\nCineBot: {r}\n({time.time() - t0:.1f} s)\n' + '-' * 60)
+        print(f'Usuario: {q}\nCinemaBox: {r}\n({time.time() - t0:.1f} s)\n' + '-' * 60)
 \end{lstlisting}

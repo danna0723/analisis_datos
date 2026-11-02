@@ -10,11 +10,18 @@
 \usepackage[T1]{fontenc}
 \usepackage{xcolor}
 \usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{underscore}
 \usepackage{listingsutf8}
-
+\usepackage{multirow}
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{lstlisting}{\catcode`_=12}
+\AfterEndEnvironment{lstlisting}{\catcode`_=13}
 \renewcommand{\lstlistingname}{Codigo}
-\lstset{inputencoding=utf8,extendedchars=true,language=Python,basicstyle=\ttfamily\scriptsize,breaklines=true,breakatwhitespace=true,columns=fullflexible,frame=single,showstringspaces=false,numbers=left,numberstyle=\tiny,stepnumber=1,numbersep=5pt,captionpos=b}
+\lstset{inputencoding=utf8,extendedchars=true,language=Python,basicstyle=\ttfamily\scriptsize,breaklines=true,breakatwhitespace=true,columns=fullflexible,frame=single,showstringspaces=false,numbers=left,numberstyle=\tiny,stepnumber=1,numbersep=5pt,captionpos=b,literate={á}{{\'a}}1{é}{{\'e}}1{í}{{\'i}}1{ó}{{\'o}}1{ú}{{\'u}}1{ñ}{{\~n}}1{ü}{{\"u}}1{Á}{{\'A}}1{É}{{\'E}}1{Í}{{\'I}}1{Ó}{{\'O}}1{Ú}{{\'U}}1{Ñ}{{\~N}}1{Ü}{{\"U}}1{…}{{...}}1{—}{{---}}1{–}{{--}}1{“}{{``}}1{”}{{''}}1{‘}{{`}}1{’}{{'}}1}
 \newcommand{\tbd}[1]{\textcolor{red}{#1}}
+\newcommand{\textitembeddings}{\textit{embeddings}}
+\newcommand{\figopt}[3]{\includegraphics[width=#2]{#1}}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
@@ -29,6 +36,6 @@
 \input{secciones/06_conclusiones/conclusiones}
 % BibliografÃ­a
 \bibliographystyle{IEEEtran}
-\bibliography{bibliografia/referencias}
+\bibliography{referencias.bib}
 
 \end{document}

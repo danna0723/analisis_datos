@@ -1,5 +1,4 @@
-﻿% secciones/03_metodologia/fase4_evaluacion_modelo.tex
-\subsection{Fase 4: Evaluación del modelo}
+﻿\subsection{Fase 4: Evaluación del modelo}
 La evaluacion del modelo se realiza inicialmente normalizando los titulos de las peliculas, esto para poder identificarlas correctamente en el catalogo ya que hay titulos que cuentan con caracteres especiales como mayusculas, espacios o signos de puntuacion. Luego, se le asigna una posicion numerica a cada pelicula comenzando desde cero, esto para posteriormente identificar cual es la pelicula correcta dentro de los resultados obtenidos.    
 
 \textit{Conjuntos de consulta.}
@@ -87,32 +86,3 @@ La medicion del tiempo de consulta se hace para medir cuanto tarda cada metodo e
 
 En \textit{latencia} se calcula el tiempo promedio de busqueda de cada motor, y se agrega una columna a la tabla de resultados con la latencia correspondiente a cada metodo \textit{resultados['ms/consulta'] = resultados['Método'].map(latencia)}.
 
-En la Tabla~\ref{tab:resultados_metodos} se presentan los los resultados de las metricas de rendimiento evaluadas. Se puede observar que el modelo de embeddings supera a TF-IDF en el conjunto C, que es el conjunto de consultas en español. Las metricas registraron un Recall@5 de 51.3\% y un MRR de 0.383, mientras que TF-IDF obtuvo un Recall@5 de 12.8\% y un MRR de 0.048. Por otro lado, las mediciones de latencia confirman que realizar una ejecucion sobre GPU (CUDA) permite que se procese cada consulta con un promedio de 14.86ms mediante la busqueda por producto matricial sobre embeddings, mientras que TF-IDF requiere un promedio de 35.06ms por consulta, lo que representa una diferencia de 2.36 veces mas rapido para el modelo de embeddings. 
-
-\begin{table}[htbp]
-\centering
-\caption{Resultados cuantitativos de evaluación por conjunto de prueba y método.}
-\label{tab:resultados_metodos}
-\small
-\begin{tabular}{llcccccc}
-\hline
-\textbf{Conjunto} & \textbf{Método} & \textbf{$n$} & \textbf{Top-1} & \textbf{Recall@5} & \textbf{Recall@10} & \textbf{MRR} & \textbf{ms/consulta} \\
-\hline
-\multirow{2}{*}{A. Eslogan} & TF-IDF & 1000 & 0.044 & 0.089 & 0.121 & 0.070 & 35.06 \\
- & Embeddings & 1000 & 0.049 & 0.107 & 0.136 & 0.079 & 14.86 \\
-\hline
-\multirow{2}{*}{B. Palabras clave} & TF-IDF & 1000 & 0.137 & 0.285 & 0.350 & 0.209 & 35.06 \\
- & Embeddings & 1000 & 0.124 & 0.242 & 0.303 & 0.189 & 14.86 \\
-\hline
-\multirow{2}{*}{C. Español (manual)} & TF-IDF & 39 & 0.000 & 0.128 & 0.128 & 0.048 & 35.06 \\
- & Embeddings & 39 & \textbf{0.256} & \textbf{0.513} & \textbf{0.641} & \textbf{0.383} & \textbf{14.86} \\
-\hline
-\end{tabular}
-\end{table}
-
-\begin{figure}[t]
-\centering
-\figopt{figuras/comparacion_metricas.png}{\columnwidth}{figuras/comparacion_metricas.png}
-\caption{Comparación de las métricas de evaluación.}
-\label{fig:comparacion_metricas}
-\end{figure}
