@@ -8,7 +8,7 @@ A continuacion, en la Tabla~\ref{tab:resultadosmetodos} y la Fig.~\ref{fig:compa
 \caption{Resultados cuantitativos de evaluación por conjunto de prueba y método.}
 \label{tab:resultadosmetodos}
 \small
-\begin{tabular}{llcccccc}
+\resizebox{\columnwidth}{!}{\begin{tabular}{llcccccc}
 \hline
 \textbf{Conjunto} & \textbf{Método} & \textbf{$n$} & \textbf{Top-1} & \textbf{Recall@5} & \textbf{Recall@10} & \textbf{MRR} & \textbf{ms/consulta} \\
 \hline
@@ -21,7 +21,7 @@ A continuacion, en la Tabla~\ref{tab:resultadosmetodos} y la Fig.~\ref{fig:compa
 \multirow{2}{*}{C. Español (manual)} & TF-IDF & 39 & 0.000 & 0.128 & 0.128 & 0.048 & 35.06 \\
  & Embeddings & 39 & \textbf{0.256} & \textbf{0.513} & \textbf{0.641} & \textbf{0.383} & \textbf{14.86} \\
 \hline
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 \begin{figure}[t]
@@ -53,7 +53,7 @@ En general, el ejemplo permitio ver que ambos metodos permiten recuperar pelicul
     \centering
     \caption{Comparación de recomendaciones para la consulta "una película de robots que se enamoran".}
     \label{tab:comparacion_recomendaciones}
-    \begin{tabular}{c|l|l}
+    \resizebox{\columnwidth}{!}{\begin{tabular}{c|l|l}
         \hline
         \textbf{Posición} & \textbf{TF-IDF} & \textbf{Embeddings} \\
         \hline
@@ -61,7 +61,7 @@ En general, el ejemplo permitio ver que ambos metodos permiten recuperar pelicul
         2 & Heartbeeps (0.30) & The Lovers (0.62) \\
         3 & Surrogates (0.26) & A.I. Artificial Intelligence (0.59) \\
         \hline
-    \end{tabular}
+    \end{tabular}}
 \end{table}
 
 \subsection{Tiempo de respuesta}
@@ -72,7 +72,7 @@ En cuanto a los tiempos de respuesta, TF-IDF registro en promedio 35.064ms por c
     \centering
     \caption{Comparación de los tiempos de respuesta según el método y el hardware de ejecución.}
     \label{tab:tiempos_respuesta}
-    \begin{tabular}{l|l|r}
+    \resizebox{\columnwidth}{!}{\begin{tabular}{l|l|r}
         \hline
         \textbf{Método} & \textbf{Hardware} & \textbf{Tiempo (ms/consulta)} \\
         \hline
@@ -80,7 +80,7 @@ En cuanto a los tiempos de respuesta, TF-IDF registro en promedio 35.064ms por c
         Embeddings & CPU & 42.0 \\
         Embeddings & GPU (CUDA) & 14.9 \\
         \hline
-    \end{tabular}
+    \end{tabular}}
 \end{table}
 
 En la tabla se puede observar como el metodo de TF-IDF tiene en promedio un tiempo de 35.1ms de consulta, mientras que Embeddings en CPU alcanzo un 42.0, esto permite ver un 19.7\% de diferencia a favor de TF-IDF. Cuando Embeddings se ejecuta en GPU mediante CUDA, el tiempo disminuye a 14.9ms por consulta, lo que deja ver que existe una reduccion aproximada del 64.5\% respecto a su ejecucion en CPU.
@@ -95,8 +95,7 @@ Para analizar la capacidad de los metodos de recuperacion de identificar consult
     \centering
     \caption{Resultados del barrido de umbrales de similitud.}
     \label{tab:barrido_umbrales}
-    \resizebox{\textwidth}{!}{
-    \begin{tabular}{c|c|c|c|c}
+    \resizebox{\columnwidth}{!}{\begin{tabular}{c|c|c|c|c}
         \hline
         \textbf{Método} & \textbf{Umbral} &
         \textbf{Fuera de tema que aún responde} &
@@ -123,8 +122,7 @@ Para analizar la capacidad de los metodos de recuperacion de identificar consult
         TF-IDF & 0.55 & 0.00 & 0.00 & 0.00 \\
         TF-IDF & 0.60 & 0.00 & 0.00 & 0.00 \\
         \hline
-    \end{tabular}
-    }
+    \end{tabular}}
 \end{table}
 
 En donde se ve que los resultados muestran diferencias entre ambos metodos, en Embeddings, los umbrales que son bajos (0.05 y 0.20) permiten responder todas las preguntas validas de los conjuntos A y C, pero tambien dejan pasar las consultas que estan fuera de tema. Cuando se aumento el umbral a 0.40, las consultas fuera de tema que reciben respuesta disminuyen al 20\% mientras que se conservan todas las consultas del conjunto C y el 82\% de las consultas del conjunto A. Cuando se tiene un umbral de 0.45 el porcentaje de consultas fuera del tema que son contestadas llega a 0\%, por lo que se mantiene el 100\% de las consultas de C y el 62\% de las consultas de A.
@@ -142,7 +140,7 @@ Para comprobar dicho funcionamiento, se realizaron cuatro pruebas con descripcio
     \centering
     \caption{Resultados de la evaluación cualitativa del LLM.}
     \label{tab:resultados_llm}
-    \begin{tabular}{p{4.5cm}|p{4cm}|p{5cm}}
+    \resizebox{\columnwidth}{!}{\begin{tabular}{p{4.5cm}|p{4cm}|p{5cm}}
         \hline
         \textbf{Consulta} & \textbf{Película recomendada} & \textbf{Observación} \\
         \hline
@@ -162,7 +160,7 @@ Para comprobar dicho funcionamiento, se realizaron cuatro pruebas con descripcio
         & The Amityville Horror (2005)
         & La recomendación presenta relación con la temática solicitada de casas embrujadas. \\
         \hline
-    \end{tabular}
+    \end{tabular}}
 \end{table}
 
 Se observo que el modelo puede generar respuestas coherentes y contextualizadas, por ejemplo, cuando se le pregunto sobre "Un robot solitario limpia la Tierra abandonada y se enamora de otro robot", el modelo genero una respuesta completa y natural que mencionaba la pelicula Wall-E, sin embargo, se encontraron limitaciones cuando tuvo que redactar otras respuestas, ya que hubo otro caso en el que cuando se le consulto sobre "Un barco gigante choca con un iceberg y una chica rica se enamora de un chico pobre", el modelo recomendo la pelicula Show Boat en vez de la pelicula esperada Titanic, lo que indica que la generacion de respuestas no garantiza la identificacion correcta de la pelicula y que el modelo puede realizar interpretaciones inadecuadas de la consulta.
@@ -183,7 +181,7 @@ En consecuencia, el análisis mediante bootstrap respalda los resultados obtenid
     \centering
     \caption{Intervalos de confianza del 95\% para la diferencia de MRR entre TF-IDF y Embeddings.}
     \label{tab:intervalos_confianza_mrr}
-    \begin{tabular}{l|c|c|c|c}
+    \resizebox{\columnwidth}{!}{\begin{tabular}{l|c|c|c|c}
         \hline
         \textbf{Conjunto} & \textbf{MRR TF-IDF} &
         \textbf{MRR Embeddings} & \textbf{Diferencia} &
@@ -193,7 +191,7 @@ En consecuencia, el análisis mediante bootstrap respalda los resultados obtenid
         B. Palabras clave & 0.209 & 0.189 & -0.020 & [-0.043; 0.002] \\
         C. Español (manual) & 0.048 & 0.383 & 0.335 & [0.216; 0.465] \\
         \hline
-    \end{tabular}
+    \end{tabular}}
 \end{table}
 
 \subsection{Interfaz en Telegram}
@@ -216,7 +214,7 @@ La comparacion general de los metodos de recuperacion TF-IDF y Embeddings se pre
     \caption{Comparación general de los métodos de recuperación TF-IDF y Embeddings.}
     \label{tab:comparacion_general_modelos}
     \small
-    \begin{tabular}{l|l|c|c|c|c|c}
+    \resizebox{\columnwidth}{!}{\begin{tabular}{l|l|c|c|c|c|c}
         \hline
         \textbf{Conjunto} & \textbf{Método} & \textbf{Top-1} &
         \textbf{Recall@5} & \textbf{Recall@10} & \textbf{MRR} &
@@ -234,6 +232,6 @@ La comparacion general de los metodos de recuperacion TF-IDF y Embeddings se pre
         & TF-IDF & 0.000 & 0.128 & 0.128 & 0.048 & 35.1 \\
         & Embeddings & 0.256 & 0.513 & 0.641 & 0.383 & 14.9 \\
         \hline
-    \end{tabular}
+    \end{tabular}}
 \end{table}
 
