@@ -23,26 +23,18 @@ La recuperación semántica se vuelve más compleja en escenarios multilingües,
 2. transfiere la capacidad de medir similitud semántica a más de 50 idiomas sin sufrir del sesgo de idioma característico de otros métodos tradicionales \cite{reimers2020multilingual}.
 
 \section{Comparación de los trabajos revisados}
-\onecolumn
-\small
-\begin{xltabular}{\textwidth}{|p{2.6cm}|p{2.8cm}|X|X|}
-\caption{Comparación de los trabajos relacionados con el proyecto.}
-\label{tab:comparacion_estado_arte} \\
-\hline
-\textbf{Autor y año} & \textbf{Enfoque} &
-\textbf{Aporte principal} & \textbf{Relación con CineBot} \\
-\hline
-\endfirsthead
-\multicolumn{4}{c}{\tablename\ \thetable\ (continuación)} \\
-\hline
-\textbf{Autor y año} & \textbf{Enfoque} &
-\textbf{Aporte principal} & \textbf{Relación con CineBot} \\
-\hline
-\endhead
-\hline
-\endfoot
-\endlastfoot
-DataCamp (2023) \cite{datacamp_ml_lifecycle} &
+\begin{table*}[t]
+    \centering
+    \caption{Comparación de los trabajos relacionados con el proyecto.}
+    \label{tab:comparacion_estado_arte}
+    \small
+    \begin{tabularx}{\textwidth}{|p{2.6cm}|p{2.8cm}|X|X|}
+        \hline
+        \textbf{Autor y año} & \textbf{Enfoque} &
+        \textbf{Aporte principal} & \textbf{Relación con CineBot} \\
+        \hline
+
+        DataCamp (2023) \cite{datacamp_ml_lifecycle} &
         Ciclo de vida de Machine Learning &
         Describe seis etapas para el desarrollo de aplicaciones de aprendizaje automático: planificación, preparación de datos, ingeniería de modelos, evaluación, implementación y supervisión y mantenimiento. &
         Se toma como referencia para organizar las actividades y etapas de desarrollo del proyecto. \\
@@ -82,5 +74,6 @@ DataCamp (2023) \cite{datacamp_ml_lifecycle} &
         Modelos de lenguaje Qwen2.5 &
         Presenta una familia de modelos de lenguaje con diferentes tamaños y capacidades para seguir instrucciones y generar texto. &
         Se relaciona directamente con la selección de Qwen2.5-1.5B-Instruct como modelo para generar las respuestas del chatbot. \\
-        \end{xltabular}
-\twocolumn
+        \hline
+    \end{tabularx}
+\end{table*}
