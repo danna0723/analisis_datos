@@ -5,18 +5,30 @@
 En el archivo original, los generos mas que decir simplemente el nombre del genero de la pelicula venian en un formato que incluia informacion adicional como un id, para solucionar este problema, se borra toda esta informacion adicional para consevar solamente el nombre del genero, por ejemplo, "action". De manera similar tambien se corta la fecha de estreno para conservar unicamente el año en ves del dia, mes y año de estreno de la pelicula, se extraen las palabras clave y se hace lo mismo para los esloganes.
 
 \begin{lstlisting}[language=Python, caption={Procesamiento y estructuracion del texto de busqueda.}, label={lst:preparaciondatos}]
-    def nombres(celda):
-        try:
-            return [d['name'] for d in json.loads(celda)]
-        except Exception:
-            return []
+ALGORITMO nombres(celda)
+    INTENTAR
+        datos ← convertir_JSON(celda)
+        resultado ← lista vacía
 
-    peliculas = crudo.copy()
-    peliculas['generos'] = peliculas['genres'].map(nombres)
-    peliculas['palabras_clave'] = peliculas['keywords'].map(nombres)
-    peliculas['anio'] = peliculas['release_date'].astype(str).str[:4]
-    peliculas['overview'] = peliculas['overview'].fillna('').str.strip()
-    peliculas['tagline'] = peliculas['tagline'].fillna('').str.strip()
+        PARA CADA elemento EN datos HACER
+            agregar elemento["name"] A resultado
+        FIN PARA
+        RETORNAR resultado
+
+    SI OCURRE UN ERROR ENTONCES
+        RETORNAR lista vacía
+    FIN INTENTAR
+FIN ALGORITMO
+
+peliculas ← copiar(crudo)
+
+peliculas["generos"] ← aplicar nombres() A peliculas["genres"]
+peliculas["palabras_clave"] ← aplicar nombres() A peliculas["keywords"]
+peliculas["anio"] ← primeros 4 caracteres de peliculas["release_date"]
+peliculas["overview"] ← rellenar_nulos(peliculas["overview"], "")
+peliculas["overview"] ← eliminar_espacios(peliculas["overview"])
+peliculas["tagline"] ← rellenar_nulos(peliculas["tagline"], "")
+peliculas["tagline"] ← eliminar_espacios(peliculas["tagline"])
 \end{lstlisting}
 
 Otro filtro implementado consiste en filtrar las descripciones que no sean utiles para el sistema, ya que hay algunas peliculas que en su descripcion solo cuentan con frases cortas o poco informativas para el bot como "A great movie". 
@@ -24,10 +36,20 @@ Otro filtro implementado consiste en filtrar las descripciones que no sean utile
 Por ultimo, tambien se eliminaron los posibles duplicados, ya que si una pelicula aparece dos veces en el dataset podria ocasionar que el sistema termine recomendando la misma pelicula dos veces.
 
 \begin{lstlisting}[language=Python, caption={~}]
-    n0 = len(peliculas)
-    peliculas = (peliculas[peliculas['overview'].str.len() > 30]
-                .drop_duplicates(subset='id').reset_index(drop=True))
-    print(f'Peliculas con sinopsis utilizable: {len(peliculas)} (descartadas: {n0 - len(peliculas)})')
+n0 ← longitud(peliculas)
+peliculas ← seleccionar registros de peliculas 
+    DONDE longitud(peliculas["overview"]) > 30
+
+peliculas ← eliminar_duplicados(
+    peliculas,
+    criterio = "id"
+)
+
+peliculas ← reiniciar_indices(peliculas)
+descartadas ← n0 - longitud(peliculas)
+
+ESCRIBIR "Películas con sinopsis utilizable: ", longitud(peliculas)
+ESCRIBIR "Películas descartadas: ", descartadas
 \end{lstlisting}
 
 \subsubsection{Construcción del texto de búsqueda}
@@ -41,21 +63,50 @@ La funcion ficha se encarga de reunir los campos de una pelicula como titulo, a�
 Por otro lado, se construye la variable CORPUS, \textit{peliculas.to\_dict('records')} se usa para transformar las filas del dataframe en una lista de diccionarios por pelicula. El sistema puede compara el primer elemento de cada tupla de CORPUS, que es el texto de busqueda, con la consulta del usuario y devuelve el segundo elemento de la tupla, que es la ficha de la pelicula recomendada, estos dos elementos son almacenados en CORPUS de la manera \textit{(texto\_de\_busqueda, ficha\_de\_presentacion)}.  
 
 \begin{lstlisting}[language=Python, caption={~}]
-def texto_busqueda(f):
-    return ', '.join(f['generos']) + '. ' + f['overview']
+ALGORITMO texto_busqueda(pelicula)
+    texto ← unir(pelicula["generos"], ", ") + ". " + pelicula["overview"]
+    RETORNAR texto
+FIN ALGORITMO
 
-def ficha(f):
-    gen = ', '.join(f['generos']) or 'sin genero'
-    sinopsis = f['overview']
-    if len(sinopsis) > 180:
-        sinopsis = sinopsis[:180].rsplit(' ', 1)[0] + '?'
-    return f"? {f['title']} ({f['anio']}) ? {gen} ? ? {f['vote_average']}\n{sinopsis}"
+ALGORITMO ficha(pelicula)
+    gen ← unir(pelicula["generos"], ", ")
+    SI gen está vacío ENTONCES
+        gen ← "sin género"
+    FIN SI
 
-registros = peliculas.to_dict('records')
-CORPUS = [(texto_busqueda(f), ficha(f)) for f in registros]
+    sinopsis ← pelicula["overview"]
 
-print(f'{len(CORPUS)} peliculas cargadas\n')
-print(CORPUS[0][1])
+    // Limitar la sinopsis a 180 caracteres
+    SI longitud(sinopsis) > 180 ENTONCES
+        sinopsis ← primeros 180 caracteres de sinopsis
+        sinopsis ← cortar_hasta_el_ultimo_espacio(sinopsis) + "?"
+    FIN SI
+
+    // Construir la ficha con la información de la película
+    resultado ← titulo + " (" + año + ")"
+    resultado ← resultado + " | " + gen
+    resultado ← resultado + " | " + puntuacion
+    resultado ← resultado + nueva_linea + sinopsis
+
+    RETORNAR resultado
+
+FIN ALGORITMO
+
+registros ← peliculas.to_dict("records")
+
+CORPUS ← lista vacía
+
+PARA CADA pelicula EN registros HACER
+    texto ← texto_busqueda(pelicula)
+    presentacion ← ficha(pelicula)
+
+    agregar (texto, presentacion) A CORPUS
+FIN PARA
+
+ESCRIBIR longitud(CORPUS), " películas cargadas"
+
+// Mostrar la ficha de la primera película
+ESCRIBIR CORPUS[0][1]
 \end{lstlisting}
 
 \input{secciones/03_metodologia/tabla_mapeo}

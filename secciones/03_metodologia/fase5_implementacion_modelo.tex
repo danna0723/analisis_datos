@@ -9,15 +9,22 @@ Posteriormente, se procede a crear los manejadores de comandos y mensajes, siend
 Este ultimo permite utilizar la generacion de respuestas mediante un modelo de lenguaje LLM, funcion que permite al usuario recibir una respuesta con lenguaje mas natural. Primero se obtiene la consulta del usuario y despues de verificar que esta no este vacia, se ejecuta el asistente mediante la funcion \textit{asyncio.to\_thread}, la cual realiza la recuperacion de las peliculas mediante embedding y utiliza los resultados obtenidos como contexto para que la LLM pueda generar una respuesta mas completa.
 
 \begin{lstlisting}[language=Python, caption={~}]
-async def cmd_asistente(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    consulta = ' '.join(context.args)
-    if not consulta:
-        await update.message.reply_text('Escribe tu consulta después del comando. Ejemplo:\n'
-                                        '/asistente una película de robots que se enamoran')
-        return
-    await update.message.reply_text('Pensando…')
-    respuesta = await asyncio.to_thread(asistente, consulta)
-    await update.message.reply_text(respuesta)
+ALGORITMO ASINCRONO cmd_asistente(update, context)
+
+    // Obtener la consulta escrita por el usuario
+    consulta ← unir(context.args, " ")
+    ESPERAR update.message.reply_text("Pensando...")
+
+    // Ejecutar el asistente en un hilo independiente
+    // mediante asyncio.to_thread para no bloquear el bot
+    respuesta ← ESPERAR asyncio.to_thread(
+        asistente,
+        consulta
+    )
+
+    // Enviar la respuesta generada al usuario por Telegram
+    ESPERAR update.message.reply_text(respuesta)
+FIN ALGORITMO
 \end{lstlisting}
 
 Tambien se le permite al usuario poder procesar mensajes de texto libre sin necesidad de estar limitado a escoger alguno de los comandos con la funcion \textit{async def on_mensaje}, la cual se encarga de registrar el mensaje del usuario y procesarlo mediante el metodo de recomendacion que este haya seleccionado, devolviendo la ficha de la pelicula recomendada.

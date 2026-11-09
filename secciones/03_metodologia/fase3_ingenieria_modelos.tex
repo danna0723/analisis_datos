@@ -7,25 +7,29 @@ La implementacion de este modelo se hizo siguiendo una serie de pasos, en el que
 
 Una vez definidas las palabras vacias, se limpia el texto, con limpiar se hace referencia a: convertir las palabras en minusculas, para que el sistema no trate las diferencias entre mayusculas y minusculas como palabras distintas, eliminar caracteres que no esten permitidos, como los signos de puntuacion y numeros los cuales son reemplazados por espacios. Por ultimo, se separan y filtran las palabras utilizando slip() para dividir el texto en palabras y eliminar aquellas que esten en la lista de STOPWORDS o que solo cuenten con un caracter. 
 
-\begin{lstlisting}[language=Python, caption={~}]
-def limpiar(texto):
-    texto = texto.lower()                             
-    texto = re.sub(r'[^a-zaeiouun ]', ' ', texto)     
-    tokens = texto.split()                             
-    return [t for t in tokens if t not in STOP and len(t) > 1]  
-\end{lstlisting}
-
 El siguiente paso es construir el indice TF-IDF, es decir, la estructura de datos que se construye para que el sistema pueda comparar la consulta que hace el usuario con las peliculas que tiene en su catalogo y asi encontrar la que mas se parezca. Si el sistema tiene una cantidad x de peliculas, el codigo procesa los textos de cada una de ellas y a partir de eso construye el vocabulario indentificando las palabras que aparecen en el catalogo, utilizando \textit{word2idx} para asignarle a cada palabra una posicion numerica mientras que la variable \textit{v} representa el numero total de palabras unicas del vocabulario. De esta manera, se puede representar a cada pelicula mediante un vector que tenga el mismo numero de posiciones que de palabras en el vocabulario.
 
 \begin{lstlisting}[language=Python, caption={~}]
-def construir_indice(documentos):
-    tokenizados = [limpiar(d) for d in documentos]
-    N = len(tokenizados)
+ALGORITMO construir_indice(documentos)
+    tokenizados ← [limpiar(documento) PARA CADA documento EN documentos]
+    N ← longitud(tokenizados)
 
-    # Vocabulario: todas las palabras unicas del corpus
-    vocab = sorted({t for doc in tokenizados for t in doc})
-    word2idx = {w: i for i, w in enumerate(vocab)}
-    V = len(vocab)
+    // vocabulario con todas las palabras únicas del corpus
+    vocab ← conjunto vacío
+    PARA CADA documento EN tokenizados HACER
+        PARA CADA palabra EN documento HACER
+            agregar palabra A vocab
+        FIN PARA
+    FIN PARA
+    vocab ← ordenar(vocab) // Ordenar el vocabulario alfabéticamente
+
+    // Crear un diccionario que asigne un índice a cada palabra
+    word2idx ← diccionario vacío
+    PARA i ← 0 HASTA longitud(vocab) - 1 HACER
+        word2idx[vocab[i]] ← i
+    FIN PARA
+    V ← longitud(vocab)
+FIN ALGORITMO
 \end{lstlisting}
 
 La siguiente etapa es calcular los pesos TF-IDF asignandole un valor a cada palabra segun su frecuencia en cada pelicula y que tan comun es en el catalogo. Para poder lograr esto, lo primero que se hace es calcular el componente IDF (Inverse Document Frequency). La formula implementada es:
@@ -36,19 +40,7 @@ $$
 
 Se le suma uno al numerador y al denominador para evitar la division por cero, ya que sin sumar +1, el codigo evaluaria una palabra que no aparece en ninguna pelicula del catalogo, df=0, por lo que la formula seria N/0, lo que generaria un error matematico. Tambien se le suma +1 al resultado final porque sin esa suma, si una palabra aprece en todas las peliculas del catalogo (df=N), el resultado de la formula seria 0, lo que no es deseable porque haria que esa palabra fuese ignorada por el sistema en la busqueda.
 
-En el bucle se usa \textit{set(doc)}para contar cada palabra una sola vez por pelicula al calcular df. 
-
-\begin{lstlisting}[language=Python, caption={~}]
-    # IDF de cada palabra
-    df = np.zeros(V)
-    for doc in tokenizados:
-        for w in set(doc):
-            if w in word2idx:
-                df[word2idx[w]] += 1
-    idf = np.log((N + 1) / (df + 1)) + 1   # +1 evita division por cero
-\end{lstlisting}
-
-Por ultimo, se calcula TF (Term Frequency), este concepto hace referencia a la frecuencia de cada palabra en cada pelicula, la formula implementada es:
+En el bucle se usa \textit{set(doc)}para contar cada palabra una sola vez por pelicula al calcular df. Por ultimo, se calcula TF (Term Frequency), este concepto hace referencia a la frecuencia de cada palabra en cada pelicula, la formula implementada es:
 
 $$
 \text{tf}(t, d) = \frac{\text{count}(t, d)}{|d|}
@@ -65,44 +57,58 @@ Una palabra que aparece muchas veces en una pelicula, es decir, con una frecuenc
 Posteriormente, se crea la matriz TF-IDF en la que representa cada pelicula mediante un vector de pesos TF-IDF. En el codigo, este paso se implemento como:
 
 \begin{lstlisting}[language=Python, caption={~}]
-    # Matriz TF-IDF: una fila por pelicula, una columna por palabra
-    matriz = np.zeros((N, V), dtype=np.float32)   # float32: mitad de memoria
-    for i, doc in enumerate(tokenizados):
-        cnt = Counter(doc)
-        total = len(doc) or 1
-        for w, c in cnt.items():
-            if w in word2idx:
-                matriz[i, word2idx[w]] = (c / total) * idf[word2idx[w]]
+// Crear la matriz TF-IDF: una fila por película y una columna por palabra
+matriz ← matriz de ceros de tamaño N × V
+PARA i ← 0 HASTA N - 1 HACER
+    doc ← tokenizados[i]
+    cnt ← contar_palabras(doc)
+    total ← longitud(doc)
+    SI total = 0 ENTONCES
+        total ← 1
+    FIN SI
+    // Calcular el valor TF-IDF de cada palabra
+    PARA CADA (palabra, frecuencia) EN cnt HACER
+        SI palabra EXISTE EN word2idx ENTONCES
+            indice ← word2idx[palabra]
+            TF ← frecuencia / total
+            matriz[i, indice] ← TF × idf[indice]
+        FIN SI
+    FIN PARA
+FIN PARA
 \end{lstlisting}
 
 La normalizacion de los vectores se hace para que cada vector de pelicula tenga una longitud de 1, es decir, que todos los vectores esten en la misma escala. Esto se hace para ajustar la escala de los vectores y que asi, la comparacion se centre en la distribucion de los pesos en lugar de depender solo de la magnitud. La matriz resultante se guarda como el indice TF-IDF que utilizara el bot.
 
-\begin{lstlisting}[language=Python, caption={~}]
-    # Normalizar cada fila (L2) para que la comparacion sea por direccion, no magnitud
-    normas = np.linalg.norm(matriz, axis=1, keepdims=True)
-    normas[normas == 0] = 1
-    matriz /= normas
-
-    return matriz, idf, word2idx
-\end{lstlisting}
-
 La funcion \textit{vectorizar} se encarga de convertir una consulta de un usuario en un vector, para eso, aplica el mismo preprocesamiento y los mismos pesos IDF que se calcularon con el catalogo de peliculas. Una vez hecho esto, se le asigna un peso a cada palabra conocida, teniendo en cuenta que solo se consideran las palabras que existen en el vocabulario del catalogo, asi que si una consulta contiene palabras que no aparecen en dicho vocabulario, esas palabras no le aportan peso al vector. Por ultimo, se normaliza la consulta para que de esta manera, tanto las peliculas como las consultas utilicen el mismo espacio vectorial y se les pueda comparar entre si:
 
 \begin{lstlisting}[language=Python, caption={~}]
-def vectorizar(texto, idf, word2idx):
-    tokens = limpiar(texto)
-    vec = np.zeros(len(word2idx), dtype=np.float32)
-    cnt = Counter(tokens)
-    total = len(tokens) or 1
+ALGORITMO vectorizar(texto, idf, word2idx)
+    tokens ← limpiar(texto)
+    vec ← vector de ceros de tamaño longitud(word2idx)
 
-    for w, c in cnt.items():
-        if w in word2idx:
-            vec[word2idx[w]] = (c / total) * idf[word2idx[w]]
+    cnt ← contar_palabras(tokens)
+    total ← longitud(tokens)
 
-    norma = np.linalg.norm(vec)
-    if norma > 0:
-        vec /= norma
-    return vec
+    SI total = 0 ENTONCES
+        total ← 1
+    FIN SI
+
+    // Calcular el valor TF-IDF de cada palabra
+    PARA CADA (palabra, frecuencia) EN cnt HACER
+        SI palabra EXISTE EN word2idx ENTONCES
+            indice ← word2idx[palabra]
+            TF ← frecuencia / total
+            vec[indice] ← TF × idf[indice]
+        FIN SI
+    FIN PARA
+
+    norma ← calcular_norma(vec)
+    SI norma > 0 ENTONCES
+        vec ← vec / norma
+    FIN SI
+
+    RETORNAR vec
+FIN ALGORITMO
 \end{lstlisting}
 
 A continuacion, se construye el indice del catalogo, este se construye una vez al iniciar el motor, en lugar de volverse a calcular todos los vectores cada vez que llega una consulta. 
@@ -111,13 +117,21 @@ A continuacion, se construye el indice del catalogo, este se construye una vez a
 
 \begin{lstlisting}[language=Python, caption={~}]
 
-textos = [par[0] for par in CORPUS]
-fichas = [par[1] for par in CORPUS]
+textos ← lista vacía
+fichas ← lista vacía
 
-matriz_tfidf, idf, word2idx = construir_indice(textos)
+PARA CADA par EN CORPUS HACER
+    agregar par[0] A textos
+    agregar par[1] A fichas
+FIN PARA
 
-print(f'Motor TF-IDF listo ? {len(textos)} peliculas, {len(word2idx)} palabras en vocabulario')
+// Construir el índice y la matriz TF-IDF
+matriz_tfidf, idf, word2idx ← construir_indice(textos)
 
+// Mostrar información del motor TF-IDF
+ESCRIBIR "Motor TF-IDF listo"
+ESCRIBIR "Cantidad de películas: ", longitud(textos)
+ESCRIBIR "Cantidad de palabras en el vocabulario: ", longitud(word2idx)
 \end{lstlisting}
 
 Para encontrar las tres peliculas mas similares se usa la funcion \textit{buscar\_tfidf}, esta se encarga de vectorizar la consulta convirtiendo el texto del usuario en un vector normalizado, luego \textit{matriz\_tfidf @ vec} calcula el producto que hay entre el vector de consulta y el de cada pelicula, al estar estos vectores normalizados, el resultado termina siendo la similitud del coseno:
@@ -135,13 +149,15 @@ $$
 Los resultados, es decir, las peliculas, se ordendan de mayor a menor con \textit{np.argsort(-similitudes)}, y por ultimo, con \textit{[:k]} se devuelven los indices de las tres peliculas con las puntuaciones mas altas junto con sus similitudes. 
 
 \begin{lstlisting}[language=Python, caption={~}]
-
-def buscar_tfidf(consulta, k=3):
-    vec = vectorizar(consulta, idf, word2idx)
-    similitudes = matriz_tfidf @ vec
+ALGORITMO buscar_tfidf(consulta, k = 3)
+    vec ← vectorizar(consulta, idf, word2idx)
+    similitudes ← multiplicar(matriz_tfidf, vec)
     top = np.argsort(-similitudes)[:k]
-    return top, similitudes[top]
 
+    puntuaciones ← similitudes[top]
+
+    RETORNAR top, puntuaciones
+FIN ALGORITMO
 \end{lstlisting}
 
 El umbral de similitud se aplica para permitir que el bot no devuelva automaticamente una pelicula cuando la similitud maxima es demasiado baja, asi que si la puntuacion de la pelicula mas cercana es igual o superior a 0.05, se devuelve su ficha, pero si esta por debajo el bot muestra un mensaje indicando que no encontro peliculas similares.
@@ -149,31 +165,19 @@ El umbral de similitud se aplica para permitir que el bot no devuelva automatica
 El valor de 0.05 es solo una configuracion inicial la cual puede ajustarse conforme se vaya probando el sistema.
 
 \begin{lstlisting}[language=Python, caption={~}]
+CONSTANTE UMBRAL_TFIDF ← 0.05
 
-UMBRAL_TFIDF = 0.05
-
-def responder_tfidf(consulta, umbral=UMBRAL_TFIDF):
-    idxs, sims = buscar_tfidf(consulta)
-    if sims[0] >= umbral:
-        return fichas[idxs[0]]
-    return 'No encontre peliculas parecidas. Intenta reformular tu consulta o escribe /ayuda.'
+ALGORITMO responder_tfidf(consulta, umbral = UMBRAL_TFIDF)
+    idxs, sims ← buscar_tfidf(consulta)
+    SI sims[0] ≥ umbral ENTONCES
+        RETORNAR fichas[idxs[0]]
+    SINO
+        RETORNAR "No encontré películas parecidas. Intenta reformular tu consulta o escribe /ayuda."
+    FIN SI
+FIN ALGORITMO
 \end{lstlisting}
 
-Por ultimo, se ejecutaron una pruebas las cuales permiten verificar el comportamiendo del motor TF-IDF con diferentes tipos de entradas entre las que se encuentra una consulta en ingles y en español sobre el mismo tema (robots), otra en ingles sobre dinosaurios y un parque tenamico y una consulta que esta fuera del contexto de peliculas:
-
-\begin{lstlisting}[language=Python, caption={~}]
-
-print("Probando el motor TF-IDF:\n")
-pruebas = [
-    'a robot that falls in love',                
-    'una pelicula de robots que se enamoran',    
-    'dinosaurs escape from a theme park',
-    'receta de empanadas',                        
-]
-for p in pruebas:
-    print(f'  Usuario: {p}')
-    print(f'  Bot:     {responder_tfidf(p)}\n')
-\end{lstlisting}
+Por ultimo, se ejecutaron una pruebas las cuales permiten verificar el comportamiendo del motor TF-IDF con diferentes tipos de entradas entre las que se encuentra una consulta en ingles y en español sobre el mismo tema (robots), otra en ingles sobre dinosaurios y un parque tenamico y una consulta que esta fuera del contexto de peliculas.
 
 \subsubsection{Enfoque 2: Embeddings multilingües}
 
@@ -185,23 +189,12 @@ Con TF-IDF, se necesita calcular manualmente todas las frecuencias de las palabr
 
 Para eso, el primer paso es seleccionar el dispositivo de ejecucion, se comprueba si hay una GPU disponible, si es asi, se ejecuta el modelo en la GPU con CUDA, de lo contrario, se ejecuta en la CPU utilizando el procesador. Con esto lo que se busca es poder aprovechar la GPU cuando este disponible para acelerar los calculos, ya que los modelos de embeddings suelen ser mas pesados y requieren mas recursos de computo que TF-IDF.  
 
-\begin{lstlisting}[language=Python, caption={~}]
-import torch
-from sentence_transformers import SentenceTransformer
-
-dispositivo = 'cuda' if torch.cuda.is_available() else 'cpu'
-print('Dispositivo:', dispositivo)
-
-emb_model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2', device=dispositivo)
-
-\end{lstlisting}
-
 Una vez hecho esto, se puede cargar el modelo preentrenado, \textit{paraphrase} hace referencia a que como ya se comento antes, el modelo puede generar representaciones de frases para poder comparar su significado, \textit{multilingual} permite trabajar con multiples idiomas y \textit{MiniLM} hace referencia a la arquitectura del modelo en la que se procura que sea mas ligera que otros modelos mas grandes, mientras que el numero 12 hace referencia al numero de capas.
 
 Este modelo recibe un texto y genera un vector numerico que representa el significado del mismo, asi si dos frases usan palabras diferentes pero tienen el mismo significado, el modelo puede representarlas mediante vectores cercanos, aun si las palabras estan escritas en idiomas diferentes. 
 
 \begin{lstlisting}[language=Python, caption={~}]
-emb_model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2', device=dispositivo)
+emb_model ← CARGAR_MODELO("paraphrase-multilingual-MiniLM-L12-v2",dispositivo)
 \end{lstlisting}
 
 El siguiente paso es convertir todas las peliculas en embeddings, con encode se convierte cada texto en un vector numerico, sus parametros utilizados son:
@@ -213,10 +206,10 @@ El siguiente paso es convertir todas las peliculas en embeddings, con encode se 
     \item show\_progress\_bar: Este parametro se usa para mostrar una barra de progreso mientras se generan los embeddings.
 \end{itemize}
 
-El resultado final se guarfa en la variable \textit{matriz\_emb}, esta es la matriz que contiene los emveddings de todas las peliculas, en este cada pelicula esta representada por cada fila de la matriz, mientras que cada columna representa una dimension del embedding y cada valor es un componente numerico del embedding. Las dimensiones son caracteristicas aprendidas por el modelo, mientras que los valores de las peliculas se calculan una sola vez y se conservan para las busquedas posteriores, al igual que con TF-IDF.
+El resultado final se guarfa en la variable \textit{matriz\_emb}, esta es la matriz que contiene los embeddings de todas las peliculas, en este cada pelicula esta representada por cada fila de la matriz, mientras que cada columna representa una dimension del embedding y cada valor es un componente numerico del mismo. Las dimensiones son caracteristicas aprendidas por el modelo, mientras que los valores de las peliculas se calculan una sola vez y se conservan para las busquedas posteriores, al igual que con TF-IDF.
 
 \begin{lstlisting}[language=Python, caption={~}]
-matriz_emb = emb_model.encode(textos, batch_size=64, normalize_embeddings=True, show_progress_bar=True)
+matriz_emb ← CODIFICAR(textos, tamaño_lote = 64, normalizar_embeddings = VERDADERO, mostrar_barra_progreso = VERDADERO)
 \end{lstlisting}
 
 La funcion \textit{buscar\_emb} recibe la consulta del usuario y se encarga de buscar las peliculas que tengan la mayor similitud con la consulta.
@@ -225,16 +218,18 @@ La consulta se convierte en un embedding, para esto, primero tiene que convertir
 
 Las similitudes se calculan mediante el producto entre la matriz de los embeddings de la consulta del usuario y la matriz de los embeddings de todas las peliculas, este resultado equivale a la similitud del coseno porque los vectores estan normalizados. Una consulta en español puede hacer que el sistema le recomiende al usuario una pelicula con una sinopsis en ingles aunque por la diferncia de idioma, no halla ninguna coincidencia entre las palabras.
 
-Las peliculas mas similares se seleccionan con \textit{np.argsort(-similitudes)}, esta instruccion se encarga de ordenar las peliculas segun su similitud y selecciona las primeras k (3) peliculas con las puntuaciones mas altas.
+Las peliculas mas similares se seleccionan ordenandolas por segun su similitud y seleccionando las primeras k (3) peliculas con las puntuaciones mas altas.
 
 Esta funcion termina retornando dos elementos, top, que contiene los indices de las tres peliculas seleccionadas, y similitudes[top], que contiene las puntuaciones de similitud de esas peliculas con la consultada por el usuario.
 
 \begin{lstlisting}[language=Python, caption={~}]
-def buscar_emb(consulta, k=3):
-    vec = emb_model.encode([consulta], normalize_embeddings=True)[0]
-    similitudes = matriz_emb @ vec
+ALGORITMO buscar_emb(consulta, k = 3)
+    vec ← CODIFICAR(consulta,normalizar_embeddings = VERDADERO)
+    similitudes ← multiplicar(matriz_emb, vec)
     top = np.argsort(-similitudes)[:k]
-    return top, similitudes[top]
+    puntuaciones ← similitudes[top]
+    RETORNAR top, puntuaciones
+FIN ALGORITMO
 \end{lstlisting}
 
 El umbral de similitud se define estableciendo un valor inicial (0.30) para el motor de embeddings, este valor se utiliza posteriormente en el codigo en el comportamiento del bot. 
@@ -242,18 +237,28 @@ El umbral de similitud se define estableciendo un valor inicial (0.30) para el m
 Por otro lado, se comprueba que el motor esta listo para mostrar las dimensiones de la matriz de embeddings. 
 
 \begin{lstlisting}[language=Python, caption={~}]
-UMBRAL_EMB = 0.30
+CONSTANTE UMBRAL_EMB ← 0.30
 
-print(f'Motor de embeddings listo ? matriz {matriz_emb.shape}')
+// Mostrar información del motor de embeddings
+ESCRIBIR "Motor de embeddings listo"
+ESCRIBIR "Dimensiones de la matriz: ", dimensiones(matriz_emb)
 \end{lstlisting}
 
 Para realizar las pruebas se hacen las mismas consultas de prueba que las que ya se usaron cuando se probo TF-IDF:
 
 \begin{lstlisting}[language=Python, caption={~}]
-for p in ['a robot that falls in love', 'una pelicula de robots que se enamoran','dinosaurs escape from a theme park', 'receta de empanadas']:
-    idxs, sims = buscar_emb(p)
-    print(f'  Usuario: {p}')
-    print(f'  Top-1:   {peliculas.loc[idxs[0], "title"]}  (similitud {sims[0]:.2f})\n')
+consultas ← [
+    "a robot that falls in love",
+    "una película de robots que se enamoran",
+    "dinosaurs escape from a theme park",
+    "receta de empanadas"
+]
+PARA CADA consulta EN consultas HACER
+    idxs, sims ← buscar_emb(consulta)
+    ESCRIBIR "Usuario: ", consulta
+    ESCRIBIR "Top-1: ", peliculas[idxs[0]].titulo
+    ESCRIBIR "Similitud: ", REDONDEAR(sims[0], 2)
+FIN PARA
 \end{lstlisting}
 
 \paragraph{LLM}
@@ -271,33 +276,76 @@ En la variable de texto\_chat, se convierten los mensajes al formato del modelo,
 La salida se genera con \textit{llm\_model.generate}, y se decodifica con \textit{llm\_tok.decode} para convertir los numeros de vuelta a texto, que es lo que finalmente se devuelve al usuario, el modelo devuelve una secuencia de tokens que contiene tanto la entrada original como los tokens generados.
 
 \begin{lstlisting}[language=Python, caption={~}]
-def asistente(consulta, k=3):
-    if llm_model is None:
-        return 'El asistente con LLM no esta activado (USE_LLM = False).'
-    idxs, sims = buscar_emb(consulta, k)
-    contexto = '\n'.join(
-        f"- {peliculas.loc[i, 'title']} ({peliculas.loc[i, 'anio']}), generos: {', '.join(peliculas.loc[i, 'generos'])}. "
-        f"Sinopsis: {peliculas.loc[i, 'overview'][:300]}"
-        for i in idxs)
-    mensajes = [
-        {'role': 'system', 'content': SYSTEM_LLM},
-        {'role': 'user', 'content': f'Consulta del usuario: {consulta}\n\nPeliculas encontradas:\n{contexto}\n\n'
-                                    'Recomienda las que mejor encajan y explica en una frase por que.'},
+ALGORITMO asistente(consulta, k = 3)
+    SI llm_model = NULO ENTONCES
+        RETORNAR "El asistente con LLM no está activado (USE_LLM = False)."
+    FIN SI
+
+    idxs, sims ← buscar_emb(consulta, k)
+    contexto ← cadena vacía
+    PARA CADA indice EN idxs HACER
+        pelicula ← obtener información de peliculas[indice]
+        contexto ← contexto + 
+            "- " + pelicula.titulo +
+            " (" + pelicula.anio + "), géneros: " +
+            unir(pelicula.generos, ", ") +
+            ". Sinopsis: " + primeros 300 caracteres de pelicula.overview
+    FIN PARA
+
+    // Construir los mensajes de conversación
+    mensajes ← [
+        {rol: "system", contenido: SYSTEM_LLM},
+        {rol: "user", contenido:
+            "Consulta del usuario: " + consulta +
+            "Películas encontradas: " + contexto +
+            "Recomienda las que mejor encajan y explica en una frase por qué."
+        }
     ]
-    texto_chat = llm_tok.apply_chat_template(mensajes, tokenize=False, add_generation_prompt=True)
-    entrada = llm_tok(texto_chat, return_tensors='pt').to(dispositivo)
-    with torch.no_grad():
-        salida = llm_model.generate(**entrada, max_new_tokens=200, do_sample=False,
-                                    pad_token_id=llm_tok.eos_token_id)
-    return llm_tok.decode(salida[0, entrada['input_ids'].shape[1]:], skip_special_tokens=True).strip()
-\end{lstlisting}
+
+    // Adaptar los mensajes a la plantilla de conversación de Qwen
+    texto_chat ← llm_tok.apply_chat_template(mensajes,tokenize = FALSO,add_generation_prompt = VERDADERO)
+
+    // Tokenizar la entrada y convertirla en tensores de PyTorch
+    entrada ← llm_tok(texto_chat,return_tensors = "pt")
+
+    entrada ← entrada.to(dispositivo)
+
+    CON torch.no_grad() HACER
+        salida ← llm_model.generate(
+            entrada,
+            max_new_tokens = 200,
+            do_sample = FALSO,
+            pad_token_id = llm_tok.eos_token_id
+        )
+    FIN CON
+
+    tokens_generados ← salida desde la posición longitud(entrada["input_ids"])
+    respuesta ← llm_tok.decode(tokens_generados,skip_special_tokens = VERDADERO)
+    RETORNAR eliminar_espacios(respuesta)
+
+FIN ALGORITMO\
+end{lstlisting}
 
 Por ultimo, se realizan pruebas para revisar el comportamiento de esta parte del sistema. En este caso, se usan las 3 primeras consultas del conjunto de descripciones en español y una consulta adicional sobre las peliculas de terror con casas embrujadas. Tambien se mide cuanto tiempo se demora con cada respuesta usando time.time().
 
 \begin{lstlisting}[language=Python, caption={~}]
-if USE_LLM:
-    for q in es_q[:3] + ['una pelicula de terror con casas embrujadas']:
-        t0 = time.time()
-        r = asistente(q)
-        print(f'Usuario: {q}\nCinemaBox: {r}\n({time.time() - t0:.1f} s)\n' + '-' * 60)
+    // Seleccionar las tres primeras consultas en español
+    consultas ← primeras 3 consultas de es_q
+
+    agregar "una película de terror con casas embrujadas" A consultas
+
+    // Ejecutar las pruebas con cada consulta
+    PARA CADA consulta EN consultas HACER
+        // Registrar el tiempo inicial
+        t0 ← time.time()
+        respuesta ← asistente(consulta)
+        tiempo_total ← time.time() - t0
+
+        // Mostrar la consulta y la respuesta obtenida
+        ESCRIBIR "Usuario: ", consulta
+        ESCRIBIR "CinemaBox: ", respuesta
+        ESCRIBIR "Tiempo de respuesta: ", REDONDEAR(tiempo_total, 1), " segundos"
+    FIN PARA
+
+FIN SI
 \end{lstlisting}

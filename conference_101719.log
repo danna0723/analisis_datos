@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.25)  4 NOV 2026 17:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.25)  8 NOV 2026 21:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -484,7 +484,7 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 (secciones/00_portada_resumen/resumen.tex)
 (secciones/01_introduccion/introduccion.tex
 (secciones/01_introduccion/objetivos.tex
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 3
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 2
 .
 
 (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
@@ -581,17 +581,17 @@ Overfull \hbox (20.9995pt too wide) in paragraph at lines 29--30
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <7> not available
 (Font)              Font shape `T1/pcr/m/sl' tried instead on input line 25.
  [5] [6]
-Overfull \hbox (24.19981pt too wide) in paragraph at lines 193--195
+Overfull \hbox (24.19981pt too wide) in paragraph at lines 195--197
 [][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (24.19981pt too wide) in paragraph at lines 202--203
+Overfull \hbox (24.19981pt too wide) in paragraph at lines 204--205
 [][][][][][][][][][][][][][][][] 
  []
 
 [7]
-Overfull \hbox (4.19913pt too wide) in paragraph at lines 289--290
+Overfull \hbox (4.19913pt too wide) in paragraph at lines 291--292
 [][][][][][][][][][]  
  []
 
@@ -607,15 +607,15 @@ Overfull \hbox (14.69946pt too wide) in paragraph at lines 37--39
 File: figuras/comparacion_metricas.png Graphic file (type png)
 <use figuras/comparacion_metricas.png>
 Package pdftex.def Info: figuras/comparacion_metricas.png  used on input line 2
-9.
+8.
 (pdftex.def)             Requested size: 252.0pt x 73.12897pt.
  [10 <./figuras/comparacion_metricas.png>] [11]
-Underfull \hbox (badness 1418) in paragraph at lines 163--163
+Underfull \hbox (badness 1418) in paragraph at lines 162--162
 []|\T1/ptm/m/n/8 La re-comen-dación no cor-re-sponde a la
  []
 
 
-Underfull \hbox (badness 1418) in paragraph at lines 163--163
+Underfull \hbox (badness 1418) in paragraph at lines 162--162
 []|\T1/ptm/m/n/8 La re-comen-dación no cor-re-sponde a la
  []
 
@@ -624,7 +624,7 @@ Underfull \hbox (badness 1418) in paragraph at lines 163--163
 File: figuras/interfaz_pregunta_robot.png Graphic file (type png)
 <use figuras/interfaz_pregunta_robot.png>
 Package pdftex.def Info: figuras/interfaz_pregunta_robot.png  used on input lin
-e 203.
+e 202.
 (pdftex.def)             Requested size: 252.0pt x 180.94554pt.
 ) (secciones/05_discusion/discusion.tex)
 (secciones/06_conclusiones/conclusiones.tex [13 <./figuras/interfaz_pregunta_ro
@@ -706,7 +706,7 @@ a/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Home/AppData
 /Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/Home/AppData
 /Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Home/AppData/
 Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on conference_101719.pdf (14 pages, 603636 bytes).
+Output written on conference_101719.pdf (14 pages, 603817 bytes).
 PDF statistics:
  123 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

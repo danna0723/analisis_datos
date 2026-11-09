@@ -10,44 +10,40 @@ Los conjuntos de consulta se utilizan para probar el sistema y ver que tan bien 
     \item Conjunto C (usando las descripciones escritas en español): Por ultimo, en el conjunto C en ves de usar un campo del dataset, se redacta una descripcion de una pelicula en español y el sistema la relaciona con su titulo.
 \end{itemize}
 
-El uso de estos tres conjuntos resulta util ya que permite probar el comportamiento del sistema en 3 diferentes escenarios:
-
-\begin{lstlisting}[language=Python, caption={~}]
-# Conjunto A: eslogan
-cand = peliculas[peliculas['tagline'].str.len() > 10]
-m = cand.sample(min(N_EVAL, len(cand)), random_state=42)
-CONJUNTOS = {'A. Eslogan': (m['tagline'].tolist(), m['pos'].to_numpy())}
-
-# Conjunto B: palabras clave (las 5 primeras de TMDB) 
-cand = peliculas[peliculas['palabras_clave'].map(len) >= 3]
-m = cand.sample(min(N_EVAL, len(cand)), random_state=42)
-CONJUNTOS['B. Palabras clave'] = ([' '.join(k[:5]) for k in m['palabras_clave']], m['pos'].to_numpy())
-
-# Conjunto C: descripciones en espanol escritas a mano
-CONSULTAS_ES = [
-    ('Un barco gigante choca con un iceberg y una chica rica se enamora de un chico pobre', 'Titanic'),
-    #...mas descripciones escritas a mano...
-]
-\end{lstlisting}
-
 Una vez hecho esto, se  comprueban que los titulos existan en el catalogo, para eso, se recorre las descripciones y sus titulos, si se encuentra la pelicula en el catalogo, se guarda la descripcion y la posicion de la pelicula correcta, de no encontrarla, se guarda el titulo de la pelicula que no se encontro en faltan y se omite esa consulta
 
 \begin{lstlisting}[language=Python, caption={~}]
-pos_por_titulo = (peliculas.sort_values('vote_count', ascending=False)
-                  .drop_duplicates('norm').set_index('norm')['pos'])
+peliculas ← ordenar peliculas por "vote_count" en orden descendente
 
-es_q, es_t, faltan = [], [], []
+// Eliminar títulos normalizados duplicados, conservando el de mayor cantidad de votos
+peliculas ← eliminar_duplicados(peliculas, criterio = "norm")
 
-for q, titulo in CONSULTAS_ES:
-    n = normalizar_titulo(titulo)
-    if n in pos_por_titulo.index:
-        es_q.append(q)
-        es_t.append(int(pos_por_titulo[n]))
-    else:
-        faltan.append(titulo)
+// Crear un índice que relacione cada título normalizado con su posición
+pos_por_titulo ← crear_indice(peliculas, clave = "norm", valor = "pos")
 
-CONJUNTOS['C. Espanol (manual)'] = (es_q, np.array(es_t))
-print(f'Conjunto C: {len(es_q)} consultas usables. No estan en el catalogo (omitidas): {faltan}\n')
+// Inicializar las listas para almacenar las consultas y sus posiciones
+es_q ← lista vacía
+es_t ← lista vacía
+faltan ← lista vacía
+
+// Procesar las consultas manuales en español
+PARA CADA (consulta, titulo) EN CONSULTAS_ES HACER
+    n ← normalizar_titulo(titulo)
+    // Verificar si el título existe en el catálogo
+    SI n EXISTE EN pos_por_titulo ENTONCES
+        // Almacenar la consulta y la posición de la película correspondiente
+        agregar consulta A es_q
+        agregar convertir_a_entero(pos_por_titulo[n]) A es_t
+    SINO
+        agregar titulo A faltan
+    FIN SI
+FIN PARA
+
+// Almacenar el conjunto C con las consultas y sus posiciones reales
+CONJUNTOS["C. Español (manual)"] ← (es_q, convertir_a_array(es_t))
+
+ESCRIBIR "Conjunto C: ", longitud(es_q), " consultas usables."
+ESCRIBIR "No están en el catálogo (omitidas): ", faltan
 \end{lstlisting}
 
 Una vez que estan construidos los conjuntos, se necesita ejecutar ambos modelos sobre las mismas consultas, para eso, se definien dos funciones, una para TF-IDF \textit{puntajes_tfidf} y otra para embeddings \textit{def puntajes_emb}, estas funciones reciben una lista de consultas y calculan la similitud entre cada consulta y todas las peliculas del catalogo, devolviendo una matriz de puntuaciones de similitud, en el que cada valor indica que tan similar es una consulta a una pelicula.
@@ -69,17 +65,37 @@ Finalmente, la evaluacion de los conjuntos de consulta se hace recorriendo los c
 Estas metricas se utilizan porque permiten saber si el sistema recomendo la pelicula correcta en primer ligar o si por el contraio, el usuario tendria que revisar varias opciones antes de encontrarla. Los resultados se guardan en el dataframe \textit{resultados}.
 
 \begin{lstlisting}[language=Python, caption={~}]
-filas, PUNTAJES, POSICIONES = [], {}, {}
-for conjunto, (consultas, objetivos) in CONJUNTOS.items():
-    for metodo, fn in METODOS.items():
-        S = fn(consultas)
-        pos = posiciones(S, objetivos)
-        PUNTAJES[(conjunto, metodo)], POSICIONES[(conjunto, metodo)] = S, pos
-        filas.append({'Conjunto': conjunto, 'Metodo': metodo, 'n': len(consultas),
-                      'Top-1': (pos <= 1).mean(), 'Recall@5': (pos <= 5).mean(),
-                      'Recall@10': (pos <= 10).mean(), 'MRR': (1 / pos).mean()})
+filas ← lista vacía
+PUNTAJES ← diccionario vacío
+POSICIONES ← diccionario vacío
 
-resultados = pd.DataFrame(filas)
+PARA CADA (conjunto, (consultas, objetivos)) EN CONJUNTOS HACER
+    // Evaluar cada método de recomendación
+    PARA CADA (metodo, funcion) EN METODOS HACER
+
+        // Obtener las puntuaciones de similitud para las consultas
+        S ← funcion(consultas)
+        // Determinar la posición de cada película objetivo en los resultados
+        pos ← posiciones(S, objetivos)
+
+        // Almacenar las puntuaciones y posiciones obtenidas
+        PUNTAJES[(conjunto, metodo)] ← S
+        POSICIONES[(conjunto, metodo)] ← pos
+
+        // Calcular las métricas de evaluación
+        n ← longitud(consultas)
+
+        Top-1 ← calcular_promedio(pos ≤ 1)
+        Recall@5 ← calcular_promedio(pos ≤ 5)
+        Recall@10 ← calcular_promedio(pos ≤ 10)
+        MRR ← calcular_promedio(1 / pos)
+
+        // Agregar los resultados de la evaluación
+        agregar {"Conjunto": conjunto,"Método": metodo,"n": n,"Top-1": Top-1,"Recall@5": Recall@5,"Recall@10": Recall@10,"MRR": MRR} A filas
+    FIN PARA
+FIN PARA
+
+resultados ← pd.DataFrame(filas)
 \end{lstlisting}
 
 La medicion del tiempo de consulta se hace para medir cuanto tarda cada metodo en realizar la busqueda, para eso, se define la funcion \textit{ms_por_consulta} que recibe como parametro el metodo de busqueda que se desea evaluar, el procedimiento consiste en registrar el instante inicial, recorrer las primeras 30 consultas y se ejecuta la busqueda para cada consulta, luego, con \textit{time.time() - t0} se calcula cuanto tiempo transcurrio duarnte todas las busquedas, luego, se divide el tiempo entre el numero de consultas y se multiplica con 1000 para convertir el resultado de segunfos a milisegundos.
