@@ -176,6 +176,10 @@ En contraste, el conjunto C presentó una diferencia de 0,335 a favor de Embeddi
 
 En consecuencia, el análisis mediante bootstrap respalda los resultados obtenidos con Embeddings para las descripciones. Aunque este método presentó valores de MRR superiores en el conjunto A, y TF-IDF obtuvo mejores resultados en el conjunto B, las diferencias observadas en estos dos escenarios no fueron concluyentes según los intervalos estimados, por lo que esto refuerza la importancia de considerar el tipo de consulta al comparar el comportamiento de los métodos de recuperación.
 
+Para complementar la comparación de los métodos se realizó un análisis mediante bootstrap pareado, utilizando 2.000 remuestreos. En cada repetición se seleccionaron consultas de los conjuntos de evaluación con reemplazo, conservando los mismos índices para ambos métodos. Esto permitió calcular la diferencia entre los valores de MRR obtenidos por TF-IDF y embeddings en cada remuestreo, y estimar sus intervalos de confianza del 95 %.
+
+Este procedimiento permite analizar la incertidumbre de las diferencias observadas y determinar si existe evidencia suficiente para identificar una ventaja de un método sobre el otro en cada conjunto de consultas.
+
 \begin{table}[htbp]
     \centering
     \caption{Intervalos de confianza del 95\% para la diferencia de MRR entre TF-IDF y Embeddings.}

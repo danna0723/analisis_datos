@@ -7,8 +7,8 @@ En el archivo original, los generos mas que decir simplemente el nombre del gene
 \begin{lstlisting}[language=Python, caption={Procesamiento y estructuracion del texto de busqueda.}, label={lst:preparaciondatos}]
 ALGORITMO nombres(celda)
     INTENTAR
-        datos ← convertir_JSON(celda)
-        resultado ← lista vacía
+        datos <- convertir_JSON(celda)
+        resultado <- lista vacía
 
         PARA CADA elemento EN datos HACER
             agregar elemento["name"] A resultado
@@ -20,15 +20,15 @@ ALGORITMO nombres(celda)
     FIN INTENTAR
 FIN ALGORITMO
 
-peliculas ← copiar(crudo)
+peliculas <- copiar(crudo)
 
-peliculas["generos"] ← aplicar nombres() A peliculas["genres"]
-peliculas["palabras_clave"] ← aplicar nombres() A peliculas["keywords"]
-peliculas["anio"] ← primeros 4 caracteres de peliculas["release_date"]
-peliculas["overview"] ← rellenar_nulos(peliculas["overview"], "")
-peliculas["overview"] ← eliminar_espacios(peliculas["overview"])
-peliculas["tagline"] ← rellenar_nulos(peliculas["tagline"], "")
-peliculas["tagline"] ← eliminar_espacios(peliculas["tagline"])
+peliculas["generos"] <- aplicar nombres() A peliculas["genres"]
+peliculas["palabras_clave"] <- aplicar nombres() A peliculas["keywords"]
+peliculas["anio"] <- primeros 4 caracteres de peliculas["release_date"]
+peliculas["overview"] <- rellenar_nulos(peliculas["overview"], "")
+peliculas["overview"] <- eliminar_espacios(peliculas["overview"])
+peliculas["tagline"] <- rellenar_nulos(peliculas["tagline"], "")
+peliculas["tagline"] <- eliminar_espacios(peliculas["tagline"])
 \end{lstlisting}
 
 Otro filtro implementado consiste en filtrar las descripciones que no sean utiles para el sistema, ya que hay algunas peliculas que en su descripcion solo cuentan con frases cortas o poco informativas para el bot como "A great movie". 
@@ -36,17 +36,17 @@ Otro filtro implementado consiste en filtrar las descripciones que no sean utile
 Por ultimo, tambien se eliminaron los posibles duplicados, ya que si una pelicula aparece dos veces en el dataset podria ocasionar que el sistema termine recomendando la misma pelicula dos veces.
 
 \begin{lstlisting}[language=Python, caption={~}]
-n0 ← longitud(peliculas)
-peliculas ← seleccionar registros de peliculas 
+n0 <- longitud(peliculas)
+peliculas <- seleccionar registros de peliculas 
     DONDE longitud(peliculas["overview"]) > 30
 
-peliculas ← eliminar_duplicados(
+peliculas <- eliminar_duplicados(
     peliculas,
     criterio = "id"
 )
 
-peliculas ← reiniciar_indices(peliculas)
-descartadas ← n0 - longitud(peliculas)
+peliculas <- reiniciar_indices(peliculas)
+descartadas <- n0 - longitud(peliculas)
 
 ESCRIBIR "Películas con sinopsis utilizable: ", longitud(peliculas)
 ESCRIBIR "Películas descartadas: ", descartadas
@@ -64,41 +64,41 @@ Por otro lado, se construye la variable CORPUS, \textit{peliculas.to\_dict('reco
 
 \begin{lstlisting}[language=Python, caption={~}]
 ALGORITMO texto_busqueda(pelicula)
-    texto ← unir(pelicula["generos"], ", ") + ". " + pelicula["overview"]
+    texto <- unir(pelicula["generos"], ", ") + ". " + pelicula["overview"]
     RETORNAR texto
 FIN ALGORITMO
 
 ALGORITMO ficha(pelicula)
-    gen ← unir(pelicula["generos"], ", ")
+    gen <- unir(pelicula["generos"], ", ")
     SI gen está vacío ENTONCES
-        gen ← "sin género"
+        gen <- "sin género"
     FIN SI
 
-    sinopsis ← pelicula["overview"]
+    sinopsis <- pelicula["overview"]
 
     // Limitar la sinopsis a 180 caracteres
     SI longitud(sinopsis) > 180 ENTONCES
-        sinopsis ← primeros 180 caracteres de sinopsis
-        sinopsis ← cortar_hasta_el_ultimo_espacio(sinopsis) + "?"
+        sinopsis <- primeros 180 caracteres de sinopsis
+        sinopsis <- cortar_hasta_el_ultimo_espacio(sinopsis) + "?"
     FIN SI
 
     // Construir la ficha con la información de la película
-    resultado ← titulo + " (" + año + ")"
-    resultado ← resultado + " | " + gen
-    resultado ← resultado + " | " + puntuacion
-    resultado ← resultado + nueva_linea + sinopsis
+    resultado <- titulo + " (" + año + ")"
+    resultado <- resultado + " | " + gen
+    resultado <- resultado + " | " + puntuacion
+    resultado <- resultado + nueva_linea + sinopsis
 
     RETORNAR resultado
 
 FIN ALGORITMO
 
-registros ← peliculas.to_dict("records")
+registros <- peliculas.to_dict("records")
 
-CORPUS ← lista vacía
+CORPUS <- lista vacía
 
 PARA CADA pelicula EN registros HACER
-    texto ← texto_busqueda(pelicula)
-    presentacion ← ficha(pelicula)
+    texto <- texto_busqueda(pelicula)
+    presentacion <- ficha(pelicula)
 
     agregar (texto, presentacion) A CORPUS
 FIN PARA

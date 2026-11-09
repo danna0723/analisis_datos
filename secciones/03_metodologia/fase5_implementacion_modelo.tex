@@ -1,6 +1,10 @@
-﻿\subsection{Fase 5: Implementación del modelo}
+﻿\subsection{Fase 5: Integración del bot con Telegram}
 
-El sistema se despliega utilizando Telegram para gestionar los mensajes que envian los usaurios, para eso, se implementaron las librerias necesarias para preparar el entorno y que Python pueda conectarse con Telegram, sobretodo la libreria \textit{asyncio} ya que es la que permite poder ejecutar operaciones asincronas en Python y asi asegurar que el bot pueda gestionar estas tareas sin tener que esperar a que cada una de ellas termine para poder ejecutar la sifuiente.
+El sistema se integra con Telegram como plataforma de comunicación entre el usuario y el asistente. Para ello, se utiliza la biblioteca python-telegram-bot, que permite configurar la aplicación, registrar los comandos y gestionar los mensajes recibidos. La autenticación se realiza mediante un token proporcionado por BotFather, el cual permite establecer la conexión con el bot.
+
+Para gestionar las operaciones del sistema se utiliza asyncio, que facilita la ejecución de operaciones asíncronas. En particular, el comando /asistente utiliza asyncio.to_thread() para ejecutar la función del asistente en un hilo separado, evitando bloquear directamente el ciclo de eventos. Por otra parte, el manejador de mensajes de texto libre ejecuta la función responder() directamente.
+
+Los comandos se registran mediante app.add_handler() y las clases CommandHandler y MessageHandler, que permiten asociar cada tipo de mensaje con su respectiva función. Finalmente, app.run_polling() inicia el proceso de recepción de mensajes y mantiene el bot en funcionamiento mientras se ejecuta el programa.
 
 En la variable \textit{BIENVENIDA} se almacenan los mensajes que el usuario recibe por parte del bot a la hora de iniciar una conversacion, mientras que en la variable \textit{AYUDA} se almacenan los ejemplos de consultas que el usuario puede hacerle al bot con el objetivo de orientarlo sobre como describir la pelicula que desea encontrar. En \textit{metodo_usuario} se almacena el metodo de recomendacion que el usuario seleccione.
 
@@ -12,12 +16,12 @@ Este ultimo permite utilizar la generacion de respuestas mediante un modelo de l
 ALGORITMO ASINCRONO cmd_asistente(update, context)
 
     // Obtener la consulta escrita por el usuario
-    consulta ← unir(context.args, " ")
+    consulta <- unir(context.args, " ")
     ESPERAR update.message.reply_text("Pensando...")
 
     // Ejecutar el asistente en un hilo independiente
     // mediante asyncio.to_thread para no bloquear el bot
-    respuesta ← ESPERAR asyncio.to_thread(
+    respuesta <- ESPERAR asyncio.to_thread(
         asistente,
         consulta
     )

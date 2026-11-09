@@ -11,24 +11,24 @@ El siguiente paso es construir el indice TF-IDF, es decir, la estructura de dato
 
 \begin{lstlisting}[language=Python, caption={~}]
 ALGORITMO construir_indice(documentos)
-    tokenizados ← [limpiar(documento) PARA CADA documento EN documentos]
-    N ← longitud(tokenizados)
+    tokenizados <- [limpiar(documento) PARA CADA documento EN documentos]
+    N <- longitud(tokenizados)
 
     // vocabulario con todas las palabras únicas del corpus
-    vocab ← conjunto vacío
+    vocab <- conjunto vacío
     PARA CADA documento EN tokenizados HACER
         PARA CADA palabra EN documento HACER
             agregar palabra A vocab
         FIN PARA
     FIN PARA
-    vocab ← ordenar(vocab) // Ordenar el vocabulario alfabéticamente
+    vocab <- ordenar(vocab) // Ordenar el vocabulario alfabéticamente
 
     // Crear un diccionario que asigne un índice a cada palabra
-    word2idx ← diccionario vacío
-    PARA i ← 0 HASTA longitud(vocab) - 1 HACER
-        word2idx[vocab[i]] ← i
+    word2idx <- diccionario vacío
+    PARA i <- 0 HASTA longitud(vocab) - 1 HACER
+        word2idx[vocab[i]] <- i
     FIN PARA
-    V ← longitud(vocab)
+    V <- longitud(vocab)
 FIN ALGORITMO
 \end{lstlisting}
 
@@ -58,20 +58,20 @@ Posteriormente, se crea la matriz TF-IDF en la que representa cada pelicula medi
 
 \begin{lstlisting}[language=Python, caption={~}]
 // Crear la matriz TF-IDF: una fila por película y una columna por palabra
-matriz ← matriz de ceros de tamaño N × V
-PARA i ← 0 HASTA N - 1 HACER
-    doc ← tokenizados[i]
-    cnt ← contar_palabras(doc)
-    total ← longitud(doc)
+matriz <- matriz de ceros de tamaño N x V
+PARA i <- 0 HASTA N - 1 HACER
+    doc <- tokenizados[i]
+    cnt <- contar_palabras(doc)
+    total <- longitud(doc)
     SI total = 0 ENTONCES
-        total ← 1
+        total <- 1
     FIN SI
     // Calcular el valor TF-IDF de cada palabra
     PARA CADA (palabra, frecuencia) EN cnt HACER
         SI palabra EXISTE EN word2idx ENTONCES
-            indice ← word2idx[palabra]
-            TF ← frecuencia / total
-            matriz[i, indice] ← TF × idf[indice]
+            indice <- word2idx[palabra]
+            TF <- frecuencia / total
+            matriz[i, indice] <- TF x idf[indice]
         FIN SI
     FIN PARA
 FIN PARA
@@ -83,28 +83,28 @@ La funcion \textit{vectorizar} se encarga de convertir una consulta de un usuari
 
 \begin{lstlisting}[language=Python, caption={~}]
 ALGORITMO vectorizar(texto, idf, word2idx)
-    tokens ← limpiar(texto)
-    vec ← vector de ceros de tamaño longitud(word2idx)
+    tokens <- limpiar(texto)
+    vec <- vector de ceros de tamaño longitud(word2idx)
 
-    cnt ← contar_palabras(tokens)
-    total ← longitud(tokens)
+    cnt <- contar_palabras(tokens)
+    total <- longitud(tokens)
 
     SI total = 0 ENTONCES
-        total ← 1
+        total <- 1
     FIN SI
 
     // Calcular el valor TF-IDF de cada palabra
     PARA CADA (palabra, frecuencia) EN cnt HACER
         SI palabra EXISTE EN word2idx ENTONCES
-            indice ← word2idx[palabra]
-            TF ← frecuencia / total
-            vec[indice] ← TF × idf[indice]
+            indice <- word2idx[palabra]
+            TF <- frecuencia / total
+            vec[indice] <- TF x idf[indice]
         FIN SI
     FIN PARA
 
-    norma ← calcular_norma(vec)
+    norma <- calcular_norma(vec)
     SI norma > 0 ENTONCES
-        vec ← vec / norma
+        vec <- vec / norma
     FIN SI
 
     RETORNAR vec
@@ -117,8 +117,8 @@ A continuacion, se construye el indice del catalogo, este se construye una vez a
 
 \begin{lstlisting}[language=Python, caption={~}]
 
-textos ← lista vacía
-fichas ← lista vacía
+textos <- lista vacía
+fichas <- lista vacía
 
 PARA CADA par EN CORPUS HACER
     agregar par[0] A textos
@@ -126,7 +126,7 @@ PARA CADA par EN CORPUS HACER
 FIN PARA
 
 // Construir el índice y la matriz TF-IDF
-matriz_tfidf, idf, word2idx ← construir_indice(textos)
+matriz_tfidf, idf, word2idx <- construir_indice(textos)
 
 // Mostrar información del motor TF-IDF
 ESCRIBIR "Motor TF-IDF listo"
@@ -150,11 +150,11 @@ Los resultados, es decir, las peliculas, se ordendan de mayor a menor con \texti
 
 \begin{lstlisting}[language=Python, caption={~}]
 ALGORITMO buscar_tfidf(consulta, k = 3)
-    vec ← vectorizar(consulta, idf, word2idx)
-    similitudes ← multiplicar(matriz_tfidf, vec)
+    vec <- vectorizar(consulta, idf, word2idx)
+    similitudes <- multiplicar(matriz_tfidf, vec)
     top = np.argsort(-similitudes)[:k]
 
-    puntuaciones ← similitudes[top]
+    puntuaciones <- similitudes[top]
 
     RETORNAR top, puntuaciones
 FIN ALGORITMO
@@ -165,11 +165,11 @@ El umbral de similitud se aplica para permitir que el bot no devuelva automatica
 El valor de 0.05 es solo una configuracion inicial la cual puede ajustarse conforme se vaya probando el sistema.
 
 \begin{lstlisting}[language=Python, caption={~}]
-CONSTANTE UMBRAL_TFIDF ← 0.05
+CONSTANTE UMBRAL_TFIDF <- 0.05
 
 ALGORITMO responder_tfidf(consulta, umbral = UMBRAL_TFIDF)
-    idxs, sims ← buscar_tfidf(consulta)
-    SI sims[0] ≥ umbral ENTONCES
+    idxs, sims <- buscar_tfidf(consulta)
+    SI sims[0] >= umbral ENTONCES
         RETORNAR fichas[idxs[0]]
     SINO
         RETORNAR "No encontré películas parecidas. Intenta reformular tu consulta o escribe /ayuda."
@@ -194,7 +194,7 @@ Una vez hecho esto, se puede cargar el modelo preentrenado, \textit{paraphrase} 
 Este modelo recibe un texto y genera un vector numerico que representa el significado del mismo, asi si dos frases usan palabras diferentes pero tienen el mismo significado, el modelo puede representarlas mediante vectores cercanos, aun si las palabras estan escritas en idiomas diferentes. 
 
 \begin{lstlisting}[language=Python, caption={~}]
-emb_model ← CARGAR_MODELO("paraphrase-multilingual-MiniLM-L12-v2",dispositivo)
+emb_model <- CARGAR_MODELO("paraphrase-multilingual-MiniLM-L12-v2",dispositivo)
 \end{lstlisting}
 
 El siguiente paso es convertir todas las peliculas en embeddings, con encode se convierte cada texto en un vector numerico, sus parametros utilizados son:
@@ -209,7 +209,7 @@ El siguiente paso es convertir todas las peliculas en embeddings, con encode se 
 El resultado final se guarfa en la variable \textit{matriz\_emb}, esta es la matriz que contiene los embeddings de todas las peliculas, en este cada pelicula esta representada por cada fila de la matriz, mientras que cada columna representa una dimension del embedding y cada valor es un componente numerico del mismo. Las dimensiones son caracteristicas aprendidas por el modelo, mientras que los valores de las peliculas se calculan una sola vez y se conservan para las busquedas posteriores, al igual que con TF-IDF.
 
 \begin{lstlisting}[language=Python, caption={~}]
-matriz_emb ← CODIFICAR(textos, tamaño_lote = 64, normalizar_embeddings = VERDADERO, mostrar_barra_progreso = VERDADERO)
+matriz_emb <- CODIFICAR(textos, tamaño_lote = 64, normalizar_embeddings = VERDADERO, mostrar_barra_progreso = VERDADERO)
 \end{lstlisting}
 
 La funcion \textit{buscar\_emb} recibe la consulta del usuario y se encarga de buscar las peliculas que tengan la mayor similitud con la consulta.
@@ -224,10 +224,10 @@ Esta funcion termina retornando dos elementos, top, que contiene los indices de 
 
 \begin{lstlisting}[language=Python, caption={~}]
 ALGORITMO buscar_emb(consulta, k = 3)
-    vec ← CODIFICAR(consulta,normalizar_embeddings = VERDADERO)
-    similitudes ← multiplicar(matriz_emb, vec)
+    vec <- CODIFICAR(consulta,normalizar_embeddings = VERDADERO)
+    similitudes <- multiplicar(matriz_emb, vec)
     top = np.argsort(-similitudes)[:k]
-    puntuaciones ← similitudes[top]
+    puntuaciones <- similitudes[top]
     RETORNAR top, puntuaciones
 FIN ALGORITMO
 \end{lstlisting}
@@ -237,7 +237,7 @@ El umbral de similitud se define estableciendo un valor inicial (0.30) para el m
 Por otro lado, se comprueba que el motor esta listo para mostrar las dimensiones de la matriz de embeddings. 
 
 \begin{lstlisting}[language=Python, caption={~}]
-CONSTANTE UMBRAL_EMB ← 0.30
+CONSTANTE UMBRAL_EMB <- 0.30
 
 // Mostrar información del motor de embeddings
 ESCRIBIR "Motor de embeddings listo"
@@ -247,14 +247,14 @@ ESCRIBIR "Dimensiones de la matriz: ", dimensiones(matriz_emb)
 Para realizar las pruebas se hacen las mismas consultas de prueba que las que ya se usaron cuando se probo TF-IDF:
 
 \begin{lstlisting}[language=Python, caption={~}]
-consultas ← [
+consultas <- [
     "a robot that falls in love",
     "una película de robots que se enamoran",
     "dinosaurs escape from a theme park",
     "receta de empanadas"
 ]
 PARA CADA consulta EN consultas HACER
-    idxs, sims ← buscar_emb(consulta)
+    idxs, sims <- buscar_emb(consulta)
     ESCRIBIR "Usuario: ", consulta
     ESCRIBIR "Top-1: ", peliculas[idxs[0]].titulo
     ESCRIBIR "Similitud: ", REDONDEAR(sims[0], 2)
@@ -281,11 +281,11 @@ ALGORITMO asistente(consulta, k = 3)
         RETORNAR "El asistente con LLM no está activado (USE_LLM = False)."
     FIN SI
 
-    idxs, sims ← buscar_emb(consulta, k)
-    contexto ← cadena vacía
+    idxs, sims <- buscar_emb(consulta, k)
+    contexto <- cadena vacía
     PARA CADA indice EN idxs HACER
-        pelicula ← obtener información de peliculas[indice]
-        contexto ← contexto + 
+        pelicula <- obtener información de peliculas[indice]
+        contexto <- contexto + 
             "- " + pelicula.titulo +
             " (" + pelicula.anio + "), géneros: " +
             unir(pelicula.generos, ", ") +
@@ -293,7 +293,7 @@ ALGORITMO asistente(consulta, k = 3)
     FIN PARA
 
     // Construir los mensajes de conversación
-    mensajes ← [
+    mensajes <- [
         {rol: "system", contenido: SYSTEM_LLM},
         {rol: "user", contenido:
             "Consulta del usuario: " + consulta +
@@ -303,15 +303,15 @@ ALGORITMO asistente(consulta, k = 3)
     ]
 
     // Adaptar los mensajes a la plantilla de conversación de Qwen
-    texto_chat ← llm_tok.apply_chat_template(mensajes,tokenize = FALSO,add_generation_prompt = VERDADERO)
+    texto_chat <- llm_tok.apply_chat_template(mensajes,tokenize = FALSO,add_generation_prompt = VERDADERO)
 
     // Tokenizar la entrada y convertirla en tensores de PyTorch
-    entrada ← llm_tok(texto_chat,return_tensors = "pt")
+    entrada <- llm_tok(texto_chat,return_tensors = "pt")
 
-    entrada ← entrada.to(dispositivo)
+    entrada <- entrada.to(dispositivo)
 
     CON torch.no_grad() HACER
-        salida ← llm_model.generate(
+        salida <- llm_model.generate(
             entrada,
             max_new_tokens = 200,
             do_sample = FALSO,
@@ -319,8 +319,8 @@ ALGORITMO asistente(consulta, k = 3)
         )
     FIN CON
 
-    tokens_generados ← salida desde la posición longitud(entrada["input_ids"])
-    respuesta ← llm_tok.decode(tokens_generados,skip_special_tokens = VERDADERO)
+    tokens_generados <- salida desde la posición longitud(entrada["input_ids"])
+    respuesta <- llm_tok.decode(tokens_generados,skip_special_tokens = VERDADERO)
     RETORNAR eliminar_espacios(respuesta)
 
 FIN ALGORITMO\
@@ -330,16 +330,16 @@ Por ultimo, se realizan pruebas para revisar el comportamiento de esta parte del
 
 \begin{lstlisting}[language=Python, caption={~}]
     // Seleccionar las tres primeras consultas en español
-    consultas ← primeras 3 consultas de es_q
+    consultas <- primeras 3 consultas de es_q
 
     agregar "una película de terror con casas embrujadas" A consultas
 
     // Ejecutar las pruebas con cada consulta
     PARA CADA consulta EN consultas HACER
         // Registrar el tiempo inicial
-        t0 ← time.time()
-        respuesta ← asistente(consulta)
-        tiempo_total ← time.time() - t0
+        t0 <- time.time()
+        respuesta <- asistente(consulta)
+        tiempo_total <- time.time() - t0
 
         // Mostrar la consulta y la respuesta obtenida
         ESCRIBIR "Usuario: ", consulta

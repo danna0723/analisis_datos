@@ -13,22 +13,22 @@ Los conjuntos de consulta se utilizan para probar el sistema y ver que tan bien 
 Una vez hecho esto, se  comprueban que los titulos existan en el catalogo, para eso, se recorre las descripciones y sus titulos, si se encuentra la pelicula en el catalogo, se guarda la descripcion y la posicion de la pelicula correcta, de no encontrarla, se guarda el titulo de la pelicula que no se encontro en faltan y se omite esa consulta
 
 \begin{lstlisting}[language=Python, caption={~}]
-peliculas ← ordenar peliculas por "vote_count" en orden descendente
+peliculas <- ordenar peliculas por "vote_count" en orden descendente
 
 // Eliminar títulos normalizados duplicados, conservando el de mayor cantidad de votos
-peliculas ← eliminar_duplicados(peliculas, criterio = "norm")
+peliculas <- eliminar_duplicados(peliculas, criterio = "norm")
 
 // Crear un índice que relacione cada título normalizado con su posición
-pos_por_titulo ← crear_indice(peliculas, clave = "norm", valor = "pos")
+pos_por_titulo <- crear_indice(peliculas, clave = "norm", valor = "pos")
 
 // Inicializar las listas para almacenar las consultas y sus posiciones
-es_q ← lista vacía
-es_t ← lista vacía
-faltan ← lista vacía
+es_q <- lista vacía
+es_t <- lista vacía
+faltan <- lista vacía
 
 // Procesar las consultas manuales en español
 PARA CADA (consulta, titulo) EN CONSULTAS_ES HACER
-    n ← normalizar_titulo(titulo)
+    n <- normalizar_titulo(titulo)
     // Verificar si el título existe en el catálogo
     SI n EXISTE EN pos_por_titulo ENTONCES
         // Almacenar la consulta y la posición de la película correspondiente
@@ -40,7 +40,7 @@ PARA CADA (consulta, titulo) EN CONSULTAS_ES HACER
 FIN PARA
 
 // Almacenar el conjunto C con las consultas y sus posiciones reales
-CONJUNTOS["C. Español (manual)"] ← (es_q, convertir_a_array(es_t))
+CONJUNTOS["C. Español (manual)"] <- (es_q, convertir_a_array(es_t))
 
 ESCRIBIR "Conjunto C: ", longitud(es_q), " consultas usables."
 ESCRIBIR "No están en el catálogo (omitidas): ", faltan
@@ -65,37 +65,37 @@ Finalmente, la evaluacion de los conjuntos de consulta se hace recorriendo los c
 Estas metricas se utilizan porque permiten saber si el sistema recomendo la pelicula correcta en primer ligar o si por el contraio, el usuario tendria que revisar varias opciones antes de encontrarla. Los resultados se guardan en el dataframe \textit{resultados}.
 
 \begin{lstlisting}[language=Python, caption={~}]
-filas ← lista vacía
-PUNTAJES ← diccionario vacío
-POSICIONES ← diccionario vacío
+filas <- lista vacía
+PUNTAJES <- diccionario vacío
+POSICIONES <- diccionario vacío
 
 PARA CADA (conjunto, (consultas, objetivos)) EN CONJUNTOS HACER
     // Evaluar cada método de recomendación
     PARA CADA (metodo, funcion) EN METODOS HACER
 
         // Obtener las puntuaciones de similitud para las consultas
-        S ← funcion(consultas)
+        S <- funcion(consultas)
         // Determinar la posición de cada película objetivo en los resultados
-        pos ← posiciones(S, objetivos)
+        pos <- posiciones(S, objetivos)
 
         // Almacenar las puntuaciones y posiciones obtenidas
-        PUNTAJES[(conjunto, metodo)] ← S
-        POSICIONES[(conjunto, metodo)] ← pos
+        PUNTAJES[(conjunto, metodo)] <- S
+        POSICIONES[(conjunto, metodo)] <- pos
 
         // Calcular las métricas de evaluación
-        n ← longitud(consultas)
+        n <- longitud(consultas)
 
-        Top-1 ← calcular_promedio(pos ≤ 1)
-        Recall@5 ← calcular_promedio(pos ≤ 5)
-        Recall@10 ← calcular_promedio(pos ≤ 10)
-        MRR ← calcular_promedio(1 / pos)
+        Top-1 <- calcular_promedio(pos <= 1)
+        Recall@5 <- calcular_promedio(pos <= 5)
+        Recall@10 <- calcular_promedio(pos <= 10)
+        MRR <- calcular_promedio(1 / pos)
 
         // Agregar los resultados de la evaluación
         agregar {"Conjunto": conjunto,"Método": metodo,"n": n,"Top-1": Top-1,"Recall@5": Recall@5,"Recall@10": Recall@10,"MRR": MRR} A filas
     FIN PARA
 FIN PARA
 
-resultados ← pd.DataFrame(filas)
+resultados <- pd.DataFrame(filas)
 \end{lstlisting}
 
 La medicion del tiempo de consulta se hace para medir cuanto tarda cada metodo en realizar la busqueda, para eso, se define la funcion \textit{ms_por_consulta} que recibe como parametro el metodo de busqueda que se desea evaluar, el procedimiento consiste en registrar el instante inicial, recorrer las primeras 30 consultas y se ejecuta la busqueda para cada consulta, luego, con \textit{time.time() - t0} se calcula cuanto tiempo transcurrio duarnte todas las busquedas, luego, se divide el tiempo entre el numero de consultas y se multiplica con 1000 para convertir el resultado de segunfos a milisegundos.
