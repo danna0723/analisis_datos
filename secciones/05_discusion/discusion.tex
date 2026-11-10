@@ -2,4 +2,17 @@
 
 Los resultados obtenidos permiten identificar que el comportamiento de los modelos estan relacionados con las caracteristicas de las consultas que fueron utilizadas durante la evaluacion, los resultados demuestran que no existe un metodo que presente un mejor desempño en todos los conjuntos de datos, ya que la efectividad que se obtenga depende del tipo de informacion proporcionada por el usuario y como esta se relaciona con la informacion de las peliculas en el catalogo. 
 
-Por un lado, el modelo Embeddings cuenta con la ventaja de que puede recuperar las peliculas a partir de descripciones en español, mientras que TF-IDF mantiene un comportamiento mas estable  cuando las consultas contienen palabras especificas que se encuentren en el catalogo. La incorporacion de LLM aporta una capa de interaccion mas natural que aunque mantiene las limitaciones a la hora de seleccionar e interpretar las peliculas seleccionadas.
+Por un lado, el modelo Embeddings cuenta con la ventaja de que puede recuperar las peliculas a partir de descripciones en español, mientras que TF-IDF es competitivo cuando las consultas contienen palabras específicas del catálogo, aunque la diferencia con las consultas por palabras clave no es concluyente. La incorporacion de LLM aporta una capa de interaccion mas natural que aunque mantiene las limitaciones a la hora de seleccionar e interpretar las peliculas seleccionadas.
+
+Como mejoras se proponen: un catálogo con sinopsis en español; una búsqueda híbrida que combine TF-IDF y embeddings; reordenar los diez primeros resultados, dado que el Recall@10 de embeddings en español (0.641) supera ampliamente su Top-1 (0.256), indicar al LLM que declare cuándo ninguna película encaja bien y mostrar junto a su respuesta las fichas recuperadas, y ampliar el conjunto C con consultas de varios usuarios.
+
+Los resultados deben interpretarse con cautela: 
+
+\begin{itemize}
+    \item El conjunto C tiene 39 consultas escritas y etiquetadas por una sola persona.
+    \item los conjuntos A y B usan metadatos del dataset que no son lenguaje natural de un usuario.
+    \item El catálogo es pequeño y está en inglés.
+    \item Los umbrales se calibraron con diez consultas fuera de tema y el margen entre su máximo (0.423) y el umbral elegido para embeddings (0.45) es estrecho.
+    \item la capa generativa se evaluó con cuatro ejemplos, sin métricas.
+
+\end{itemize}

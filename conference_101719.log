@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.25)  9 NOV 2026 17:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.25)  10 NOV 2026 00:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -505,14 +505,10 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 (secciones/00_portada_resumen/resumen.tex)
 (secciones/01_introduccion/introduccion.tex
 (secciones/01_introduccion/objetivos.tex
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 2
-.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)
-[1{C:/Users/Home/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Hom
-e/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
+ [1{C:/Users/Home/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Ho
+me/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
 
 
 ])
@@ -611,26 +607,23 @@ Overfull \hbox (45.1998pt too wide) in paragraph at lines 197--198
 [][][][][][][][][][][][][][][][][]  
  []
 
-[8] [9]) (secciones/03_metodologia/fase4_evaluacion_modelo.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [10])
+[8] [9]) (secciones/03_metodologia/fase4_evaluacion_modelo.tex [10])
 (secciones/03_metodologia/fase5_implementacion_modelo.tex [11])
 (secciones/03_metodologia/fase6_mantenimiento.tex))
-(secciones/04_resultados/resultados.tex
-<figuras/comparacion_metricas.png, id=47, 921.4425pt x 267.399pt>
+(secciones/04_resultados/resultados.tex [12]
+<figuras/comparacion_metricas.png, id=50, 921.4425pt x 267.399pt>
 File: figuras/comparacion_metricas.png Graphic file (type png)
 <use figuras/comparacion_metricas.png>
 Package pdftex.def Info: figuras/comparacion_metricas.png  used on input line 2
 8.
 (pdftex.def)             Requested size: 252.0pt x 73.12897pt.
- [12] [13 <./figuras/comparacion_metricas.png>]
-Underfull \hbox (badness 1418) in paragraph at lines 162--162
+ [13 <./figuras/comparacion_metricas.png>]
+Underfull \hbox (badness 1418) in paragraph at lines 166--166
 []|\T1/ptm/m/n/8 La re-comen-dación no cor-re-sponde a la
  []
 
 
-Underfull \hbox (badness 1418) in paragraph at lines 162--162
+Underfull \hbox (badness 1418) in paragraph at lines 166--166
 []|\T1/ptm/m/n/8 La re-comen-dación no cor-re-sponde a la
  []
 
@@ -639,7 +632,7 @@ Underfull \hbox (badness 1418) in paragraph at lines 162--162
 File: figuras/interfaz_pregunta_robot.png Graphic file (type png)
 <use figuras/interfaz_pregunta_robot.png>
 Package pdftex.def Info: figuras/interfaz_pregunta_robot.png  used on input lin
-e 206.
+e 210.
 (pdftex.def)             Requested size: 252.0pt x 180.94554pt.
 ) (secciones/05_discusion/discusion.tex)
 (secciones/06_conclusiones/conclusiones.tex [15 <./figuras/interfaz_pregunta_ro
@@ -697,13 +690,13 @@ L3 programming layer <2025-12-24>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 8435 strings out of 467870
- 134766 string characters out of 5418838
- 989768 words of memory out of 5000000
- 37090 multiletter control sequences out of 15000+600000
- 746764 words of font info for 167 fonts, out of 8000000 for 9000
+ 8379 strings out of 467870
+ 133996 string characters out of 5418838
+ 945768 words of memory out of 5000000
+ 37038 multiletter control sequences out of 15000+600000
+ 746450 words of font info for 166 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 66i,12n,67p,1483b,1713s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 66i,12n,67p,1501b,1711s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
 mex10.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
 nts/cm/cmmi10.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/publ
@@ -718,7 +711,7 @@ Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Home/AppData/L
 ocal/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/Home/AppData/L
 ocal/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Home/AppData/Lo
 cal/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on conference_101719.pdf (16 pages, 593165 bytes).
+Output written on conference_101719.pdf (16 pages, 592296 bytes).
 PDF statistics:
  124 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
