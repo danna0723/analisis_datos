@@ -10,6 +10,8 @@ Los conjuntos de consulta se utilizan para probar el sistema y ver que tan bien 
     \item Conjunto C (usando las descripciones escritas en español): Por ultimo, en el conjunto C en ves de usar un campo del dataset, se redacta una descripcion de una pelicula en español y el sistema la relaciona con su titulo.
 \end{itemize}
 
+Los conjuntos A y B se construyeron con una muestra aleatoria de 1 000 películas, tomadas entre las que tienen un eslogan de más de 10 caracteres (A) o al menos tres palabras clave (B).
+
 Una vez hecho esto, se  comprueban que los titulos existan en el catalogo, para eso, se recorre las descripciones y sus titulos, si se encuentra la pelicula en el catalogo, se guarda la descripcion y la posicion de la pelicula correcta, de no encontrarla, se guarda el titulo de la pelicula que no se encontro en faltan y se omite esa consulta
 
 \begin{lstlisting}[language=Python, caption={~}]
@@ -52,6 +54,8 @@ Se crean dos funciones diferentes porque se necesita evaluar los dos metodos por
 Una vez hecho esto, se crea un diccionario \textit{METODOS = {'TF-IDF': puntajes_tfidf,'Embeddings': puntajes_emb}} en el que se relaciona el nombre de cada metodo con su funcion de evaluacion, lo que permite que se pueda ejecutar ambos modelos mediante un mismo ciclo sin tener que escribir el procedimiento dos veces.
 
 La funcion \textit{posiciones} tiene como objetivo principal el poder determinar en que posicion queda la pelicula correcta dentro del ranking que genera cada modelo, en el que \textit{s} es la matriz de puntuaciones y cada fila es una consulta, cada columna una pelicula y cada valor la similitud entre ambos, mientras que \textit{objetivos} contiene las posiciones de las peliculas correctas para cada consulta.
+
+Cuando varias películas obtienen el mismo puntaje que la correcta, se asigna la posición esperada (el promedio de los puestos empatados). Así, una consulta que no comparte ninguna palabra con el catálogo, y que deja todos los puntajes en cero, no cuenta como acierto, lo que explica el Top-1 de 0.000 de TF-IDF con consultas en español.
 
 Finalmente, la evaluacion de los conjuntos de consulta se hace recorriendo los conjuntos A,B y C, y aplica tanto TF-IDF como embeddings a las consultas de cada conjunto antes de calcular las metricas de evaluacion ya escogidas:
 

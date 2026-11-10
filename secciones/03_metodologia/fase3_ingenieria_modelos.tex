@@ -3,7 +3,7 @@ Para el desarrollo del sistema, se implementaron dos enfoques con dos modelos de
 
 \subsubsection{Enfoque 1: TF-IDF}
 
-La implementacion de este modelo se hizo siguiendo una serie de pasos, en el que despues de que se importan las librerias necesarias como numpy, counter y re, se definen las palabras vacias o \textit{stopwords}, estas consisten en todas aquellas palabras que aunque son frecuentes, no aportan nada de informacion relevante al sistema, por ejemplo, palabras como \textit{el, la, de, que, etc.}. Esto se hace porque asi el sistema puede centrarse unicamente en las palabras que realmente ayuden a identificar el contenido de la pelicula.
+La implementacion de este modelo se hizo siguiendo una serie de pasos, en el que despues de que se importan las librerias necesarias como numpy, counter y re, se definen las palabras vacias o \textit{stopwords}, estas consisten en todas aquellas palabras que aunque son frecuentes, no aportan nada de informacion relevante al sistema, por ejemplo, palabras como \textit{el, la, de, que, etc.}. Esto se hace porque asi el sistema puede centrarse unicamente en las palabras que realmente ayuden a identificar el contenido de la pelicula. La lista incluye también palabras en inglés \textit{the, of, and}, porque las consultas pueden escribirse en cualquiera de los dos idiomas mientras que el catálogo está en inglés.
 
 Una vez definidas las palabras vacias, se limpia el texto, con limpiar se hace referencia a: convertir las palabras en minusculas, para que el sistema no trate las diferencias entre mayusculas y minusculas como palabras distintas, eliminar caracteres que no esten permitidos, como los signos de puntuacion y numeros los cuales son reemplazados por espacios. Por ultimo, se separan y filtran las palabras utilizando slip() para dividir el texto en palabras y eliminar aquellas que esten en la lista de STOPWORDS o que solo cuenten con un caracter. 
 
@@ -232,7 +232,7 @@ ALGORITMO buscar_emb(consulta, k = 3)
 FIN ALGORITMO
 \end{lstlisting}
 
-El umbral de similitud se define estableciendo un valor inicial (0.30) para el motor de embeddings, este valor se utiliza posteriormente en el codigo en el comportamiento del bot. 
+El umbral de similitud se define estableciendo un valor inicial (0.30) para el motor de embeddings, este valor se utiliza posteriormente en el codigo en el comportamiento del bot.
 
 Por otro lado, se comprueba que el motor esta listo para mostrar las dimensiones de la matriz de embeddings. 
 
@@ -323,15 +323,15 @@ ALGORITMO asistente(consulta, k = 3)
     respuesta <- llm_tok.decode(tokens_generados,skip_special_tokens = VERDADERO)
     RETORNAR eliminar_espacios(respuesta)
 
-FIN ALGORITMO\
-end{lstlisting}
+FIN ALGORITMO
+\end{lstlisting}
 
 Por ultimo, se realizan pruebas para revisar el comportamiento de esta parte del sistema. En este caso, se usan las 3 primeras consultas del conjunto de descripciones en español y una consulta adicional sobre las peliculas de terror con casas embrujadas. Tambien se mide cuanto tiempo se demora con cada respuesta usando time.time().
 
 \begin{lstlisting}[language=Python, caption={~}]
+SI USE_LLM ENTONCES
     // Seleccionar las tres primeras consultas en español
     consultas <- primeras 3 consultas de es_q
-
     agregar "una película de terror con casas embrujadas" A consultas
 
     // Ejecutar las pruebas con cada consulta
@@ -346,6 +346,5 @@ Por ultimo, se realizan pruebas para revisar el comportamiento de esta parte del
         ESCRIBIR "CinemaBox: ", respuesta
         ESCRIBIR "Tiempo de respuesta: ", REDONDEAR(tiempo_total, 1), " segundos"
     FIN PARA
-
 FIN SI
 \end{lstlisting}

@@ -54,9 +54,7 @@ ESCRIBIR "Películas descartadas: ", descartadas
 
 \subsubsection{Construcción del texto de búsqueda}
 
-La funcion texto\_busqueda() se encarga de construir un texto que combine los generos y las sinopsis, ese texto combinado es el que usa el sistema a la hora de 
-
-En vez de que el sistema tenga que buscar directamente sobre todos los campos de una pelicula, se construye un texto que combina sus generos con la sinopsis y dicho texto es el que posteriormente usan los metodos de recomendacion TF-IDF y embeddings multilingues.
+La función texto_busqueda() construye, para cada película, el texto que usan los dos métodos de recuperación: la unión de sus géneros y su sinopsis. Los géneros van primero porque el modelo de embeddings procesa un número limitado de tokens y truncaría el final de las sinopsis largas. El título, el eslogan y las palabras clave no se incluyen en este texto: el título solo se muestra en la ficha, y el eslogan y las palabras clave se reservan como consultas de evaluación (conjuntos A y B), de modo que ningún método tenga acceso a la respuesta.
 
 La funcion ficha se encarga de reunir los campos de una pelicula como titulo, año, generos, puntuacion y un resumen de la sinopsis recortandola si supera los 180 caracteres, esto para que el bot pueda mostrarle al usuario una ficha con la informacion de la pelicula que le esta recomendando, por lo que este texto no es el que se usa para calcular la similitud entre peliculas.
 

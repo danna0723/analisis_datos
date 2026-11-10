@@ -34,7 +34,7 @@ A continuacion, en la Tabla~\ref{tab:resultadosmetodos} y la Fig.~\ref{fig:compa
 \begin{itemize}
     \item Conjunto A: En el conjunto A se ve que ambos metodos tienen un desempeño que podria considerarse bajo, el MRR es de 0.079 para embeddings y 0.070 con TF-IDF, lo que indica que los esloganes no son un buen recurso para que el sistema pueda recomendar una pelicula porque son solo frases que rara vez describen la trama de la pelicula, por lo que el sistema no obtiene suficiente informacion. La diferencia de MRR a favor de embeddings es de 0.009.
     \item Conjunto B: En el conjunto B, el modelo TF-IDF supera a embeddings con un MRR de 0.209 en comparacion con el 0.189 de embeddings, lo que indica que las palabras clave son un recurso bastande util ya que estas suelen aparecer en la sinopsis de la pelicula, por lo que el sistema puede encontrar las peliculas mas facilmente. En este caso, la diferencia entre embeddings y TF-IDF es de -0.020.
-    \item Conjunto C: Se puede observar que el modelo de embeddings supera a TF-IDF en el conjunto C, que es el conjunto de consultas en español. Las metricas registraron un Recall@5 de 51.3\% y un MRR de 0.383, mientras que TF-IDF obtuvo un Recall@5 de 12.8\% y un MRR de 0.048. Por otro lado, las mediciones de latencia confirman que realizar una ejecucion sobre GPU (CUDA) permite que se procese cada consulta con un promedio de 14.86ms mediante la busqueda por producto matricial sobre embeddings, mientras que TF-IDF requiere un promedio de 35.06ms por consulta, lo que representa una diferencia de 2.36 veces mas rapido para el modelo de embeddings. 
+    \item Conjunto C: Se puede observar que el modelo de embeddings supera a TF-IDF en el conjunto C, que es el conjunto de consultas en español. Las metricas registraron un Recall@5 de 51.3\% y un MRR de 0.383, mientras que TF-IDF obtuvo un Recall@5 de 12.8\% y un MRR de 0.048. Respecto al tiempo, en la medición inicial (TF-IDF en CPU y embeddings en GPU) embeddings respondió en 14.86 ms por consulta frente a 35.06 ms de TF-IDF. Como el hardware no es el mismo, esta comparación se complementa en la sección VII-C con una medición de embeddings en CPU
 \end{itemize}
 
 
@@ -42,7 +42,7 @@ A continuacion, en la Tabla~\ref{tab:resultadosmetodos} y la Fig.~\ref{fig:compa
 
 Se realizo un analisis en el que se compararon las recomendaciones dadas por ambos metodos para una misma consulta "una pelicula de robots que se enamoran", esto con el fin de observar que respuestas dan cada uno.
 
-En el caso de TF-IDF, la primera pelicula que el sistema recomendo fue Sky Captain and the world of tomorrow de 2004, la descripcion de la pelicula menciona ataques de robot gigantes, mientras que la segunda pelicula recomendada fue Heartbeeps de 1981, la cual es una pelicula de una historia de amor entre dos robots, y por ultimo, el sistema recomendo la pelicula Surrogates (2009), una pelicula sobre la vida en un mundo donde los humanos son reemplazados por réplicas. Por otro lado, el modelo de embeddings recomendo como primera pelicula Heartbeeps (1981), seguida de la pelicula The Lovers (2015) y A.I. artifial intelligence (2001), ambas peliculas sobre historias de amor entre robots, lo que indica que en el modelo embedding existe una mayor relacion entre la intencion del usuario con la consulta y la pelicula recomendada como primera opcion.
+En el caso de TF-IDF, la primera pelicula que el sistema recomendo fue Sky Captain and the world of tomorrow de 2004, la descripcion de la pelicula menciona ataques de robot gigantes, mientras que la segunda pelicula recomendada fue Heartbeeps de 1981, la cual es una pelicula de una historia de amor entre dos robots, y por ultimo, el sistema recomendo la pelicula Surrogates (2009), una pelicula sobre la vida en un mundo donde los humanos son reemplazados por réplicas. Por otro lado, el modelo de embeddings recomendó como primera película Heartbeeps (1981), seguida de The Lovers (2015) y A.I. Artificial Intelligence (2001). Heartbeeps trata de robots que se enamoran y A.I. de un niño robot programado para amar; The Lovers, en cambio, es un romance de viajes en el tiempo y su sinopsis no menciona robots. Por tanto, solo parte de la lista coincide con la intención del usuario, aunque embeddings sí ubicó primero la película que mejor corresponde a la descripción.
 
 Estas diferencias se pueden apreciar tambien en los valores de similitud que el sistema le asigno a cada una de las recomendaciones dadas, ambos modelos recomendaron la pelicula Heartbeeps (1981), con la diferencia de que TF-IDF le asigno un puntaje de 0.30 mientras que embeddings le asigno 0.69. Aunque estos puntajes no son equivalentes en los dos modelos, ya que cada uno cuenta con sus propias escalas de similitud, permiten observar el orden de relevancia que se establecio por cada modelo.
 
@@ -85,6 +85,8 @@ En cuanto a los tiempos de respuesta, TF-IDF registro en promedio 35.064ms por c
 En la tabla se puede observar como el metodo de TF-IDF tiene en promedio un tiempo de 35.1ms de consulta, mientras que Embeddings en CPU alcanzo un 42.0, esto permite ver un 19.7\% de diferencia a favor de TF-IDF. Cuando Embeddings se ejecuta en GPU mediante CUDA, el tiempo disminuye a 14.9ms por consulta, lo que deja ver que existe una reduccion aproximada del 64.5\% respecto a su ejecucion en CPU.
 
 Estos resultados permiten concluir que en general, el metodo TF-IDF presenta un menor tiempo de respuesta cuando ambos metodos se ejecutan usando CPU, sin embargo, Embeddings reduce su tiempo de procesamiento cuando se usa GPU, lo que deja ver que su rendimiento esta condicionado por los recursos del hardware disponible. 
+
+Los tiempos varían entre ejecuciones (alrededor de un 10 \%), por lo que se reportan los valores de una misma corrida.
 
 \subsection{Umbrales de similitud}
 
@@ -130,6 +132,8 @@ TF-IDF por otro lado, con un umbral de 0.20, el 20\% de las consultas que estaba
 
 En general, los resultados muestran que Embedding ofrece un comportamiento mas favorable para poder establecer un umbral de aceptación en este experimento, especialmente al considerar las consultas manuales en español. Un umbral de 0.45 permite que el sistema no responda consultas fuera de tema, mientras que se conservan todas las consultas del conjunto C, esta configuracion reduce al 62\% la proporcion de las consultas del conjunto A que superan el umbral, por lo que su eleccion implica que haya un equilibrio entre el rechazo a las consultas no pertinentes y a la conservacion de las validas.
 
+Con base en este análisis, se adoptaron los umbrales de 0.45 para embeddings y 0.20 para TF-IDF, y se actualizaron en el código del bot.
+
 \subsection{Capa con LLM}
 Se realizo una prueba de la capa de LLM con el fin de evaluar su capacidad de recibir una consulta, utilizar el metodo de Embeddings para recuperar las tres peliculas con mayor similitud semantica y generar respuestas redactadas en lenguaje natural a partir usar como contexto los resultados obtenidos mediante embeddings. Para esto, se construye un contexto con los titulos, años, generos y los primeros 300 caracteres de las sinopsis de las peliculas, toda esta informacion se le pasa al LLM, que es el que se encarga de interpretar las opciones y generar una respuesta mas completa relacionada con lo que se le pregunto.
 
@@ -145,15 +149,15 @@ Para comprobar dicho funcionamiento, se realizaron cuatro pruebas con descripcio
         \hline
         Un barco gigante choca con un iceberg y una chica rica se enamora de un chico pobre.
         & Show Boat
-        & La recomendación no corresponde a la película esperada (Titanic). \\ 
+        & La recomendación no corresponde a la película esperada (Titanic). la película esperada quedó en la posición 44 del ranking de embeddings \\ 
         \hline
         Un robot solitario limpia la Tierra abandonada y se enamora de otro robot.
         & WALL$\cdot$E (2008)
-        & La recomendación corresponde a la descripción proporcionada y presenta una relación temática adecuada. \\
+        & La película recomendada corresponde a la descripción, pero la respuesta repite el título y añade afirmaciones que no están en la sinopsis (por ejemplo, que el robot "se convierte en humano"). \\
         \hline
         Un viejo ata miles de globos a su casa y viaja a Sudamérica con un niño explorador.
         & The Blue Butterfly
-        & La recomendación no corresponde a la película esperada (Up). \\
+        & La recomendación no corresponde a la película esperada (Up). la película esperada quedó en la posición 90 del ranking de embeddings \\
         \hline
         Una película de terror con casas embrujadas.
         & The Amityville Horror (2005)
@@ -162,11 +166,11 @@ Para comprobar dicho funcionamiento, se realizaron cuatro pruebas con descripcio
     \end{tabular}}
 \end{table}
 
-Se observo que el modelo puede generar respuestas coherentes y contextualizadas, por ejemplo, cuando se le pregunto sobre "Un robot solitario limpia la Tierra abandonada y se enamora de otro robot", el modelo genero una respuesta completa y natural que mencionaba la pelicula Wall-E, sin embargo, se encontraron limitaciones cuando tuvo que redactar otras respuestas, ya que hubo otro caso en el que cuando se le consulto sobre "Un barco gigante choca con un iceberg y una chica rica se enamora de un chico pobre", el modelo recomendo la pelicula Show Boat en vez de la pelicula esperada Titanic, lo que indica que la generacion de respuestas no garantiza la identificacion correcta de la pelicula y que el modelo puede realizar interpretaciones inadecuadas de la consulta.
+Se observo que el modelo puede generar respuestas coherentes y contextualizadas, por ejemplo, cuando se le pregunto sobre "Un robot solitario limpia la Tierra abandonada y se enamora de otro robot", el modelo identificó la película correcta, pero su redacción repitió el título como si fueran dos películas e incluyó detalles que no aparecen en la sinopsis, por lo que ni siquiera los aciertos garantizan una respuesta fiel al contexto. 
 
-Esto es debido a que LLM no realiza una busqueda independiente en el catalogo, si no que trabaja a partir de las tres peliculas recuperadas por embeddings, no obstante, el modelo se encarga de interpretar las fichas proporcionadas y decidir cuales considera mas adecuada para la consulta, lo que puede influir en la seleccion final y generar explicaciones que no representen correctamente el contenido de las peliculas, es por esa razon, que se puede concluir que la incorporacion del LLM permite presentar recomendaciones medainte respuestas mas naturales y explicativas que una simple lista de titulos, pero esta capa no garantiza una mayor presicion en la seleccion de las peliculas, por lo que su uso principal se encuentra en la generacion de respuestas en lenguaje natural.
+Esto se explica porque el LLM solo trabaja con las tres películas que recupera embeddings: para Titanic y Up, la película esperada quedó en las posiciones 44 y 90 del ranking, es decir, no estaba entre las tres recuperadas y el modelo no podía recomendarla. Cada respuesta tardó entre 2.9 y 4.0 s en GPU.
 
-\subsection{Umbrales de similitud}
+\subsection{Intervalos de confianza}
 
 Los intervalos de confianza obtenidos permiten complementar la comparación de los métodos mediante la identificación de la incertidumbre asociada a las diferencias de MRR. En el conjunto A, Embeddings presentó una diferencia positiva de 0,009 respecto a TF-IDF. Sin embargo, el intervalo de confianza comprendido entre -0,004 y 0,021 incluye el valor cero, por lo que no se puede establecer una diferencia concluyente entre ambos métodos para este conjunto.
 
@@ -176,7 +180,7 @@ En contraste, el conjunto C presentó una diferencia de 0,335 a favor de Embeddi
 
 En consecuencia, el análisis mediante bootstrap respalda los resultados obtenidos con Embeddings para las descripciones. Aunque este método presentó valores de MRR superiores en el conjunto A, y TF-IDF obtuvo mejores resultados en el conjunto B, las diferencias observadas en estos dos escenarios no fueron concluyentes según los intervalos estimados, por lo que esto refuerza la importancia de considerar el tipo de consulta al comparar el comportamiento de los métodos de recuperación.
 
-Para complementar la comparación de los métodos se realizó un análisis mediante bootstrap pareado, utilizando 2.000 remuestreos. En cada repetición se seleccionaron consultas de los conjuntos de evaluación con reemplazo, conservando los mismos índices para ambos métodos. Esto permitió calcular la diferencia entre los valores de MRR obtenidos por TF-IDF y embeddings en cada remuestreo, y estimar sus intervalos de confianza del 95 %.
+Para complementar la comparación de los métodos se realizó un análisis mediante bootstrap pareado, utilizando 2.000 remuestreos. En cada repetición se seleccionaron consultas de los conjuntos de evaluación con reemplazo, conservando los mismos índices para ambos métodos. Esto permitió calcular la diferencia entre los valores de MRR obtenidos por TF-IDF y embeddings en cada remuestreo, y estimar sus intervalos de confianza del 95\%.
 
 Este procedimiento permite analizar la incertidumbre de las diferencias observadas y determinar si existe evidencia suficiente para identificar una ventaja de un método sobre el otro en cada conjunto de consultas.
 
@@ -210,31 +214,4 @@ La interfaz de usuario se implemento en Telegram, lo que permite que los usuario
 
 \subsection{Comparación general de los métodos de recuperación}
 
-La comparacion general de los metodos de recuperacion TF-IDF y Embeddings se presenta en la Tabla~\ref{tab:comparacion_general_modelos}, donde se observa que Embeddings supera a TF-IDF en el conjunto C, mientras que TF-IDF obtiene mejores resultados en el conjunto B. En el conjunto A, ambos metodos presentan un desempeño similar, con una ligera ventaja para Embeddings. En cuanto al tiempo de respuesta, Embeddings es significativamente mas rapido que TF-IDF, especialmente cuando se ejecuta en GPU:
-
-\begin{table}[htbp]
-    \centering
-    \caption{Comparación general de los métodos de recuperación TF-IDF y Embeddings.}
-    \label{tab:comparacion_general_modelos}
-    \small
-    \resizebox{\columnwidth}{!}{\begin{tabular}{l|l|c|c|c|c|c}
-        \hline
-        \textbf{Conjunto} & \textbf{Método} & \textbf{Top-1} &
-        \textbf{Recall@5} & \textbf{Recall@10} & \textbf{MRR} &
-        \textbf{Tiempo (ms)} \\
-        \hline
-        \multirow{2}{*}{A. Eslogan}
-        & TF-IDF & 0.044 & 0.089 & 0.121 & 0.070 & 35.1 \\
-        & Embeddings & 0.049 & 0.107 & 0.136 & 0.079 & 14.9 \\
-        \hline
-        \multirow{2}{*}{B. Palabras clave}
-        & TF-IDF & 0.137 & 0.285 & 0.350 & 0.209 & 35.1 \\
-        & Embeddings & 0.124 & 0.242 & 0.303 & 0.189 & 14.9 \\
-        \hline
-        \multirow{2}{*}{C. Español (manual)}
-        & TF-IDF & 0.000 & 0.128 & 0.128 & 0.048 & 35.1 \\
-        & Embeddings & 0.256 & 0.513 & 0.641 & 0.383 & 14.9 \\
-        \hline
-    \end{tabular}}
-\end{table}
-
+La comparacion general de los metodos de recuperacion TF-IDF y Embeddings se presenta en la Tabla~\ref{tab:comparacion_general_modelos}, donde se observa que Embeddings supera a TF-IDF en el conjunto C, mientras que TF-IDF obtiene mejores resultados en el conjunto B. En el conjunto A, ambos metodos presentan un desempeño similar, con una ligera ventaja para Embeddings. En cuanto al tiempo de respuesta, la comparación depende del hardware: en CPU, TF-IDF es más rápido (35.1 ms frente a 42.0 ms), mientras que embeddings en GPU responde en 14.9 ms. (Ver la Tabla II)

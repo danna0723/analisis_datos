@@ -1,6 +1,7 @@
 ﻿\begin{abstract}
+En este trabajo se presenta el desarrollo y evaluación de CinemaBox, un asistente conversacional integrado en Telegram para la recomendación de películas a partir de consultas de usuario en lenguaje natural en español. Siguiendo la metodología CRISP-ML(Q), se construyó y preparó un catálogo basado en el TMDB 5000 Movie Dataset y se compararon dos enfoques de Recuperación de Información (RI): un método léxico tradicional basado en TF-IDF con similitud del coseno y un método semántico vectorial mediante el modelo de embeddings multilingües paraphrase-multilingual-MiniLM-L12-v2. Adicionalmente, se incorporó una capa generativa con el modelo de lenguaje de gran tamaño (LLM) Qwen2.5-1.5B-Instruct para enriquecer las respuestas en lenguaje natural apoyadas en el contexto recuperado. Los modelos fueron evaluados sobre tres conjuntos de prueba (eslóganes, palabras clave y descripciones manuales en español) mediante las métricas Top-1, Recall@5, Recall@10, MRR (Mean Reciprocal Rank) y latencia. Los resultados muestran que, con consultas en español, los embeddings superan ampliamente a TF-IDF (MRR de 0.383 frente a 0.048), diferencia que el análisis bootstrap respalda como concluyente; con consultas derivadas de eslóganes y palabras clave, las diferencias no son concluyentes. En CPU, TF-IDF responde más rápido que los embeddings, mientras que con GPU los embeddings son más rápidos.    
 \end{abstract}
 
 \begin{IEEEkeywords}
-clasificación de texto, TF-IDF, modelos de lenguaje, embeddings multilingües, atención al cliente, CRISP-ML(Q)
+recuperación de información, TF-IDF, embeddings multilingües, recomendación de películas, modelos de lenguaje, CRISP-ML(Q)
 \end{IEEEkeywords}

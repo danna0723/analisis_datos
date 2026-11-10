@@ -2,9 +2,9 @@
 
 En los ultimos años se ha visto un aumento en el acceso a peliculas a traves de plataformas de streaming, estas plataformas cuentan con un gran numero de usuarios los cuales en muchas ocasiones tienen la necesidad de poder contar con una herramienta que les permita encontrar contenido que se ajuste a sus intereses.
 
-En este proyecto se propone el desarollo de un asistente virtual para la recomendacion de peliculas el cual permitira a los usuarios realizar sus preguntas sobre las peliculas del catalogo y recibir informacion sobre las mismas, teniendo en cuenta caracteristias como titulo, genero, sinopsis, entre otros.
+En este proyecto se propone el desarollo de un asistente virtual para la recomendacion de peliculas el cual permitirá a los usuarios describir la película que buscan y recibir recomendaciones del catálogo, comparando su consulta con el género y la sinopsis de cada película, entre otros.
 
-Es en este contexto que el poder implementar un sistema de clasificacion automatica de texto resulta realmente util, el procesamiento PLN (Procesamiento del Lenguaje Natural) permite desarrollar sistemas capaces de procesar y analizar textos dados por el usuario y relacionarlos directamente con la informacion disponible, en este caso, informacion sobre peliculas.
+Es en este contexto que resulta útil un sistema de recuperación de información: mediante técnicas de Procesamiento del Lenguaje Natural (PLN) es posible analizar el texto escrito por el usuario y relacionarlo con la información disponible, en este caso, los géneros y las sinopsis de las películas de un catálogo.
 
 Existen diferentes tecnicas que pueden considerarse para poder implementar un sistema con esas caracteristicas, en este caso, el sistema propone el uso de dos enfoques:
 
@@ -12,7 +12,7 @@ El primer enfoque consiste en la implementacion de TF-IDF (Term Frequency-Invers
 
 El segundo enfoque consiste en usar un modelo preentrenado de embeddings, este modelo permite poder representar el texto dado por el usuario y la informacion disponible en el catalogo de peliculas en un espacio vectorial, este metodo tambien usa la similitud del coseno para pode medir la similitud entre los textos y de esta manera, poder identificar las peliculas que mas se relacionen a lo que pidio el usuario. Adicionalmente, el sistema incorpora Qwen2.5-1.5B-Instruct como una capa generativa basada en un modelo de lenguaje de gran tamaño (LLM, Large Language Model). Este componente utiliza la información de las películas recuperadas mediante el método de embeddings para generar respuestas en lenguaje natural. De esta manera, su función no consiste en generar representaciones vectoriales ni realizar la recuperación de información, sino en presentar las recomendaciones de una forma más completa y comprensible para el usuario.
 
-La evaluacion se centrara en la comparacion entre estos dos enfoques para asi poder determinar la capacidad de cada enfoque para poder recuperar peliculas relevantes a partir de la pregunta realizada por el usuario, ademas de poder determinar cual de los dos enfoques es mas eficiente en cuanto a tiempo de respuesta y consumo de recursos. Las metricas de evaluacion implementadas consisten en Top-1, Recall@5, rango reci­proco medio (MRR) y tiempo de respuesta.
+La evaluacion se centrara en la comparacion entre estos dos enfoques para asi poder determinar la capacidad de cada enfoque para poder recuperar peliculas relevantes a partir de la pregunta realizada por el usuario, ademas de poder determinar cual de los dos enfoques es mas eficiente en cuanto a tiempo de respuesta. Las metricas de evaluacion implementadas consisten en Top-1, Recall@5, rango reci­proco medio (MRR) y tiempo de respuesta.
 
 \input{secciones/01_introduccion/objetivos}
 \input{secciones/01_introduccion/justificacion}

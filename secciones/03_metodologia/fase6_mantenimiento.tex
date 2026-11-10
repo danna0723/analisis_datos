@@ -1,6 +1,6 @@
 ﻿\subsection{Fase 6: Supervisión y mantenimiento}
 
-Uno de los componentes del sistema mas importantes es el modelo de recuperacion, ya que este es el encargado de identificar las peliculas que se le van a recomendar al usuario, por eso, es importante garantizar su calidad y correcto funcionamiento, para esto, se considera verificar los siguientes aspectos:
+Esta fase se plantea como trabajo propuesto, el sistema desarrollado no incluye mecanismos automáticos de monitoreo por lo que se propone verificar los siguientes aspectos:
 
 \begin{itemize}
     \item Calidad de las recomendaciones: Revisar si las peliculas recomendadas por el bot correspondan con lo pedido por el usuario.
@@ -9,14 +9,14 @@ Uno de los componentes del sistema mas importantes es el modelo de recuperacion,
     \item Tiempo de respuesta: Medir cuanto tiempo le toma al sistema procesar la consulta y procurar que dicho tiempo no se exceda demasiado, ya que esto podria afectar la experiencia del usuario.
 \end{itemize}
 
-Para supervisar el funcionamiento del chatbot en Telegram, se verifica que los componentes del sistema funcionen correctamente. Esta supervision incluye: 
+Para supervisar el funcionamiento del chatbot en Telegram, se propone verificar que los componentes del sistema funcionen correctamente. Esta supervision incluye: 
 
 \begin{itemize}
     \item Recepcion de consultas, para verificar que el bot reciba correctamente los mensajes enviados por los usuarios.
-    \item Funcionamiento de los metodos de recuperacion: Se comprueba que los comandos \textit{/start}, \textit{/ayuda}, \textit{/metodo} y \textit{/asistente} ejecuten correctamente.
+    \item Funcionamiento de los metodos de recuperacion: Comprobar que los comandos \textit{/start}, \textit{/ayuda}, \textit{/metodo} y \textit{/asistente} ejecuten correctamente.
     \item Seleccion del metodo de recuperacion: Verificar que el bot utilice TF-IDF, embeddings o ambos metodos dependiendo la elegida por el usuario.
     \item Generacion de recomendaciones: Comprobar que las consultas sean procesadas de manera correcta y que se le presenten al usuario las peliculas recomendadas.
-    \item Generacion de respuestas con LLM: Se verifica que el comando \textit{/asistente} utilice los resultados de embeddings para generar una respuesta redactada en lenguaje natural.  
+    \item Generacion de respuestas con LLM: Verificar que el comando \textit{/asistente} utilice los resultados de embeddings para generar una respuesta redactada en lenguaje natural.  
 \end{itemize}
 
 

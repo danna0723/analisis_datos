@@ -1,20 +1,20 @@
 ﻿\section{Estado del arte}
 
-\section{Metodologías para el desarrollo de aplicaciones de Machine Learning}
+\subsection{Metodologías para el desarrollo de aplicaciones de Machine Learning}
 El desarrollo de aplicaciones basadas en aprendizaje automático requiere un proceso organizado que permita abordar las diferentes actividades involucradas en su construcción, desde la identificación del problema hasta la implementación y mantenimiento de la solución. Una de las metodologías propuestas para orientar este proceso es CRISP-ML(Q), cuyo propósito es establecer un modelo de desarrollo para aplicaciones de Machine Learning que incorpore actividades de aseguramiento de calidad durante todo su ciclo de vida.
 
 De acuerdo con la explicación presentada por DataCamp\cite{datacamp_ml_lifecycle}, el ciclo de vida puede organizarse en las siguientes seis etapas: planificación, preparación de datos, ingeniería de modelos, evaluación del modelo, implementación del modelo y supervisión y mantenimiento. Fases las cuales se toman como referencia para la organización de las actividades de desarrollo del proyecto.
 
-\section{Técnicas de recuperación de información}
+\subsection{Técnicas de recuperación de información}
 
 En el estudio de "Language Models are Few-Shot Learners" \cite{brown2020} mostraron que un modelo de lenguaje de gran tamaño puede resolver tareas a partir de instrucciones o de pocos ejemplos, sin ajustar sus pesos. Por otra parte, en el estudio "Retrieval-augmented generation for knowledge-intensive NLP tasks" \cite{lewis2020} combinan un recuperador con un generador para que la respuesta se apoye en documentos externos, mientras que Qwen2.5 \cite{qwen2024} ofrece modelos abiertos que siguen instrucciones, incluidas versiones pequeñas que pueden ejecutarse con recursos limitados, como la que se usa aquí.
 
 En cuanto a la recuperacion de informacion, se consideraron dos enfoques principales para este proyecto: TF-IDF y embeddings multilingües:
 
-\subsection{TF-IDF y similitud del coseno}
+\subsubsection{TF-IDF y similitud del coseno}
 El esquema de ponderación TF-IDF (\textit{Term Frequency - Inverse Document Frequency}) evalúa la importancia de una palabra en un documento considerando tanto sus apariciones locales (TF) como su rareza en toda la colección (IDF). Aunque durante mucho tiempo se consideró una regla puramente heurística y se intentó justificar mediante la Teoría de la Información de Shannon, Robertson \cite{robertson2004idf} demuestra que los enfoques basados en la información presentan serias inconsistencias teóricas, como la dificultad para definir los espacios de eventos probabilísticos o explicar por qué se ignoran las palabras no incluidas en la consulta. En su lugar, el autor prueba que TF-IDF posee un fundamento sólido en los modelos probabilísticos tradicionales de recuperación de información: el componente IDF equivale al peso de relevancia de Robertson-Spärck Jones (RSJ) cuando no hay datos previos de relevancia, mientras que la combinación TF-IDF se justifica mediante el modelo Okapi BM25, donde la frecuencia local (TF) actúa como evidencia probabilística de que el documento trata verdaderamente sobre el tema deseado.
 
-\subsection{Embeddings y recuperación semántica}
+\subsubsection{Embeddings y recuperación semántica}
 Los \textit{embeddings} son representaciones numéricas en forma de vectores dentro de un espacio vectorial, diseñados de tal forma que las oraciones con un significado conceptual similar se ubiquen geométricamente cerca unas de otras \cite{reimers2019sbert}. Este concepto es el pilar fundamental de la \textbf{recuperación semántica}, un enfoque de búsqueda que permite encontrar información o responder consultas evaluando la similitud de significado entre textos, superando las limitaciones de la simple coincidencia exacta de palabras clave.
 
 La recuperación semántica se vuelve más compleja en escenarios multilingües, donde la mayoría de modelos eficaces existen únicamente para el idioma inglés. Para extender estos \textitembeddings a múltiples lenguas, Reimers y Gurevych \cite{reimers2020multilingual} proponen la \textbf{destilación de conocimiento multilingüe} (\textit{multilingual knowledge distillation}). En este método, un modelo "estudiante" multilingüe (como XLM-RoBERTa) se entrena con pares de oraciones traducidas para imitar las representaciones del modelo "profesor" monolingüe (SBERT en inglés) minimizando el error cuadrático medio. Esta técnica logra dos propiedades cruciales para la recuperación semántica translingüe: 
@@ -23,7 +23,7 @@ La recuperación semántica se vuelve más compleja en escenarios multilingües,
 2. transfiere la capacidad de medir similitud semántica a más de 50 idiomas sin sufrir del sesgo de idioma característico de otros métodos tradicionales \cite{reimers2020multilingual}.
 
 \begin{landscape}
-\section{Comparación de los trabajos revisados}
+\subsection{Comparación de los trabajos revisados}
 \begin{table}[H]
     \centering
     \caption{Comparación de los trabajos relacionados con el proyecto.}
@@ -32,7 +32,7 @@ La recuperación semántica se vuelve más compleja en escenarios multilingües,
     \begin{tabularx}{\textwidth}{|p{2.6cm}|p{2.8cm}|X|X|}
         \hline
         \textbf{Autor y año} & \textbf{Enfoque} &
-        \textbf{Aporte principal} & \textbf{Relación con CineBot} \\
+        \textbf{Aporte principal} & \textbf{Relación con CinemaBoxt} \\
         \hline
 
         DataCamp (2023) \cite{datacamp_ml_lifecycle} &
@@ -68,7 +68,7 @@ La recuperación semántica se vuelve más compleja en escenarios multilingües,
         Lewis et al. (2020) \cite{lewis2020} &
         Generación aumentada por recuperación (RAG) &
         Propone combinar un componente de recuperación de información con un modelo generador para producir respuestas apoyadas en documentos externos. &
-        Se relaciona con la integración de recuperación y generación de respuestas, concepto que sirve como referencia para la capa generativa de CineBot. \\
+        Se relaciona con la integración de recuperación y generación de respuestas, concepto que sirve como referencia para la capa generativa de CinemaBoxt. \\
         \hline
 
         Qwen Team (2024) \cite{qwen2024} &
