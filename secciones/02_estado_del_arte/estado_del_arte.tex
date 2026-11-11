@@ -27,19 +27,19 @@ La recuperación semántica se vuelve más compleja en escenarios multilingües,
 2. transfiere la capacidad de medir similitud semántica a más de 50 idiomas sin sufrir del sesgo de idioma característico de otros métodos tradicionales \cite{reimers2020multilingual}.
 
 \subsection{Evaluación e incertidumbre}
-Las métricas de recuperación como Recall@k se describen en \cite{manning2008ir}. Para estimar la incertidumbre de esas métricas se usa el bootstrap \cite{efron1979bootstrap,efron1993bootstrap}: se generan muchas muestras nuevas del mismo tamaño tomando elementos con reemplazo de la muestra original y se calcula la métrica en cada una. La dispersión de esos valores permite construir un intervalo de confianza; si el intervalo de la diferencia entre dos métodos incluye el cero, no hay evidencia suficiente para afirmar que uno supera al otro. En este trabajo se aplica de forma pareada: ambos métodos se evalúan sobre las mismas consultas remuestreadas.
+Las métricas de recuperación como Recall@k se describen en el articulo "Introduction to Information Retrieval" \cite{manning2008ir}. Para estimar la incertidumbre de esas métricas se usa el bootstrap \cite{efron1979bootstrap,efron1993bootstrap}, se generan muchas muestras nuevas del mismo tamaño tomando elementos con reemplazo de la muestra original y se calcula la métrica en cada una. La dispersión de esos valores permite construir un intervalo de confianza; si el intervalo de la diferencia entre dos métodos incluye el cero, no hay evidencia suficiente para afirmar que uno supera al otro. En este trabajo se aplica de forma pareada: ambos métodos se evalúan sobre las mismas consultas remuestreadas.
 
 \subsection{Evaluación e incertidumbre}
 Los recomendadores de películas más conocidos se apoyan en el comportamiento de los usuarios, como el sistema de Netflix \cite{gomezuribe2015netflix}, o en conjuntos de calificaciones como MovieLens \cite{harper2015movielens}. Una línea distinta estudia a quienes recuerdan detalles de una película pero no su título \cite{arguello2021tot}, que es el caso que aborda CinemaBox. Los sistemas de recomendación conversacionales \cite{jannach2021crs} incorporan además el diálogo para obtener preferencias; CinemaBox, en cambio, atiende una consulta por mensaje, sin mantener un diálogo de varios turnos.
 
 \begin{landscape}
 \subsection{Comparación de los trabajos revisados}
-\begin{table*}[!t]
+\begin{table}[H]
     \centering
     \caption{Comparación de los trabajos relacionados con el proyecto.}
     \label{tab:comparacion_estado_arte}
     \small
-    \begin{tabularx}{\textwidth}{|p{2.6cm}|p{2.8cm}|X|X|}
+    \begin{tabularx}{\columnwidth}{|p{2.6cm}|p{2.8cm}|X|X|}
         \hline
         \textbf{Autor y año} & \textbf{Enfoque} &
         \textbf{Aporte principal} & \textbf{Relación con CinemaBox} \\
@@ -51,7 +51,7 @@ Los recomendadores de películas más conocidos se apoyan en el comportamiento d
         Se toma como referencia para organizar las actividades y etapas de desarrollo del proyecto. \\
         \hline
 
-        Studer et al. (2021) \cite{studer2021} &
+        Studer et al. (2021) \cite{studer2021crispml} &
         CRISP-ML(Q) &
         Extiende CRISP-DM con aseguramiento de calidad y define seis fases para proyectos de aprendizaje automático. &
         Organiza el desarrollo del proyecto (Fases 1 a 6). \\
@@ -129,5 +129,5 @@ Los recomendadores de películas más conocidos se apoyan en el comportamiento d
         CinemaBox atiende una consulta por mensaje, sin diálogo de varios turnos. \\
         \hline
     \end{tabularx}
-\end{table*}
+\end{table}
 \end{landscape}
