@@ -3,7 +3,7 @@
 \subsection{Metodologías para el desarrollo de aplicaciones de Machine Learning}
 El desarrollo de aplicaciones basadas en aprendizaje automático requiere un proceso organizado que permita abordar las diferentes actividades involucradas en su construcción, desde la identificación del problema hasta la implementación y mantenimiento de la solución. Una de las metodologías propuestas para orientar este proceso es CRISP-ML(Q), cuyo propósito es establecer un modelo de desarrollo para aplicaciones de Machine Learning que incorpore actividades de aseguramiento de calidad durante todo su ciclo de vida.
 
-CRISP-ML(Q) \cite{studer2021} extiende CRISP-DM \cite{wirth2000}, el modelo de proceso más difundido en minería de datos, incorporando actividades de aseguramiento de calidad en cada fase. Complementariamente, MLOps \cite{kreuzberger2023} reúne prácticas de aprendizaje automático, ingeniería de software e ingeniería de datos para automatizar el despliegue y la operación de los modelos. De acuerdo con la explicación presentada por DataCamp\cite{datacamp_ml_lifecycle}, el ciclo de vida puede organizarse en las siguientes seis etapas: planificación, preparación de datos, ingeniería de modelos, evaluación del modelo, implementación del modelo, y supervisión y mantenimiento, las cuales se toman como referencia para la organización de las actividades de desarrollo del proyecto.
+CRISP-ML(Q) \cite{studer2021crispml} extiende CRISP-DM \cite{wirth2000crispdm}, el modelo de proceso más difundido en minería de datos, incorporando actividades de aseguramiento de calidad en cada fase. Complementariamente, MLOps \cite{kreuzberger2023mlops} reúne prácticas de aprendizaje automático, ingeniería de software e ingeniería de datos para automatizar el despliegue y la operación de los modelos. De acuerdo con la explicación presentada por DataCamp\cite{datacamp_ml_lifecycle}, el ciclo de vida puede organizarse en las siguientes seis etapas: planificación, preparación de datos, ingeniería de modelos, evaluación del modelo, implementación del modelo, y supervisión y mantenimiento, las cuales se toman como referencia para la organización de las actividades de desarrollo del proyecto.
 
 \subsection{Técnicas de recuperación de información}
 
@@ -13,7 +13,7 @@ En cuanto a la recuperacion de informacion, se consideraron dos enfoques princip
 
 \subsubsection{TF-IDF y similitud del coseno}
 El esquema de ponderación TF-IDF (\textit{Term Frequency - Inverse Document Frequency}) evalúa la importancia de una palabra en un documento considerando tanto sus apariciones locales (TF) como su rareza en toda la colección (IDF).
-La idea de ponderar los términos según su rareza proviene de Spärck Jones \cite{sparckjones1972}, y la comparación de documentos y consultas como vectores, mediante medidas como la similitud del coseno, se remonta al modelo de espacio vectorial de Salton et al. \cite{salton1975}. Manning et al.
+La idea de ponderar los términos según su rareza proviene de Spärck Jones \cite{sparckjones1972idf}, y la comparación de documentos y consultas como vectores, mediante medidas como la similitud del coseno, se remonta al modelo de espacio vectorial de Salton et al. \cite{salton1975vsm}. Manning et al.
 
 Aunque durante mucho tiempo se consideró una regla puramente heurística y se intentó justificar mediante la Teoría de la Información de Shannon, Robertson \cite{robertson2004idf} demuestra que los enfoques basados en la información presentan serias inconsistencias teóricas, como la dificultad para definir los espacios de eventos probabilísticos o explicar por qué se ignoran las palabras no incluidas en la consulta. En su lugar, el autor prueba que TF-IDF posee un fundamento sólido en los modelos probabilísticos tradicionales de recuperación de información: el componente IDF equivale al peso de relevancia de Robertson-Spärck Jones (RSJ) cuando no hay datos previos de relevancia, mientras que la combinación TF-IDF se justifica mediante el modelo Okapi BM25, donde la frecuencia local (TF) actúa como evidencia probabilística de que el documento trata verdaderamente sobre el tema deseado.
 
@@ -27,14 +27,14 @@ La recuperación semántica se vuelve más compleja en escenarios multilingües,
 2. transfiere la capacidad de medir similitud semántica a más de 50 idiomas sin sufrir del sesgo de idioma característico de otros métodos tradicionales \cite{reimers2020multilingual}.
 
 \subsection{Evaluación e incertidumbre}
-Las métricas de recuperación como Recall@k se describen en \cite{manning2008}. Para estimar la incertidumbre de esas métricas se usa el bootstrap \cite{efron1979,efron1993}: se generan muchas muestras nuevas del mismo tamaño tomando elementos con reemplazo de la muestra original y se calcula la métrica en cada una. La dispersión de esos valores permite construir un intervalo de confianza; si el intervalo de la diferencia entre dos métodos incluye el cero, no hay evidencia suficiente para afirmar que uno supera al otro. En este trabajo se aplica de forma pareada: ambos métodos se evalúan sobre las mismas consultas remuestreadas.
+Las métricas de recuperación como Recall@k se describen en \cite{manning2008ir}. Para estimar la incertidumbre de esas métricas se usa el bootstrap \cite{efron1979bootstrap,efron1993bootstrap}: se generan muchas muestras nuevas del mismo tamaño tomando elementos con reemplazo de la muestra original y se calcula la métrica en cada una. La dispersión de esos valores permite construir un intervalo de confianza; si el intervalo de la diferencia entre dos métodos incluye el cero, no hay evidencia suficiente para afirmar que uno supera al otro. En este trabajo se aplica de forma pareada: ambos métodos se evalúan sobre las mismas consultas remuestreadas.
 
 \subsection{Evaluación e incertidumbre}
-Los recomendadores de películas más conocidos se apoyan en el comportamiento de los usuarios, como el sistema de Netflix \cite{gomezuribe2015}, o en conjuntos de calificaciones como MovieLens \cite{harper2015}. Una línea distinta estudia a quienes recuerdan detalles de una película pero no su título \cite{arguello2021}, que es el caso que aborda CinemaBox. Los sistemas de recomendación conversacionales \cite{jannach2021} incorporan además el diálogo para obtener preferencias; CinemaBox, en cambio, atiende una consulta por mensaje, sin mantener un diálogo de varios turnos.
+Los recomendadores de películas más conocidos se apoyan en el comportamiento de los usuarios, como el sistema de Netflix \cite{gomezuribe2015netflix}, o en conjuntos de calificaciones como MovieLens \cite{harper2015movielens}. Una línea distinta estudia a quienes recuerdan detalles de una película pero no su título \cite{arguello2021tot}, que es el caso que aborda CinemaBox. Los sistemas de recomendación conversacionales \cite{jannach2021crs} incorporan además el diálogo para obtener preferencias; CinemaBox, en cambio, atiende una consulta por mensaje, sin mantener un diálogo de varios turnos.
 
 \begin{landscape}
 \subsection{Comparación de los trabajos revisados}
-\begin{table}[H]
+\begin{table*}[!t]
     \centering
     \caption{Comparación de los trabajos relacionados con el proyecto.}
     \label{tab:comparacion_estado_arte}
@@ -63,13 +63,13 @@ Los recomendadores de películas más conocidos se apoyan en el comportamiento d
         Fundamenta el uso de TF-IDF para representar los textos de las películas y realizar búsquedas basadas en la coincidencia de términos. \\
         \hline
 
-        Spärck Jones (1972) \cite{sparck1972} &
+        Spärck Jones (1972) \cite{sparckjones1972idf} &
         Frecuencia inversa de documentos &
         Propone ponderar un término según cuántos documentos lo contienen. &
         Origen del componente IDF de TF-IDF. \\
         \hline
 
-        Salton et al. (1975) \cite{salton1975} &
+        Salton et al. (1975) \cite{salton1975vsm} &
         Modelo de espacio vectorial &
         Representa documentos y consultas como vectores comparables. &
         Fundamento de la representación vectorial y del coseno en ambos enfoques. \\
@@ -105,29 +105,29 @@ Los recomendadores de películas más conocidos se apoyan en el comportamiento d
         Se relaciona directamente con la selección de Qwen2.5-1.5B-Instruct como modelo para generar las respuestas del chatbot. \\
         \hline
 
-        Efron (1979) \cite{efron1979} &
+        Efron (1979) \cite{efron1979bootstrap} &
         Bootstrap &
         Estima la variabilidad de un resultado remuestreando los datos con reemplazo. &
         Base de los intervalos de confianza de la diferencia de MRR. \\
         \hline
 
-        Gomez-Uribe y Hunt (2015) \cite{gomez2015} &
+        Gomez-Uribe y Hunt (2015) \cite{gomezuribe2015netflix} &
         Recomendador de Netflix &
         Describe los algoritmos de recomendación de una plataforma de streaming y su valor para el negocio. &
         Recomienda por comportamiento; CinemaBox lo hace a partir de una descripción escrita. \\
         \hline
 
-        Arguello et al. (2021) \cite{arguello2021} &
+        Arguello et al. (2021) \cite{arguello2021tot} &
         Búsqueda de elementos conocidos &
         Estudia la búsqueda de películas que el usuario no logra nombrar. &
         Es el mismo problema que aborda CinemaBox. \\
         \hline
 
-        Jannach et al. (2021) \cite{jannach2021} &
+        Jannach et al. (2021) \cite{jannach2021crs} &
         Recomendación conversacional &
         Revisa sistemas que usan el diálogo para obtener preferencias. &
         CinemaBox atiende una consulta por mensaje, sin diálogo de varios turnos. \\
         \hline
     \end{tabularx}
-\end{table}
+\end{table*}
 \end{landscape}

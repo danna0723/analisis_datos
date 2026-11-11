@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.25)  10 NOV 2026 10:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.25)  10 NOV 2026 23:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -504,6 +504,9 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
  (secciones/00_portada_resumen/portada.tex)
 (secciones/00_portada_resumen/resumen.tex)
 (secciones/01_introduccion/introduccion.tex
+
+LaTeX Warning: Citation `gomezuribe2015' on page 1 undefined on input line 3.
+
 (secciones/01_introduccion/objetivos.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -512,74 +515,164 @@ me/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
 
 
 ])
-(secciones/01_introduccion/justificacion.tex))
-(secciones/02_estado_del_arte/estado_del_arte.tex [2] [3
+(secciones/01_introduccion/justificacion.tex
 
-]
-(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd)
+LaTeX Warning: Citation `arguello2021' on page 2 undefined on input line 3.
+
+)) (secciones/02_estado_del_arte/estado_del_arte.tex
+
+LaTeX Warning: Citation `studer2021' on page 2 undefined on input line 6.
+
+
+LaTeX Warning: Citation `wirth2000' on page 2 undefined on input line 6.
+
+
+LaTeX Warning: Citation `kreuzberger2023' on page 2 undefined on input line 6.
+
+
+LaTeX Warning: Citation `sparckjones1972' on page 2 undefined on input line 16.
+
+
+
+LaTeX Warning: Citation `salton1975' on page 2 undefined on input line 16.
+
+[2]
+
+LaTeX Warning: Citation `manning2008' on page 3 undefined on input line 30.
+
+
+LaTeX Warning: Citation `efron1979' on page 3 undefined on input line 30.
+
+
+LaTeX Warning: Citation `efron1993' on page 3 undefined on input line 30.
+
+
+LaTeX Warning: Citation `gomezuribe2015' on page 3 undefined on input line 33.
+
+
+LaTeX Warning: Citation `harper2015' on page 3 undefined on input line 33.
+
+
+LaTeX Warning: Citation `arguello2021' on page 3 undefined on input line 33.
+
+
+LaTeX Warning: Citation `jannach2021' on page 3 undefined on input line 33.
+
+[3] (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd)
 (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd)
-Underfull \hbox (badness 10000) in paragraph at lines 79--79
+Underfull \hbox (badness 10000) in paragraph at lines 131--131
 []|\T1/ptm/m/n/9 DataCamp (2023)
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--79
+LaTeX Warning: Citation `studer2021' on page 4 undefined on input line 131.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--131
 []|\T1/ptm/m/n/9 Robertson (2004)
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--79
+Underfull \hbox (badness 10000) in paragraph at lines 131--131
 []|\T1/ptm/m/n/9 TF-IDF y
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--79
+Underfull \hbox (badness 10000) in paragraph at lines 131--131
 \T1/ptm/m/n/9 re-cu-peración de
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--79
+LaTeX Warning: Citation `sparck1972' on page 4 undefined on input line 131.
+
+
+LaTeX Warning: Citation `salton1975' on page 4 undefined on input line 131.
+
+
+Underfull \hbox (badness 4899) in paragraph at lines 131--131
+[]|\T1/ptm/m/n/9 Modelo de es-pa-cio
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--131
 []|\T1/ptm/m/n/9 Representación
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--79
+Underfull \hbox (badness 10000) in paragraph at lines 131--131
 \T1/ptm/m/n/9 semán-tica me-di-ante
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--79
+Underfull \hbox (badness 10000) in paragraph at lines 131--131
 []|\T1/ptm/m/n/9 Embeddings
  []
 
 
-Underfull \hbox (badness 2035) in paragraph at lines 79--79
+Underfull \hbox (badness 2035) in paragraph at lines 131--131
 []|\T1/ptm/m/n/9 Propone un método de des-ti-lación de
  []
 
 
-Underfull \hbox (badness 5359) in paragraph at lines 79--79
+Underfull \hbox (badness 5359) in paragraph at lines 131--131
 \T1/ptm/m/n/9 conocimiento para generar rep-re-senta-
  []
 
 
-Underfull \hbox (badness 1783) in paragraph at lines 79--79
+Underfull \hbox (badness 1783) in paragraph at lines 131--131
 \T1/ptm/m/n/9 ciones de ora-ciones com-pa-ra-bles en-tre
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--79
+Underfull \hbox (badness 10000) in paragraph at lines 131--131
 []|\T1/ptm/m/n/9 Generación
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--79
+Underfull \hbox (badness 10000) in paragraph at lines 131--131
 \T1/ptm/m/n/9 au-men-tada por
  []
 
 
-Underfull \hbox (badness 4505) in paragraph at lines 79--79
+Underfull \hbox (badness 4505) in paragraph at lines 131--131
 []|\T1/ptm/m/n/9 Presenta una fa-milia de mod-e-los de
+ []
+
+
+LaTeX Warning: Citation `efron1979' on page 4 undefined on input line 131.
+
+
+LaTeX Warning: Citation `gomez2015' on page 4 undefined on input line 131.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--131
+[]|\T1/ptm/m/n/9 Gomez-Uribe y
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--131
+[]|\T1/ptm/m/n/9 Recomendador de
+ []
+
+
+Underfull \hbox (badness 2753) in paragraph at lines 131--131
+[]|\T1/ptm/m/n/9 Recomienda por com-por-tamiento; Cin-
+ []
+
+
+LaTeX Warning: Citation `arguello2021' on page 4 undefined on input line 131.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--131
+[]|\T1/ptm/m/n/9 Arguello et al.
+ []
+
+
+LaTeX Warning: Citation `jannach2021' on page 4 undefined on input line 131.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--131
+[]|\T1/ptm/m/n/9 Jannach et al.
  []
 
 
@@ -590,7 +683,32 @@ Overfull \hbox (828.0pt too wide) has occurred while \output is active
 [4
 
 
-]) (secciones/03_metodologia/metodologia.tex
+]
+
+LaTeX Warning: Text page 5 contains only floats.
+
+
+Overfull \vbox (12.57187pt too high) has occurred while \output is active []
+
+
+
+LaTeX Warning: Text page 5 contains only floats.
+
+
+Overfull \vbox (12.57187pt too high) has occurred while \output is active []
+
+
+Overfull \hbox (828.0pt too wide) has occurred while \output is active
+[] []|[] []
+ []
+
+[5]) (secciones/03_metodologia/metodologia.tex
+
+LaTeX Warning: Citation `studer2021' on page 6 undefined on input line 2.
+
+
+LaTeX Warning: Citation `wirth2000' on page 6 undefined on input line 2.
+
 (secciones/03_metodologia/fase1_comprension.tex)
 (secciones/03_metodologia/fase2_datos.tex
 LaTeX Font Info:    Trying to load font information for T1+pcr on input line 7.
@@ -599,25 +717,33 @@ LaTeX Font Info:    Trying to load font information for T1+pcr on input line 7.
 (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-[5
+[6
+
 
 ] (secciones/03_metodologia/tabla_mapeo.tex))
-(secciones/03_metodologia/fase3_ingenieria_modelos.tex [6] [7]
+(secciones/03_metodologia/fase3_ingenieria_modelos.tex [7] [8]
 Overfull \hbox (45.1998pt too wide) in paragraph at lines 197--198
 [][][][][][][][][][][][][][][][][]  
  []
 
-[8] [9]) (secciones/03_metodologia/fase4_evaluacion_modelo.tex [10])
-(secciones/03_metodologia/fase5_implementacion_modelo.tex [11])
-(secciones/03_metodologia/fase6_mantenimiento.tex))
-(secciones/04_resultados/resultados.tex [12]
-<figuras/comparacion_metricas.png, id=50, 921.4425pt x 267.399pt>
+[9] [10]) (secciones/03_metodologia/fase4_evaluacion_modelo.tex [11]
+
+LaTeX Warning: Citation `manning2008' on page 12 undefined on input line 60.
+
+) (secciones/03_metodologia/fase5_implementacion_modelo.tex [12])
+(secciones/03_metodologia/fase6_mantenimiento.tex
+
+LaTeX Warning: Citation `kreuzberger2023' on page 13 undefined on input line 2.
+
+
+[13])) (secciones/04_resultados/resultados.tex
+<figuras/comparacion_metricas.png, id=54, 921.4425pt x 267.399pt>
 File: figuras/comparacion_metricas.png Graphic file (type png)
 <use figuras/comparacion_metricas.png>
 Package pdftex.def Info: figuras/comparacion_metricas.png  used on input line 2
 8.
 (pdftex.def)             Requested size: 252.0pt x 73.12897pt.
- [13 <./figuras/comparacion_metricas.png>]
+ [14 <./figuras/comparacion_metricas.png>]
 Underfull \hbox (badness 1418) in paragraph at lines 166--166
 []|\T1/ptm/m/n/8 La re-comen-dación no cor-re-sponde a la
  []
@@ -627,14 +753,20 @@ Underfull \hbox (badness 1418) in paragraph at lines 166--166
 []|\T1/ptm/m/n/8 La re-comen-dación no cor-re-sponde a la
  []
 
-[14]
-<figuras/interfaz_pregunta_robot.png, id=62, 918.43124pt x 659.46375pt>
+[15]
+
+LaTeX Warning: Citation `efron1979' on page 16 undefined on input line 183.
+
+
+LaTeX Warning: Citation `efron1993' on page 16 undefined on input line 183.
+
+<figuras/interfaz_pregunta_robot.png, id=65, 918.43124pt x 659.46375pt>
 File: figuras/interfaz_pregunta_robot.png Graphic file (type png)
 <use figuras/interfaz_pregunta_robot.png>
 Package pdftex.def Info: figuras/interfaz_pregunta_robot.png  used on input lin
 e 210.
 (pdftex.def)             Requested size: 252.0pt x 180.94554pt.
-) (secciones/05_discusion/discusion.tex [15 <./figuras/interfaz_pregunta_robot.
+) (secciones/05_discusion/discusion.tex [16 <./figuras/interfaz_pregunta_robot.
 png (PNG copy)>]) (secciones/06_conclusiones/conclusiones.tex)
 (conference_101719.bbl
 Underfull \hbox (badness 3849) in paragraph at lines 25--28
@@ -683,17 +815,21 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[16] (conference_101719.aux)
+[17] (conference_101719.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
  ) 
 Here is how much of TeX's memory you used:
- 8379 strings out of 467870
- 133996 string characters out of 5418838
- 945768 words of memory out of 5000000
- 37038 multiletter control sequences out of 15000+600000
+ 8394 strings out of 467870
+ 134225 string characters out of 5418838
+ 937768 words of memory out of 5000000
+ 37053 multiletter control sequences out of 15000+600000
  746450 words of font info for 166 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  66i,12n,67p,1501b,1711s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -711,9 +847,9 @@ Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Home/AppData/L
 ocal/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/Home/AppData/L
 ocal/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Home/AppData/Lo
 cal/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on conference_101719.pdf (16 pages, 592710 bytes).
+Output written on conference_101719.pdf (17 pages, 596595 bytes).
 PDF statistics:
- 124 PDF objects out of 1000 (max. 8388607)
+ 127 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

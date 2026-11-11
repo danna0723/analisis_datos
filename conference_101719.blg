@@ -10,6 +10,20 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'wiz_functions' (item size: 4) to 6000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Database file #1: referencias.bib
+Warning--I didn't find a database entry for "gomezuribe2015"
+Warning--I didn't find a database entry for "arguello2021"
+Warning--I didn't find a database entry for "studer2021"
+Warning--I didn't find a database entry for "wirth2000"
+Warning--I didn't find a database entry for "kreuzberger2023"
+Warning--I didn't find a database entry for "sparckjones1972"
+Warning--I didn't find a database entry for "salton1975"
+Warning--I didn't find a database entry for "manning2008"
+Warning--I didn't find a database entry for "efron1979"
+Warning--I didn't find a database entry for "efron1993"
+Warning--I didn't find a database entry for "harper2015"
+Warning--I didn't find a database entry for "jannach2021"
+Warning--I didn't find a database entry for "sparck1972"
+Warning--I didn't find a database entry for "gomez2015"
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
@@ -17,7 +31,7 @@ Database file #1: referencias.bib
 Done.
 You've used 8 entries,
             4087 wiz_defined-function locations,
-            869 strings with 9023 characters,
+            883 strings with 9177 characters,
 and the built_in function-call counts, 6038 in all, are:
 = -- 482
 > -- 129
@@ -56,3 +70,4 @@ warning$ -- 0
 while$ -- 24
 width$ -- 9
 write$ -- 112
+(There were 14 warnings)

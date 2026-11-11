@@ -57,7 +57,7 @@ La funcion \textit{posiciones} tiene como objetivo principal el poder determinar
 
 Cuando varias películas obtienen el mismo puntaje que la correcta, se asigna la posición esperada (el promedio de los puestos empatados). Así, una consulta que no comparte ninguna palabra con el catálogo, y que deja todos los puntajes en cero, no cuenta como acierto, lo que explica el Top-1 de 0.000 de TF-IDF con consultas en español.
 
-Finalmente, la evaluacion de los conjuntos de consulta se hace recorriendo los conjuntos A,B y C, y aplica tanto TF-IDF como embeddings a las consultas de cada conjunto antes de calcular las metricas de evaluacion ya escogidas \cite{manning2008}:
+Finalmente, la evaluacion de los conjuntos de consulta se hace recorriendo los conjuntos A,B y C, y aplica tanto TF-IDF como embeddings a las consultas de cada conjunto antes de calcular las metricas de evaluacion ya escogidas \cite{manning2008ir}:
 
 \begin{itemize}
     \item Top-1: Calcula que proporcion de consultas obtuvo la pelicula correcta en la primera posicion
